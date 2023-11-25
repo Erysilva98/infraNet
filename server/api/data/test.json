@@ -1,0 +1,102 @@
+{
+    "infraNet": {                                                                                                                                                                     
+        "users": [
+            {
+                "id": 1,
+                "username": "Root",
+                "password": "123",
+                "data_nascimento": "1990-01-01"
+            },
+            {
+                "id": 2,
+                "username": "admin",
+                "password": "123",
+                "data_nascimento": "1995-02-15"
+            }
+        ],
+        "contatos": [
+            {
+                "id": 1,
+                "user_id": 1,
+                "email": "root@example.com",
+                "telefone": "1234567890",
+                "ramal": "101"
+            },
+            {
+                "id": 2,
+                "user_id": 2,
+                "email": "admin@example.com",
+                "telefone": "9876543210",
+                "ramal": "202"
+            }
+        ],
+        "sistemas": [
+            {
+                "id": 1,
+                "user_id": 1,
+                "cod_acesso": "2020",
+                "matricula": "R2020",
+                "senha": "root"
+            },
+            {
+                "id": 2,
+                "user_id": 2,
+                "cod_acesso": "2030",
+                "matricula": "R2030",
+                "senha": "admin"
+            }
+        ],
+        "avisos": [
+            {
+                "id": 1,
+                "img_path": "/uploads/aviso1.jpg",
+                "prioridade": 1,
+                "data_publicacao": "2023-01-15",
+                "titulo": "Aviso Importante",
+                "subtitulo": "Leia com atenção",
+                "descricao": "Este é um aviso muito importante."
+            },
+            {
+                "id": 2,
+                "img_path": "/uploads/aviso1.jpg",
+                "prioridade": 2,
+                "data_publicacao": "2023-02-01",
+                "titulo": "Aviso de Manutenção",
+                "subtitulo": "Programada para este fim de semana",
+                "descricao": "Haverá uma manutenção programada."
+            }
+        ],
+        "servicos": [
+            {
+                "id": 1,
+                "img_path": "/uploads/aviso1.jpg",
+                "titulo": "Serviço 1",
+                "link": "https://servico1.com",
+                "descricao": "Descrição do Serviço 1"
+            },
+            {
+                "id": 2,
+                "img_path": "/uploads/aviso1.jpg",
+                "titulo": "Serviço 2",
+                "link": "https://servico2.com",
+                "descricao": "Descrição do Serviço 2"
+            }
+        ],
+        "sistemas": [
+            {
+                "id": 1,
+                "img_path": "/uploads/aviso1.jpg",
+                "titulo": "Sistema 1",
+                "link": "https://sistema1.com",
+                "descricao": "Descrição do Sistema 1"
+            },
+            {
+                "id": 2,
+                "img_path": "/uploads/aviso1.jpg",
+                "titulo": "Sistema 2",
+                "link": "https://sistema2.com",
+                "descricao": "Descrição do Sistema 2"
+            }
+        ]
+    }
+}

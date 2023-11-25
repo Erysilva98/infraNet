@@ -1,0 +1,41 @@
+#Arquivos do projeto app e server 
+
+# dependencies
+app/node_modules
+server/node_modules
+app/.pnp
+server/.pnp
+app/.pnp.js
+server/.pnp.js
+
+app/package-lock.json
+server/package-lock.json
+
+# Arquivos de build
+app/build
+server/build
+
+# next.js
+app/.next/
+app/out/
+server/.next/
+server/out/
+
+# Arquivos de teste
+app/coverage
+server/coverage
+
+# Arquivos de logs
+app/logs
+server/logs
+
+# Arquivos de Variáveis de ambiente
+app/.env
+server/.env
+
+# vercel
+app/.vercel
+
+# typescript
+aap/*.tsbuildinfo
+aap/next-env.d.ts

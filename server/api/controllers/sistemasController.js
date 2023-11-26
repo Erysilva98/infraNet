@@ -1,4 +1,4 @@
-const SistemasModel = require("../models/sistemasModel");
+const sistemasModel = require("../models/sistemasModel");
 
 module.exports = {
     // GET /api/sistemas
@@ -7,7 +7,7 @@ module.exports = {
     getAllSistemas: async (req, res) => {
         let json = {error:'', result:[]};
 
-        let sistemas= await SistemasModel.getAllSistemas();
+        let sistemas= await sistemasModel.getAllSistemas();
 
         for (let i in sistemas) {
             json.result.push({

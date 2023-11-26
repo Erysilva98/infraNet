@@ -14,6 +14,7 @@ module.exports = {
                 img_path: avisos[i].img_path,
                 prioridade: avisos[i].prioridade,
                 data_publicacao: avisos[i].data_publicacao,
+                link: avisos[i].link,
                 titulo: avisos[i].titulo,
                 subtitulo: avisos[i].subtitulo,
                 descricao: avisos[i].descricao,

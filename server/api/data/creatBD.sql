@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS avisos (
     data_publicacao DATE,
     titulo VARCHAR(255) NOT NULL,
     subtitulo VARCHAR(255),
-    descrição TEXT
+    descricao TEXT
 );
 -- Tabela 'servicos'
 CREATE TABLE IF NOT EXISTS servicos (

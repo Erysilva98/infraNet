@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { getAvisos } from '@/api/api';
 
 //imagens
 import aviso from '@assets/aviso.png';
@@ -14,7 +15,31 @@ import AvisosCard from '@/components/avisos/avisoCard';
 import AplicativoCard from '@/components/aplicativos/aplicativoCard';
 
 export default function Home() {
-  
+
+  const [avisos, setAvisos] = useState([]);
+
+  useEffect(() => {
+    const fetchAvisos = async () => {
+      try {
+        const dadosAvisos = await getAvisos();
+
+        //Tratar os dados aqui
+        const dadosTratados = dadosAvisos.map((item) => {
+          return {
+            img_path: aviso.img_path,
+            prioridade: aviso.prioridade,
+          };
+        });
+        setAvisos(dadosAvisos);
+      }
+      catch (error) {
+        console.log("Error ao Obter os dados na Page.jsx", error);
+        setAvisos([]);
+      }
+    };
+    fetchAvisos();
+  }, []);
+
   const dados = {
     imagem1: aviso,
     imagem2: comunicado,
@@ -35,7 +60,7 @@ export default function Home() {
         <section>
           {/* Sessão Carousel */}
           <div className='flex justify-center '>
-            <Carousel imagens={dados} />
+            <Carousel dados={avisos} />
           </div>
           <hr className="border-t m-2 w-11/12 border-gray-300"></hr>
         </section>

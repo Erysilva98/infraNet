@@ -17,12 +17,12 @@ VALUES
   (2, '!@#$', 'EWBJ-2023', '123');
 
 -- Inserir dados na tabela 'avisos'
-INSERT INTO avisos (img_path, prioridade, data_publicacao, titulo, subtitulo, descricao)
+INSERT INTO avisos (img_path, prioridade, data_publicacao, link, titulo, subtitulo, descricao)
 VALUES 
-  ('/upload/', 1, '2023-11-25', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.'),
-  ('/upload/', 2, '2023-11-25', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.'),
-  ('/upload/', 3, '2023-11-25', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.'),
-  ('/upload/', 3, '2023-11-25', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.');
+  ('/upload/', 1, '2023-11-25','http://servico1.com', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.'),
+  ('/upload/', 2, '2023-11-25','http://servico1.com', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.'),
+  ('/upload/', 3, '2023-11-25','http://servico1.com', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.'),
+  ('/upload/', 3, '2023-11-25','http://servico1.com', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.');
 
 -- Inserir dados na tabela 'servicos'
 INSERT INTO servicos (img_path, titulo, link, descricao)

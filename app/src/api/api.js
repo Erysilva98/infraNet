@@ -38,11 +38,36 @@ export const getAcesso = async () => {
 };
 
 // Rotas da API para os avisos
-
 export const getAvisos = async () => {
-    const response = await axios.get(localhost + '/api/avisos');
-    return response.data;
+    try {
+        const response = await axios.get(localhost + '/api/avisos');
+
+        if(response.data && response.data.result) {
+            const dados = response.data.result.map( aviso => {
+                return {
+                    id: aviso.id,
+                    img_path : aviso.img_path,
+                    prioridade : aviso.prioridade,
+                    data_publicacao : aviso.data_publicacao,
+                    titulo : aviso.titulo,
+                    subtitulo : aviso.subtitulo,
+                    descricao : aviso.descricao,
+                }
+            });
+            return dados;
+        }
+        return null;
+    } catch (error) {
+        console.log(" Error ao Obter os Dados ",error);
+        return null;
+    }
 };
+
+export const getAvisosImagem = async () => {
+    const response = await axios.get(localhost + '/api/avisos');
+    
+    return response.data;
+}
 
 // Rotas da API para os serviços
 

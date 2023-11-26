@@ -19,5 +19,20 @@ module.exports = {
             });
         }   
         res.json(json);
-    }
+    },
+
+    // GET /api/contato/:id
+    // Get a single contato
+    getContato: async (req, res) => {
+        let json = {error:'', result:[]};
+
+        let id = req.params.id;
+        let contato = await ContatoModel.getContato(id);
+
+        if (contato) {
+            json.result = contato;
+        }
+
+        res.json(json);
+    },
 };

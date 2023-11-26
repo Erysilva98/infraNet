@@ -17,7 +17,22 @@ module.exports = {
             });
         }   
         res.json(json);
-    }
+    },
+
+    // GET /api/users/:id
+    // Get a single user
+    getUser: async (req, res) => {
+        let json = {error:'', result:[]};
+
+        let id = req.params.id;
+        let user = await userModel.getUser(id);
+
+        if (user) {
+            json.result = user;
+        }
+
+        res.json(json);
+    },
 };
 
 

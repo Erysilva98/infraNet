@@ -18,5 +18,35 @@ module.exports = {
             });
         }   
         res.json(json);
+    },
+
+    // GET /api/acesso/:id
+    // Get one acesso
+    getAcesso: async (req, res) => {
+        let json = {error:'', result:[]};
+
+        let id = req.params.id;
+        let acesso = await acessoModel.getAcesso(id);
+
+        if (acesso) {
+            json.result = acesso;
+        }
+
+        res.json(json);
+    },
+
+    // HEAD /api/acesso/:cod
+    // Get one acesso
+    headAcesso: async (req, res) => {
+        let json = {error:'', result:[]};
+
+        let cod = req.params.cod;
+        let acesso = await acessoModel.headAcesso(cod);
+
+        if (acesso) {
+            json.result = acesso;
+        }
+
+        res.json(json);
     }
 };

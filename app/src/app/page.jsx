@@ -1,10 +1,6 @@
-import React, { useState } from 'react'
+"use client";
+import React, { useState, useEffect } from 'react'
 import { getAvisos } from '@/api/api';
-
-//imagens
-import aviso from '@assets/aviso.png';
-import comunicado from '@assets/comunicado.png';
-import pesquisa from '@assets/pesquisa.png';
 
 //component
 import UserHeader from '@/components/header/userHeader'
@@ -26,11 +22,11 @@ export default function Home() {
         //Tratar os dados aqui
         const dadosTratados = dadosAvisos.map((item) => {
           return {
-            img_path: aviso.img_path,
-            prioridade: aviso.prioridade,
+            prioridade: item.prioridade,
+            link: item.link,
           };
         });
-        setAvisos(dadosAvisos);
+        setAvisos(dadosTratados || []);
       }
       catch (error) {
         console.log("Error ao Obter os dados na Page.jsx", error);
@@ -39,12 +35,6 @@ export default function Home() {
     };
     fetchAvisos();
   }, []);
-
-  const dados = {
-    imagem1: aviso,
-    imagem2: comunicado,
-    imagem3: pesquisa,
-  };
 
   return (
     <>

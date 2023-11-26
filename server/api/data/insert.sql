@@ -19,7 +19,7 @@ VALUES
 -- Inserir dados na tabela 'avisos'
 INSERT INTO avisos (img_path, prioridade, data_publicacao, link, titulo, subtitulo, descricao)
 VALUES 
-  ('/upload/', 1, '2023-11-25','http://servico1.com', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.'),
+  ('/upload/', 1, '2023-11-25','../../upload/img/aviso.png', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.'),
   ('/upload/', 2, '2023-11-25','http://servico1.com', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.'),
   ('/upload/', 3, '2023-11-25','http://servico1.com', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.'),
   ('/upload/', 3, '2023-11-25','http://servico1.com', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.');

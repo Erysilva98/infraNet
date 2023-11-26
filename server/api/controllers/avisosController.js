@@ -1,4 +1,5 @@
 const avisosModel = require('../models/avisosModel.js');
+const path = require('path');
 
 module.exports = {
     // GET /api/avisos

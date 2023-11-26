@@ -49,6 +49,7 @@ export const getAvisos = async () => {
                     img_path : aviso.img_path,
                     prioridade : aviso.prioridade,
                     data_publicacao : aviso.data_publicacao,
+                    link : aviso.link,
                     titulo : aviso.titulo,
                     subtitulo : aviso.subtitulo,
                     descricao : aviso.descricao,

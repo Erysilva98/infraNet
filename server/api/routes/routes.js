@@ -1,11 +1,15 @@
 const express = require('express');
 const routes = express.Router();
+const path = require('path');
 
 // Rotas do Home
 routes.get('/', (req, res) => {
     res.statusCode = 200;
     res.write('<Title>API</Title> <h1>Servidor Rodando</h1> <p>Escolha uma Rota</p>');
 });
+
+// Roata para Imagens
+routes.use('/img', express.static(path.resolve(__dirname, '..', '..', 'public', 'upload', 'img')));
 
 // Rotas do Usuário
 const userController = require('../controllers/userController');

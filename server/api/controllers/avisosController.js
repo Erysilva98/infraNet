@@ -20,5 +20,20 @@ module.exports = {
             });
         }   
         res.json(json);
-    }
+    },
+
+    // GET /api/avisos/:id
+    // Get one avisos
+    getAvisos: async (req, res) => {
+        let json = {error:'', result:[]};
+
+        let id = req.params.id;
+        let avisos = await avisosModel.getAvisos(id);
+
+        if (avisos) {
+            json.result = avisos;
+        }
+
+        res.json(json);
+    },
 };

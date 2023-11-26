@@ -18,5 +18,20 @@ module.exports = {
             });
         }   
         res.json(json);
-    }
+    },
+
+    // GET /api/servicos/:id
+    // Get one servicos
+    getServicos: async (req, res) => {
+        let json = {error:'', result:[]};
+
+        let id = req.params.id;
+        let servicos = await servicosModel.getServicos(id);
+
+        if (servicos) {
+            json.result = servicos;
+        }
+
+        res.json(json);
+    },
 };

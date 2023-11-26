@@ -12,12 +12,14 @@ const userController = require('../controllers/userController');
 
 routes.get('/user', userController.getAllUsers);
 routes.get('/user/:id', userController.getUser);
+routes.post('/user', userController.createUser);
 
 // Rotas de Contato
 const contatoController = require('../controllers/contatoController');
 
 routes.get('/contato', contatoController.getAllContato);
 routes.get('/contato/:id', contatoController.getContato);
+routes.post('/contato', contatoController.createContato);
 
 // Rotas de Acesso
 const acessoController = require('../controllers/acessoController');

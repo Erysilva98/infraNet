@@ -23,6 +23,15 @@ const ContatoModel = {
         });
     },
 
+    addContato: (user_id, email, telefone, ramal) => {
+        return new Promise((resolve, reject) => {
+            db.query('INSERT INTO contato (user_id, email, telefone, ramal) VALUES (?, ?, ?, ?)', [user_id, email, telefone, ramal], (error, results) => {
+                if (error) { reject(error); return; }
+                resolve(results.insertId);
+            });
+        });
+    },
+
 };
 
 module.exports = ContatoModel;

@@ -35,4 +35,30 @@ module.exports = {
 
         res.json(json);
     },
+
+    // POST /api/contato
+    // Create a new contato
+    createContato: async (req, res) => {
+        let json = {error:'', result:[]};
+
+        let user_id = req.body.user_id;
+        let email = req.body.email;
+        let telefone = req.body.telefone;
+        let ramal = req.body.ramal;
+
+        if (user_id && email && telefone && ramal) {
+            let contatoId = await ContatoModel.addContato(user_id, email, telefone, ramal);
+            json.result = {
+                id: contatoId,
+                user_id,
+                email,
+                telefone,
+                ramal
+            };
+        } else {
+            json.error = 'Campos não enviados';
+        }
+
+        res.json(json);
+    },
 };

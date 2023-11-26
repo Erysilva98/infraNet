@@ -33,6 +33,30 @@ module.exports = {
 
         res.json(json);
     },
+
+    // POST /api/users
+    // Create a new user
+    createUser: async (req, res) => {
+        let json = {error:'', result:[]};
+
+        let username = req.body.username;
+        let password = req.body.password;
+        let data_nascimento = req.body.data_nascimento;
+
+        if (username && password && data_nascimento) {
+            let userId = await userModel.addUser(username, password, data_nascimento);
+            json.result = {
+                id: userId,
+                username,
+                password,
+                data_nascimento
+            };
+        } else {
+            json.error = 'Campos não enviados';
+        }
+
+        res.json(json);
+    },
 };
 
 

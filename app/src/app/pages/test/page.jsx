@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { test } from '../../../Api/api'; // Importa a função test da sua API
+import { test } from '../../../api/api'; // Importa a função test da sua API
 
 const MinhaPagina = () => {
   const [dados, setDados] = useState(null);

@@ -22,6 +22,7 @@ export default function Home() {
         //Tratar os dados aqui
         const dadosTratados = dadosAvisos.map((item) => {
           return {
+            img_path: item.img_path,
             prioridade: item.prioridade,
             link: item.link,
           };

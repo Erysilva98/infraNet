@@ -17,7 +17,7 @@ export const getContato = async () => {
 };
 
 export const createUser = async (username, password, data_nascimento) => {
-    const response = await axios.post(localhost + '/api/user', {username, password, data_nascimento});
+    const response = await axios.post(localhost + '/api/user', { username, password, data_nascimento });
     return response.data;
 };
 
@@ -25,7 +25,7 @@ export const createUser = async (username, password, data_nascimento) => {
 // Rotas da API para o contato
 
 export const createContato = async (user_id, email, telefone, ramal) => {
-    const response = await axios.post(localhost + '/api/contato', {user_id, email, telefone, ramal});
+    const response = await axios.post(localhost + '/api/contato', { user_id, email, telefone, ramal });
     return response.data;
 };
 
@@ -41,32 +41,29 @@ export const getAcesso = async () => {
 export const getAvisos = async () => {
     try {
         const response = await axios.get(localhost + '/api/avisos');
+        const dados = response.data.result.map(aviso => {
+            return {
+                id: aviso.id,
+                img_path: aviso.img_path,
+                prioridade: aviso.prioridade,
+                data_publicacao: aviso.data_publicacao,
+                link: aviso.link,
+                titulo: aviso.titulo,
+                subtitulo: aviso.subtitulo,
+                descricao: aviso.descricao,
+            };
+        });
 
-        if(response.data && response.data.result) {
-            const dados = response.data.result.map( aviso => {
-                return {
-                    id: aviso.id,
-                    img_path : aviso.img_path,
-                    prioridade : aviso.prioridade,
-                    data_publicacao : aviso.data_publicacao,
-                    link : aviso.link,
-                    titulo : aviso.titulo,
-                    subtitulo : aviso.subtitulo,
-                    descricao : aviso.descricao,
-                }
-            });
-            return dados;
-        }
-        return null;
+        return dados; // Adicionado o retorno dos dados
     } catch (error) {
-        console.log(" Error ao Obter os Dados ",error);
+        console.log("Error ao Obter os Dados ", error);
         return null;
     }
 };
 
 export const getAvisosImagem = async () => {
     const response = await axios.get(localhost + '/api/avisos');
-    
+
     return response.data;
 }
 

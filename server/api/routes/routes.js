@@ -8,9 +8,6 @@ routes.get('/', (req, res) => {
     res.write('<Title>API</Title> <h1>Servidor Rodando</h1> <p>Escolha uma Rota</p>');
 });
 
-// Roata para Imagens
-routes.use('/img', express.static(path.resolve(__dirname, '..', '..', 'public', 'upload', 'img')));
-
 // Rotas do Usuário
 const userController = require('../controllers/userController');
 

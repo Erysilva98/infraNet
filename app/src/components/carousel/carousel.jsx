@@ -6,27 +6,23 @@ import setaLeft from "@icons/setaLeft.svg";
 import setaRight from "@icons/setaRight.svg";
 
 // imagens
-import aviso from '@assets/aviso.png';
-import comunicado from '@assets/comunicado.png';
-import pesquisa from '@assets/pesquisa.png';
+const assets = `/assets/`;
 
 export default function Carousel({ dados }) {
-  const images = [aviso, comunicado, pesquisa];
-
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
-    setCurrentSlide((currentSlide + 1) % (images?.length || 1));
+    setCurrentSlide((currentSlide + 1) % (dados?.length || 1));
   };
 
   const prevSlide = () => {
-    setCurrentSlide((currentSlide - 1 + (images?.length || 1)) % (images?.length || 1));
+    setCurrentSlide((currentSlide - 1 + (dados?.length || 1)) % (dados?.length || 1));
   };
 
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
-  }, [currentSlide]);
+  }, [currentSlide, dados]);
 
   return (
     <div className="flex">
@@ -37,11 +33,11 @@ export default function Carousel({ dados }) {
         <div className="flex carousel">
           {dados && dados[currentSlide] && (
             <Image
-              src={images[currentSlide]}
+              src={`${assets}${dados[currentSlide].img_path}`}
               alt={`Slide ${currentSlide + 1}`}
               layout="responsive"
-              width={600} // ou o tamanho desejado
-              height={400} // ou o tamanho desejado
+              width={600}
+              height={400}
             />
           )}
         </div>

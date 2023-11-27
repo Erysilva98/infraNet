@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { getAvisos } from '@/api/api';
 import Image from 'next/image';
 
+const assets = `/assets/`
+
 const TestPage = () => {
   const [avisos, setAvisos] = useState([]);
 
@@ -30,7 +32,8 @@ const TestPage = () => {
       <ul>
         {avisos.map((aviso) => (
           <li key={aviso.id}>
-            <Image className='bg-red-400' src={aviso.img_path} alt={`Imagem do Aviso ${aviso.id}`} width={100} height={100}/>
+            <Image src={`${assets}${aviso.img_path}`} alt={`Imagem do Aviso ${aviso.id}`} width={100} height={100} />
+            <p>{aviso.img_path}</p>
             <h1>{aviso.link}</h1>
             <h2>{aviso.titulo}</h2>
             <p>{aviso.descricao}</p>

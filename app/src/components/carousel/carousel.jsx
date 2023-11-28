@@ -1,5 +1,7 @@
+"use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { getAvisos } from "@/api/api";
 
 // icons
 import setaLeft from "@icons/setaLeft.svg";
@@ -8,21 +10,45 @@ import setaRight from "@icons/setaRight.svg";
 // imagens
 const assets = `/assets/`;
 
-export default function Carousel({ dados }) {
+export default function Carousel() {
+  const [avisos, setAvisos] = useState([]);
+
+  useEffect(() => {
+    const fetchAvisos = async () => {
+      try {
+        const dadosAvisos = await getAvisos();
+
+        //Tratar os dados aqui
+        const dadosTratados = dadosAvisos.map((item) => {
+          return {
+            img_path: item.img_path,
+            prioridade: item.prioridade,
+            link: item.link,
+          };
+        });
+        setAvisos(dadosTratados || []);
+      } catch (error) {
+        console.log("Error ao Obter os dados no carrousel.jsx", error);
+        setAvisos([]);
+      }
+    };
+    fetchAvisos();
+  }, []);
+
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
-    setCurrentSlide((currentSlide + 1) % (dados?.length || 1));
+    setCurrentSlide((currentSlide + 1) % (avisos?.length || 1));
   };
 
   const prevSlide = () => {
-    setCurrentSlide((currentSlide - 1 + (dados?.length || 1)) % (dados?.length || 1));
+    setCurrentSlide((currentSlide - 1 + (avisos?.length || 1)) % (avisos?.length || 1));
   };
 
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
-  }, [currentSlide, dados]);
+  }, [currentSlide, avisos]);
 
   return (
     <div className="flex">
@@ -31,9 +57,9 @@ export default function Carousel({ dados }) {
       </button>
       <div className="carousel-container" style={{ width: '600px' }}>
         <div className="flex carousel">
-          {dados && dados[currentSlide] && (
+          {avisos && avisos[currentSlide] && (
             <Image
-              src={`${assets}${dados[currentSlide].img_path}`}
+              src={`${assets}${avisos[currentSlide].img_path}`}
               alt={`Slide ${currentSlide + 1}`}
               layout="responsive"
               width={600}

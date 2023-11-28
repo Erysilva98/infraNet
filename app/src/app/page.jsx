@@ -1,6 +1,4 @@
-"use client";
-import React, { useState, useEffect } from 'react'
-import { getAvisos } from '@/api/api';
+import React from 'react'
 
 //component
 import UserHeader from '@/components/header/userHeader'
@@ -11,31 +9,6 @@ import AvisosCard from '@/components/avisos/avisoCard';
 import AplicativoCard from '@/components/aplicativos/aplicativoCard';
 
 export default function Home() {
-
-  const [avisos, setAvisos] = useState([]);
-
-  useEffect(() => {
-    const fetchAvisos = async () => {
-      try {
-        const dadosAvisos = await getAvisos();
-
-        //Tratar os dados aqui
-        const dadosTratados = dadosAvisos.map((item) => {
-          return {
-            img_path: item.img_path,
-            prioridade: item.prioridade,
-            link: item.link,
-          };
-        });
-        setAvisos(dadosTratados || []);
-      }
-      catch (error) {
-        console.log("Error ao Obter os dados na Page.jsx", error);
-        setAvisos([]);
-      }
-    };
-    fetchAvisos();
-  }, []);
 
   return (
     <>
@@ -51,7 +24,7 @@ export default function Home() {
         <section>
           {/* Sessão Carousel */}
           <div className='flex justify-center '>
-            <Carousel dados={avisos} />
+            <Carousel/>
           </div>
           <hr className="border-t m-2 w-11/12 border-gray-300"></hr>
         </section>

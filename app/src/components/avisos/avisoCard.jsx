@@ -7,7 +7,7 @@ import pesquisa from '@assets/pesquisa.png';
 import aviso from '@assets/aviso.png';
 
 const AvisoCard = ({ title, content, imagem }) => (
-  <div className='max-w-6xl mt-2 mb-4 bg-azulCard rounded-lg shadow-lg flex items-center'>
+  <div className='max-w-6xl mt-2 mb-4 bg-corCard rounded-lg shadow-lg flex items-center'>
     <div className='flex-shrink-0'>
       <Image src={imagem} alt='aviso' className='w-44 h-22 object-cover rounded-t-lg' />
     </div>

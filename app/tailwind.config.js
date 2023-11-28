@@ -22,12 +22,12 @@ module.exports = {
         // Cores Alternativas
         'alternativa1': '#155BCB',
         'alternativa2': '#5992ED',
-        'azulCard': '#BBBDC9',
+        'corCard': '#BBBDC9',
 
         // Cores de Feedback
-        'verde': '#168821',
-        'amarelo': '#FFCD07',
-        'vermelho': '#E52207',
+        'sucesso': '#168821',
+        'alerta': '#FFCD07',
+        'error': '#E52207',
       },
 
     },

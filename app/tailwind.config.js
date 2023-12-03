@@ -29,6 +29,8 @@ module.exports = {
         'alerta': '#FFCD07',
         'error': '#E52207',
 
+        'houverLink': '#718EF7', 
+
         // Escala de Cinza
         'cinzaEscuro': '#595959',
         'cinzaMedio': '#909090',

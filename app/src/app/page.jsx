@@ -11,7 +11,7 @@ import AplicativoCard from '@/components/aplicativos/aplicativoCard';
 export default function Home() {
 
   return (
-    <>
+    <div className='flex flex-col min-h-screen'>
       <header>
         {/* Componentes userHeader */}
         <UserHeader />
@@ -20,7 +20,7 @@ export default function Home() {
           <NavBar />
         </nav>
       </header>
-      <main>
+      <main className='flex-grow'>
         <section>
           {/* Sessão Carousel */}
           <div className='flex justify-center '>
@@ -65,6 +65,6 @@ export default function Home() {
       <footer>
         <Footer />
       </footer>
-    </>
+    </div>
   )
 }

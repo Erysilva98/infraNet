@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import Aplicativo from '@assets/imgApp.png';
+import Aplicativo from '@assets/imgApp.svg';
 
 export default function AplicativoCard() {
   const items = [
@@ -92,16 +92,18 @@ export default function AplicativoCard() {
       <div className="max-w-6xl">
         <ul className="flex flex-wrap justify-center">
           {visibleItems.map((item) => (
-            <li key={item.id} className="text-center flex flex-col flex-wrap-4 p-4">
-              <Image src={Aplicativo} alt={item.title} width={160} height={20} />
-              <h3>{item.title}</h3>
-            </li>
+            <Link href={item.link}>
+              <li key={item.id} className="text-center flex flex-col flex-wrap-4 p-4">
+                <Image src={Aplicativo} alt={item.title} width={160} height={20} />
+                <h3>{item.title}</h3>
+              </li>
+            </Link>
           ))}
         </ul>
         {currentPage < totalPages && (
           <div className="text-center">
             <Link href="./pages/servicos">
-              <p className="cursor-pointer" onClick={handleSeeMore}>
+              <p className="cursor-pointer text-blue-500">
                 Ver mais
               </p>
             </Link>

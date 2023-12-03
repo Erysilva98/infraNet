@@ -6,6 +6,7 @@ import { getAvisos } from "@/api/api";
 // icons
 import setaLeft from "@icons/setaLeft.svg";
 import setaRight from "@icons/setaRight.svg";
+import Link from "next/link";
 
 // imagens
 const assets = `/assets/`;
@@ -58,13 +59,15 @@ export default function Carousel() {
       <div className="carousel-container" style={{ width: '600px' }}>
         <div className="flex carousel">
           {avisos && avisos[currentSlide] && (
-            <Image
-              src={`${assets}${avisos[currentSlide].img_path}`}
-              alt={`Slide ${currentSlide + 1}`}
-              layout="responsive"
-              width={600}
-              height={400}
-            />
+            <Link href={avisos[currentSlide].link}>
+              <Image
+                src={`${assets}${avisos[currentSlide].img_path}`}
+                alt={`Slide ${currentSlide + 1}`}
+                layout="responsive"
+                width={600}
+                height={400}
+              />
+            </Link>
           )}
         </div>
       </div>

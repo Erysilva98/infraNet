@@ -6,7 +6,7 @@ import NavBar from "@/components/navBar/navBar";
 
 export default function Avisos() {
     return (
-        <div className="h-screen">
+        <div className='flex flex-col min-h-screen'>
             <header>
                 {/* Componentes loginHeader */}
                 <UserHeader />
@@ -15,7 +15,7 @@ export default function Avisos() {
                     <NavBar />
                 </nav>
             </header>
-            <main className="min-w-max h-4/5">
+            <main className="flex-grow">
                 <section className="flex justify-center h-full pt-10">
                     <p>Codifique</p>
                 </section>

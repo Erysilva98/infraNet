@@ -22,12 +22,17 @@ module.exports = {
         // Cores Alternativas
         'alternativa1': '#155BCB',
         'alternativa2': '#5992ED',
-        'corCard': '#BBBDC9',
+        'corCard': '#EBF2FF',
 
         // Cores de Feedback
         'sucesso': '#168821',
         'alerta': '#FFCD07',
         'error': '#E52207',
+
+        // Escala de Cinza
+        'cinzaEscuro': '#595959',
+        'cinzaMedio': '#909090',
+        'cinzaClaro': '#D0D0D0',
       },
 
     },

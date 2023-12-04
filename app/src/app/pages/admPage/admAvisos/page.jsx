@@ -8,7 +8,7 @@ import logoNav from "@assets/logoNav.svg"
 import userAdm from "@icons/userAdm.svg";
 import iconSair from "@icons/iconSair.svg";
 
-export default function AdmServicos(props) {
+export default function AdmAvisos(props) {
     return (
         <div class="flex flex-col min-h-screen min-w-full">
             <header>

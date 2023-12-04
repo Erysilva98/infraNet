@@ -12,18 +12,18 @@ import Footer from "@/components/footer/footer";
 const cards = [
     {
         image: navMegaphone,
-        title: "Card Title 1",
-        link: "/link1",
+        title: "Lista Avisos",
+        link: "./admAvisos",
     },
     {
         image: navGrupo,
-        title: "Card Title 2",
-        link: "/link2",
+        title: "Lista Serviços",
+        link: "./admServicos",
     },
     {
         image: navGoverno,
-        title: "Card Title 3",
-        link: "/link3",
+        title: "Lista Sistemas",
+        link: "./admSistemas",
     },
 ];
 
@@ -39,15 +39,15 @@ export default function AdmHome() {
                 <div className="flex">
                     {/* (Menu na Esquerda) */}
                     <aside className="bg-corCard w-1/4 p-4">
-                        <h1 className="flex justify-center bg-cinzaClaro text-azulPrincipal transition duration-300 cursor-pointer rounded-full p-2">
+                        <h1 className="flex justify-center bg-cinzaClaro text-azulPrincipal font-semibold transition duration-300 cursor-pointer rounded-full p-2">
                             GERENCIAMENTO DO SISTEMA
                         </h1>
                         <nav>
                             <ul className="p-4">
-                                <li className="hover:bg-houverLink hover:text-white bg-gray-200 transition duration-300 cursor-pointer rounded-full m-2">
+                                <li className="hover:bg-cinzaClaro hover:text-azulIcones bg-azulLinks text-white transition duration-300 cursor-pointer rounded-full m-2">
                                     <Link className="flex justify-center" href="./admCadastrar">Cadastrar</Link>
                                 </li>
-                                <li className="hover:bg-houverLink hover:text-white bg-gray-200 transition duration-300 cursor-pointer rounded-full m-2">
+                                <li className="hover:bg-cinzaClaro hover:text-azulIcones bg-azulLinks text-white transition duration-300 cursor-pointer rounded-full m-2">
                                     <Link className="flex justify-center" href="./administrador">Lista</Link>
                                 </li>
                             </ul>

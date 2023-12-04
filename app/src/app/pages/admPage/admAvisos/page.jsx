@@ -60,21 +60,21 @@ export default function AdmAvisos() {
                     <div>
                         <div className="flex justify-center">
                             {mostrarFormulario ? (
-                                <>
+                                <div className="flex-col">
                                     <AdicionarAviso onAdicionarAviso={adicionarAviso} />
                                     <button
-                                        className="bg-azulLinks text-white rounded-lg p-2 w-80 mt-5"
+                                        className="bg-error  text-white rounded-lg p-2 w-80 mt-5"
                                         onClick={() => setMostrarFormulario(false)}
                                     >
                                         Fechar Formulário
                                     </button>
-                                </>
+                                </div>
                             ) : (
                                 <button
                                     className="bg-azulLinks text-white rounded-lg p-2 w-80 mt-5"
                                     onClick={() => setMostrarFormulario(true)}
                                 >
-                                    Adicionar
+                                    Adicionar Aviso
                                 </button>
                             )}
                         </div>

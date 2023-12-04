@@ -74,7 +74,7 @@ const AdicionarAviso = ({ onAdicionarAviso }) => {
         className="bg-azulLinks text-white rounded-lg p-2 w-80 mt-5"
         onClick={adicionarItem}
       >
-        Adicionar Item
+        Adicionar
       </button>
     </form>
   );

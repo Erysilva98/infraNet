@@ -7,7 +7,7 @@ import Footer from "@/components/footer/footer";
 import logoNav from "@assets/logoNav.svg"
 import userAdm from "@icons/userAdm.svg";
 import iconSair from "@icons/iconSair.svg";
-import Lista from "@/components/listaUser/listauser";
+import Lista from "@/components/listaAviso/avisoLista";
 
 export default function AdmSistemas(props) {
     return (

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import {format} from "date-fns";
+//import {format} from "date-fns";
 import { getAvisosId } from "@/api/api";
 import Footer from "@/components/footer/footer";
 import UserHeader from "@/components/header/userHeader";
@@ -72,7 +72,7 @@ export default function AvisosDesc() {
                         </div>
                         <div className="flex justify-end mr-20">
                             <p className="mr-2">Publicado em: </p>
-                            <p>{format(new Date(aviso.data), " dd/MM/yyyy")}</p>
+                            <p>{(aviso.data)}</p>
                         </div>
                         <div className="pr-20 pt-5 pl-20">
                             <p>{aviso.descricao}</p>

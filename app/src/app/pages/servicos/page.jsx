@@ -6,20 +6,30 @@ import { getServicos } from "@/api/api";
 import Footer from "@/components/footer/footer";
 import UserHeader from "@/components/header/userHeader";
 import NavBar from "@/components/navBar/navBar";
+import Link from "next/link";
 
 const assets = `/assets/`;
 const url = "http://localhost:3000/pages/404";
 
 const ServicoCard = ({ img_path, titulo, subtitulo, descricao }) => {
-  const descricaoMin = descricao.length > 20 ? `${descricao.substring(0, 20)}...` : descricao;
+  const [isHovered, setIsHovered] = useState(false);
+  const descricaoMin = descricao.length > 50 ? `${descricao.substring(0, 50)}...` : descricao;
 
   return (
-    <div className='flex flex-col max-w-6xl mt-2 mb-4 bg-corCard rounded-lg shadow-lg items-center'>
-      <div className='flex justify-center mt-2'>
-        <Image src={`${assets}${img_path}`} alt='servico' width={100} height={100} className='mt-2 w-44 h-22 object-cover rounded-t-lg' />
-      </div>
-      <div className='p-3 flex-grow'>
-        <p className='text-gray-700 text-sm'>{descricaoMin}</p>
+    <div
+      className='flex flex-col bg-corCard rounded-lg items-center'
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className='flex justify-center'>
+        <div className="relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+          <Image src={`${assets}${img_path}`} alt='servico' width={100} height={100} className='w-44 h-22 object-cover rounded-t-lg' />
+          {isHovered && (
+            <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50">
+              <p className="text-white text-sm">{descricaoMin}</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -69,13 +79,18 @@ export default function Servicos() {
             <div className="grid grid-cols-4 gap-4 items-center justify-center">
               {servicos.length > 0 ? (
                 servicos.map((item) => (
-                  <ServicoCard
+                  <Link
                     key={item.id}
-                    img_path={item.img_path}
-                    titulo={item.titulo}
-                    subtitulo={item.subtitulo}
-                    descricao={item.descricao}
-                  />
+                    href={item.link ? item.link : `${url}`}
+                  >
+                    <ServicoCard
+                      key={item.id}
+                      img_path={item.img_path}
+                      titulo={item.titulo}
+                      subtitulo={item.subtitulo}
+                      descricao={item.descricao}
+                    />
+                  </Link>
                 ))
               ) : (
                 <div className="flex flex-col items-center justify-center">

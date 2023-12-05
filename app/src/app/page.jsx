@@ -6,7 +6,8 @@ import Carousel from '@/components/carousel/carousel'
 import Footer from '@/components/footer/footer';
 import NavBar from '@/components/navBar/navBar';
 import AvisosCard from '@/components/avisos/avisoCard';
-import AplicativoCard from '@/components/aplicativos/aplicativoCard';
+import AppServicos from '@/components/appServicos/appServicos';
+import AppSistemas from '@/components/appSistemas/appSistemas';
 
 export default function Home() {
 
@@ -47,7 +48,7 @@ export default function Home() {
             <h1 className='text-2xl font-bold text-gray-700'>Serviços Internos</h1>
           </div>
           <div>
-            <AplicativoCard />
+            <AppServicos />
           </div>
           <hr className="border-t m-2 border-gray-300"></hr>
         </section>
@@ -57,7 +58,7 @@ export default function Home() {
             <h1 className='text-2xl font-bold text-gray-700'>Sistemas Governamentais</h1>
           </div>
           <div>
-            <AplicativoCard />
+            <AppSistemas /> 
           </div>
           <hr className="border-t m-2 border-gray-300"></hr>
         </section>

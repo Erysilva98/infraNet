@@ -8,7 +8,7 @@ const assets = `/assets/`;
 const url = 'http://localhost:3000/pages/';
 
 const AvisoCard = ({ img_path, titulo, subtitulo, descricao }) => {
-  const descricaoMin = descricao.length > 100 ? `${descricao.substring(0, 100)}...` : descricao;
+  const descricaoMin = descricao.length > 90 ? `${descricao.substring(0, 90)}...` : descricao;
 
   return (
     <div className='max-w-6xl mt-2 mb-4 bg-corCard rounded-lg shadow-lg items-center'>
@@ -17,7 +17,7 @@ const AvisoCard = ({ img_path, titulo, subtitulo, descricao }) => {
       </div>
       <div className='p-3 flex-grow'>
         <h1 className='text-sm font-bold text-gray-700'>{titulo}</h1>
-        <h2 className='text-sm text-gray-500'>{subtitulo}</h2>
+        <h2 className='text-sm font-semibold text-gray-600'>{subtitulo}</h2>
         <p className='text-gray-700 text-sm'>{descricaoMin}</p>
       </div>
     </div>
@@ -47,7 +47,7 @@ export default function AvisosCard() {
         });
         setAvisos(dadosTratados || []);
       } catch (error) {
-        console.log('Error ao Obter os dados no carrousel.jsx', error);
+        console.log('Error ao Obter os dados no avisoCard.jsx', error);
         setAvisos([]);
       }
     };

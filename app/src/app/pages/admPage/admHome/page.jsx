@@ -44,10 +44,10 @@ export default function AdmHome() {
                         </h1>
                         <nav>
                             <ul className="p-4">
-                                <li className="hover:bg-cinzaClaro hover:text-azulIcones bg-azulLinks text-white transition duration-300 cursor-pointer rounded-full m-2">
+                                <li className="bg-botao hover:bg-botaoHover hover:text-white text-white font-bold transition duration-300 cursor-pointer rounded-full m-2">
                                     <Link className="flex justify-center" href="./admCadastrar">Cadastrar</Link>
                                 </li>
-                                <li className="hover:bg-cinzaClaro hover:text-azulIcones bg-azulLinks text-white transition duration-300 cursor-pointer rounded-full m-2">
+                                <li className="bg-botao hover:bg-botaoHover hover:text-white text-white text-white font-bold transition duration-300 cursor-pointer rounded-full m-2">
                                     <Link className="flex justify-center" href="./administrador">Lista</Link>
                                 </li>
                             </ul>

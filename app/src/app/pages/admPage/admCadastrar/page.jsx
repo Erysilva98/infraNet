@@ -85,16 +85,16 @@ export default function AdmCadastrar() {
                         {/* Botões de Navegação */}
                         <div className="flex flex-col items-center mt-5">
                             {parteAtual > 1 && (
-                                <button className="bg-azulPrincipal text-white rounded-lg p-2 w-80 mt-5" onClick={handleAnterior}>Anterior</button>
+                                <button className="bg-botao hover:bg-botaoHover hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5" onClick={handleAnterior}>Anterior</button>
                             )}
 
                             {parteAtual < 3 && (
-                                <button className="bg-azulPrincipal text-white rounded-lg p-2 w-80 mt-5" onClick={handleProximo}>Próximo</button>
+                                <button className="bg-botao hover:bg-botaoHover hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5" onClick={handleProximo}>Próximo</button>
                             )}
 
                             {parteAtual === 3 && (
                                 <Link href="/pages/admPage/admHome">
-                                    <button className="bg-azulPrincipal text-white rounded-lg p-2 w-80 mt-5">Cadastrar</button>
+                                    <button className="bg-botao hover:bg-botaoHover hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5">Cadastrar</button>
                                 </Link>
                             )}
                         </div>

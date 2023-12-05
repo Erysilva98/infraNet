@@ -31,6 +31,9 @@ module.exports = {
 
         'houverLink': '#718EF7', 
 
+        'botao': '#3B82F6',
+        'botaoHover': '#1D4ED8',
+
         // Escala de Cinza
         'cinzaEscuro': '#595959',
         'cinzaMedio': '#909090',

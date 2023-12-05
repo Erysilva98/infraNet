@@ -36,7 +36,7 @@ export default function Login() {
                                 <input className="border-2 border-azulPrincipal rounded-lg p-2 w-80" type="password" placeholder="Digite sua Senha" />
 
                                 <Link href="/pages/admPage/admHome">
-                                    <button className="bg-azulPrincipal text-white rounded-lg p-2 w-80 mt-5">Entrar</button>
+                                    <button className="bg-botao hover:bg-botaoHover text-white font-bold rounded-lg p-2 w-80 mt-5">Entrar</button>
                                 </Link>
 
                                 <div className="flex flex-col items-center mt-5">

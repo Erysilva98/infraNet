@@ -71,7 +71,7 @@ const AdicionarAviso = ({ onAdicionarAviso }) => {
       ></textarea>
 
       <button
-        className="bg-azulLinks text-white rounded-lg p-2 w-80 mt-5"
+        className="bg-botao hover:bg-botaoHover hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5"
         onClick={adicionarItem}
       >
         Adicionar

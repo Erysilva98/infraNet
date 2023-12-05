@@ -1,27 +1,25 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { getAvisos } from "@/api/api";
-
-// icons
 import setaLeft from "@icons/setaLeft.svg";
 import setaRight from "@icons/setaRight.svg";
 import Link from "next/link";
 
-// imagens
 const assets = `/assets/`;
+const url = "http://localhost:3000/pages/";
 
 export default function Carousel() {
   const [avisos, setAvisos] = useState([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const fetchAvisos = async () => {
       try {
         const dadosAvisos = await getAvisos();
-
-        //Tratar os dados aqui
         const dadosTratados = dadosAvisos.map((item) => {
           return {
+            id: item.id,
             img_path: item.img_path,
             prioridade: item.prioridade,
             link: item.link,
@@ -35,8 +33,6 @@ export default function Carousel() {
     };
     fetchAvisos();
   }, []);
-
-  const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
     setCurrentSlide((currentSlide + 1) % (avisos?.length || 1));
@@ -59,14 +55,19 @@ export default function Carousel() {
       <div className="carousel-container" style={{ width: '600px' }}>
         <div className="flex carousel">
           {avisos && avisos[currentSlide] && (
-            <Link href={avisos[currentSlide].link}>
-              <Image
-                src={`${assets}${avisos[currentSlide].img_path}`}
-                alt={`Slide ${currentSlide + 1}`}
-                layout="responsive"
-                width={600}
-                height={400}
-              />
+            <Link href={{
+              pathname: `${url}${avisos[currentSlide].link}`,
+              query: { id: avisos[currentSlide].id } 
+            }}>
+              <div>
+                <Image
+                  src={`${assets}${avisos[currentSlide].img_path}`}
+                  alt={`Slide ${currentSlide + 1}`}
+                  layout="responsive"
+                  width={600}
+                  height={400}
+                />
+              </div>
             </Link>
           )}
         </div>

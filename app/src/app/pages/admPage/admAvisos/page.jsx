@@ -9,6 +9,7 @@ import userAdm from "@icons/userAdm.svg";
 import iconSair from "@icons/iconSair.svg";
 import AvisosList from "@/components/listaAviso/avisoLista";
 import AdicionarAviso from "@/components/listaAviso/adicionarAviso";
+import AdmHeader from "@/components/header/admHeader";
 
 export default function AdmAvisos() {
     const [avisos, setAvisos] = useState([]);
@@ -52,7 +53,23 @@ export default function AdmAvisos() {
     return (
         <div className="flex flex-col min-h-screen min-w-full">
             <header>
-                {/* ... (seu código de cabeçalho) */}
+                <div className="bg-azulPrincipal w-full">
+                    <div className="flex content-center items-center justify-between h-20">
+                        <div className="flex flex-col ml-12">
+                            <Image src={logoNav} alt="logo" width={87} height={36} />
+                            <div className="flex ml-2 pt-2">
+                                <Image src={userAdm} alt="logo" width={20} height={20} />
+                                <h1 className="text-white text-destaque1 ml-2">Administração do Sistema</h1>
+                            </div>
+                        </div>
+                        <div className="flex mr-24">
+                            <p className="mr-3 text-white">Sair</p>
+                            <Link href="./admHome">
+                                <Image src={iconSair} alt="logo" width={20} height={20} />
+                            </Link>
+                        </div>
+                    </div>
+                </div>
             </header>
 
             <main className="flex-grow min-h-full">
@@ -63,7 +80,7 @@ export default function AdmAvisos() {
                                 <div className="flex-col">
                                     <AdicionarAviso onAdicionarAviso={adicionarAviso} />
                                     <button
-                                        className="bg-error  text-white rounded-lg p-2 w-80 mt-5"
+                                        className="bg-error text-white font-bold rounded-lg p-2 w-80 mt-5"
                                         onClick={() => setMostrarFormulario(false)}
                                     >
                                         Fechar Formulário
@@ -71,7 +88,7 @@ export default function AdmAvisos() {
                                 </div>
                             ) : (
                                 <button
-                                    className="bg-azulLinks text-white rounded-lg p-2 w-80 mt-5"
+                                    className="bg-botao hover:bg-botaoHover hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5"
                                     onClick={() => setMostrarFormulario(true)}
                                 >
                                     Adicionar Aviso

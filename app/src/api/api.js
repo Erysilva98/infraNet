@@ -61,6 +61,19 @@ export const getAvisos = async () => {
     }
 };
 
+export const getAvisosId = async (id) => {
+    try {
+        const response = await axios.get(`${localhost}/api/avisos/${id}`);
+        const aviso = response.data.result;
+
+        return aviso;
+    } catch (error) {
+        console.log("Erro ao Obter os Dados ", error);
+        return null;
+    }
+};
+
+
 export const getAvisosImagem = async () => {
     const response = await axios.get(localhost + '/api/avisos');
 

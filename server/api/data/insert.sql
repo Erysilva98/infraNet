@@ -1,22 +1,25 @@
+-- Inserir dados no Banco de Dados
+USE InfraNet;
+
 -- Inserir dados na tabela 'user' para usuários comuns
 INSERT INTO user (username, password, data_nascimento)
 VALUES 
   ('Root', '111', '1980-12-01'),
-  ('Admin', '123', '1990-01-01');
-  ('Erimilson Silva' ,'2023', '1998-12-22')
+  ('Admin', '123', '1990-01-01'),
+  ('Erimilson Silva' ,'2023', '1998-12-22');
 
 -- Inserir dados na tabela 'contato' para os usuários criados anteriormente
 INSERT INTO contato (user_id, email, telefone, ramal)
 VALUES 
   (1, 'root@gmail.com', '879910285401', '100'),
-  (2, 'admin@gmail.com', '87991028909', '102');
-  (3, 'eesr@gmail.com', '879910285401', '999')
+  (2, 'admin@gmail.com', '87991028909', '102'),
+  (3, 'eesr@gmail.com', '879910285401', '999');
 
 -- Inserir dados na tabela 'acesso' para os usuários criados anteriormente
 INSERT INTO acesso (user_id, cod_acesso, matricula, senha)
 VALUES 
   (1, '!@#$', 'EWBJ-2021', '111'),
-  (2, '!@#$', 'EWBJ-2022', '123');
+  (2, '!@#$', 'EWBJ-2022', '123'),
   (3, '!@#$', 'EWBJ-2023', '2023');
 
 -- Inserir dados na tabela 'avisos'

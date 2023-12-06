@@ -1,43 +1,86 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-
-import Footer from "@/components/footer/footer";
+import { getSistemas } from "@/api/api";
 
 import logoNav from "@assets/logoNav.svg"
 import userAdm from "@icons/userAdm.svg";
 import iconSair from "@icons/iconSair.svg";
-import Lista from "@/components/listaAviso/avisoLista";
 
-export default function AdmSistemas(props) {
+import Footer from "@/components/footer/footer";
+import SistemaList from "@/components/listaSistemas/sistemasLista";
+import AdicionarSistema from "@/components/listaSistemas/adicionarSistema";
+import SistemaHeader from "@/components/header/sistemaHeader";
+
+export default function AdmSistemas() {
+    const [sistemas, setSistemas] = useState([]);
+    const [mostrarFormulario, setMostrarFormulario] = useState(false);
+
+    useEffect(() => {
+        const fetchSistemas = async () => {
+            try {
+                const dadosSistemas = await getSistemas();
+
+                const dadosTratados = dadosSistemas.map((item) => {
+                    return {
+                        id: item.id,
+                        img_path: item.img_path,
+                        titulo: item.titulo,
+                        link: item.link,
+                        descricao: item.descricao,
+                    };
+                });
+                setSistemas(dadosTratados || []);
+            } catch (error) {
+                console.log('Error ao Obter os dados em AdmSistemas.jsx', error);
+                setSistemas([]);
+            }
+        };
+        fetchSistemas();
+    }, []);
+
+    const adicionarSistema = (novoSistema) => {
+        setSistemas((prevSistemas) => [...prevSistemas, novoSistema]);
+        setMostrarFormulario(false); // Ocultar o formulário após adicionar um aviso
+    };
+
+    const deletarSistema = (id) => {
+        const novosSistemas = sistemas.filter((sistema) => sistema.id !== id);
+        setSistemas(novosSistemas);
+    }
+
     return (
         <div class="flex flex-col min-h-screen min-w-full">
             <header>
-                <div className="bg-azulPrincipal w-full">
-                    <div className="flex content-center items-center justify-between h-20">
-                        <div className="flex flex-col ml-12">
-                            <Image src={logoNav} alt="logo" width={87} height={36} />
-                            <div className="flex ml-2 pt-2">
-                                <Image src={userAdm} alt="logo" width={20} height={20} />
-                                <h1 className="text-white text-destaque1 ml-2">Administração do Sistema</h1>
-                            </div>
-                        </div>
-                        <div className="flex mr-24">
-                            <p className="mr-3 text-white">Voltar</p>
-                            <Link href="/pages/admPage/admHome">
-                                <Image src={iconSair} alt="logo" width={20} height={20} />
-                            </Link>
-                        </div>
-                    </div>
-                </div>
+                <SistemaHeader />
             </header>
 
             <main class="flex-grow">
                 <section class="flex justify-center">
-                    <div className="flex flex-col items-center">
-                        <h2 class="text-2xl font-bold mb-4">Seção Principal</h2>
-                        <div>
-                            <Lista />
+                    <div>
+                        <div className="flex justify-center">
+                            {mostrarFormulario ? (
+                                <div className="flex-col">
+                                    <AdicionarSistema onAdicionarSistema={adicionarSistema} />
+                                    <button
+                                        className="bg-error text-white font-bold rounded-lg p-2 w-80 mt-5"
+                                        onClick={() => setMostrarFormulario(false)}
+                                    >
+                                        Fechar Formulário
+                                    </button>
+                                </div>
+                            ) : (
+                                <button
+                                    className="bg-botao hover:bg-botaoHover hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5"
+                                    onClick={() => setMostrarFormulario(true)}
+                                >
+                                    Adicionar Sistema
+                                </button>
+                            )}
+                        </div>
+                        <div className="flex justify-center">
+                            <SistemaList sistemas={sistemas} onDelete={deletarSistema} />
                         </div>
                     </div>
                 </section>

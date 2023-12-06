@@ -7,7 +7,7 @@ import logoSite from "@assets/logoSite.svg";
 import Footer from "@/components/footer/footer";
 
 // Componentes
-import AdmHeader from "@/components/header/admHeader";
+import SistemaHeader from "@/components/header/sistemaHeader";
 
 export default function AdmCadastrar() {
     // Variáveis de Estado
@@ -26,7 +26,7 @@ export default function AdmCadastrar() {
         <div className="flex flex-col min-h-screen">
             <header>
                 {/* Componentes loginHeader */}
-                <AdmHeader />
+                <SistemaHeader />
             </header>
             <main className="flex flex-grow justify-center">
                 {/* ... Seção do Logo ... */}
@@ -94,7 +94,7 @@ export default function AdmCadastrar() {
 
                             {parteAtual === 3 && (
                                 <Link href="/pages/admPage/admHome">
-                                    <button className="bg-botao hover:bg-botaoHover hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5">Cadastrar</button>
+                                    <button className="bg-botao hover:bg-sucesso hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5">Cadastrar</button>
                                 </Link>
                             )}
                         </div>

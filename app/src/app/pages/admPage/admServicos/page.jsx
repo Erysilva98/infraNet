@@ -1,41 +1,79 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
+"use client";
+import React, { useEffect, useState } from "react";
+import { getServicos } from "@/api/api";
 
 import Footer from "@/components/footer/footer";
+import SistemaList from "@/components/listaServicos/servicosLista";
+import AdicionarServico from "@/components/listaServicos/adicionarServico";
+import SistemaHeader from "@/components/header/sistemaHeader";
 
-import logoNav from "@assets/logoNav.svg"
-import userAdm from "@icons/userAdm.svg";
-import iconSair from "@icons/iconSair.svg";
+export default function AdmServicos() {
+    const [servicos, setServicos] = useState([]);
+    const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
-export default function AdmServicos(props) {
+    useEffect(() => {
+        const fetchServicos = async () => {
+            try {
+                const dadosServicos = await getServicos();
+
+                const dadosTratados = dadosServicos.map((item) => {
+                    return {
+                        id: item.id,
+                        img_path: item.img_path,
+                        titulo: item.titulo,
+                        link: item.link,
+                        descricao: item.descricao,
+                    };
+                });
+                setServicos(dadosTratados || []);
+            } catch (error) {
+                console.log('Error ao Obter os dados em AdmServicos.jsx', error);
+                setServicos([]);
+            }
+        };
+        fetchServicos();
+    }, []);
+
+    const adicionarServico = (novoServico) => {
+        setServicos((prevServicos) => [...prevServicos, novoServico]);
+        setMostrarFormulario(false); // Ocultar o formulário após adicionar um aviso
+    };
+
+    const deletarServico = (id) => {
+        const novosServicos = servicos.filter((servico) => servico.id !== id);
+        setServicos(novosServicos);
+    }
+
     return (
         <div class="flex flex-col min-h-screen min-w-full">
-            <header>
-                <div className="bg-azulPrincipal w-full">
-                    <div className="flex content-center items-center justify-between h-20">
-                        <div className="flex flex-col ml-12">
-                            <Image src={logoNav} alt="logo" width={87} height={36} />
-                            <div className="flex ml-2 pt-2">
-                                <Image src={userAdm} alt="logo" width={20} height={20} />
-                                <h1 className="text-white text-destaque1 ml-2">Administração do Sistema</h1>
-                            </div>
-                        </div>
-                        <div className="flex mr-24">
-                            <p className="mr-3 text-white">Voltar</p>
-                            <Link href="/pages/admPage/admHome">
-                                <Image src={iconSair} alt="logo" width={20} height={20} />
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <SistemaHeader />
 
-            <main class="flex-grow min-h-full">
+            <main class="flex-grow">
                 <section class="flex justify-center">
-                    <div className="flex flex-col align-middle">
-                        <h2 class="text-2xl font-bold mb-4">Seção Principal</h2>
-                        <p>Conteúdo da seção principal.</p>
+                    <div>
+                        <div className="flex justify-center">
+                            {mostrarFormulario ? (
+                                <div className="flex-col">
+                                    <AdicionarServico onAdicionarServico={adicionarServico}  />
+                                    <button
+                                        className="bg-error text-white font-bold rounded-lg p-2 w-80 mt-5"
+                                        onClick={() => setMostrarFormulario(false)}
+                                    >
+                                        Fechar Formulário
+                                    </button>
+                                </div>
+                            ) : (
+                                <button
+                                    className="bg-botao hover:bg-botaoHover hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5"
+                                    onClick={() => setMostrarFormulario(true)}
+                                >
+                                    Adicionar Serviços
+                                </button>
+                            )}
+                        </div>
+                        <div className="flex justify-center">
+                            <SistemaList servicos={servicos} onDelete={deletarServico} />
+                        </div>
                     </div>
                 </section>
             </main>

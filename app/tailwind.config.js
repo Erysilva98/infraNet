@@ -25,7 +25,7 @@ module.exports = {
         'corCard': '#EBF2FF',
 
         // Cores de Feedback
-        'sucesso': '#168821',
+        'sucesso': '#10C621',
         'alerta': '#FFCD07',
         'error': '#E52207',
 

@@ -5,36 +5,25 @@ import axios from 'axios';
 const localhost = 'http://localhost:8080';
 
 // Rotas da API para o usuário
-
 export const getUser = async () => {
-    const response = await axios.get(localhost + '/api/user');
-    return response.data;
-};
-
-export const getContato = async () => {
-    const response = await axios.get('/api/contato');
-    return response.data;
-};
-
-export const createUser = async (username, password, data_nascimento) => {
-    const response = await axios.post(localhost + '/api/user', { username, password, data_nascimento });
-    return response.data;
-};
-
-
-// Rotas da API para o contato
-
-export const createContato = async (user_id, email, telefone, ramal) => {
-    const response = await axios.post(localhost + '/api/contato', { user_id, email, telefone, ramal });
-    return response.data;
-};
-
-
-// Rotas da API para o acesso
-
-export const getAcesso = async () => {
-    const response = await axios.get(localhost + '/api/acesso');
-    return response.data;
+    try {
+        const response = await axios.get(localhost + '/api/user');
+        const dados = response.data.result.map(usuario => {
+            return {
+                id: usuario.id,
+                username: usuario.username,
+                data_nascimento: usuario.data_nascimento,
+                email: usuario.email,
+                telefone: usuario.telefone,
+                ramal: usuario.ramal,
+            };
+        });
+        return dados; // Adicionado o retorno dos dados
+    }
+    catch (error) {
+        console.log("Error ao Obter os Dados ", error);
+        return null;
+    }
 };
 
 // Rotas da API para os avisos

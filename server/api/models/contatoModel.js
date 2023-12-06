@@ -1,7 +1,7 @@
 const db = require('../data/db');
 
-const ContatoModel = {
-    getAllContato: () => {
+const contatoModel = {
+    getAllContatos: () => {
        return new Promise((resolve, reject) => {
             db.query('SELECT * FROM contato', (error, results) => {
                 if (error) { reject(error); return; }
@@ -31,7 +31,6 @@ const ContatoModel = {
             });
         });
     },
-
 };
 
-module.exports = ContatoModel;
+module.exports = contatoModel;

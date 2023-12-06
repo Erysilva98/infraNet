@@ -1,15 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { getAvisos } from "@/api/api";
+
 import Footer from "@/components/footer/footer";
-import logoNav from "@assets/logoNav.svg"
-import userAdm from "@icons/userAdm.svg";
-import iconSair from "@icons/iconSair.svg";
 import AvisosList from "@/components/listaAviso/avisoLista";
 import AdicionarAviso from "@/components/listaAviso/adicionarAviso";
-import AdmHeader from "@/components/header/admHeader";
+import SistemaHeader from "@/components/header/sistemaHeader";
 
 export default function AdmAvisos() {
     const [avisos, setAvisos] = useState([]);
@@ -53,23 +49,7 @@ export default function AdmAvisos() {
     return (
         <div className="flex flex-col min-h-screen min-w-full">
             <header>
-                <div className="bg-azulPrincipal w-full">
-                    <div className="flex content-center items-center justify-between h-20">
-                        <div className="flex flex-col ml-12">
-                            <Image src={logoNav} alt="logo" width={87} height={36} />
-                            <div className="flex ml-2 pt-2">
-                                <Image src={userAdm} alt="logo" width={20} height={20} />
-                                <h1 className="text-white text-destaque1 ml-2">Administração do Sistema</h1>
-                            </div>
-                        </div>
-                        <div className="flex mr-24">
-                            <p className="mr-3 text-white">Sair</p>
-                            <Link href="./admHome">
-                                <Image src={iconSair} alt="logo" width={20} height={20} />
-                            </Link>
-                        </div>
-                    </div>
-                </div>
+                <SistemaHeader  />
             </header>
 
             <main className="flex-grow min-h-full">

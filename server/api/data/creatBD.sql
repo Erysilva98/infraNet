@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS avisos (
     img_path VARCHAR(255),
     prioridade INT,
     data_publicacao DATE,
+    link VARCHAR(255),
     titulo VARCHAR(255) NOT NULL,
     subtitulo VARCHAR(255),
     descricao TEXT

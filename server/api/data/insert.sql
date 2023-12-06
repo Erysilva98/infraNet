@@ -3,47 +3,50 @@ INSERT INTO user (username, password, data_nascimento)
 VALUES 
   ('Root', '111', '1980-12-01'),
   ('Admin', '123', '1990-01-01');
+  ('Erimilson Silva' ,'2023', '1998-12-22')
 
 -- Inserir dados na tabela 'contato' para os usuários criados anteriormente
 INSERT INTO contato (user_id, email, telefone, ramal)
 VALUES 
   (1, 'root@gmail.com', '879910285401', '100'),
   (2, 'admin@gmail.com', '87991028909', '102');
+  (3, 'eesr@gmail.com', '879910285401', '999')
 
 -- Inserir dados na tabela 'acesso' para os usuários criados anteriormente
 INSERT INTO acesso (user_id, cod_acesso, matricula, senha)
 VALUES 
-  (1, '!@#$', 'EWBJ-2023', '111'),
-  (2, '!@#$', 'EWBJ-2023', '123');
+  (1, '!@#$', 'EWBJ-2021', '111'),
+  (2, '!@#$', 'EWBJ-2022', '123');
+  (3, '!@#$', 'EWBJ-2023', '2023');
 
 -- Inserir dados na tabela 'avisos'
 INSERT INTO avisos (img_path, prioridade, data_publicacao, link, titulo, subtitulo, descricao)
 VALUES 
-  ('/upload/', 1, '2023-11-25','../../upload/img/aviso.png', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.'),
-  ('/upload/', 2, '2023-11-25','http://servico1.com', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.'),
-  ('/upload/', 3, '2023-11-25','http://servico1.com', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.'),
-  ('/upload/', 3, '2023-11-25','http://servico1.com', 'Aviso Importante', 'Subtítulo do aviso', 'Este é um aviso importante sobre alguma coisa.');
+  ('jornadaTrabalho.svg', 1, '2023-11-22','avisoDes', 'IFPE publica portaria para implantação da jornada flexibilizada', 'Documento estabelece critérios e condições para flexibilização da jornada de trabalho ', 'O Instituto Federal de Educação, Ciência e Tecnologia de Pernambuco (IFPE) publicou, nesta terça-feira (21), a portaria que estabelece os critérios e as condições para a flexibilização da jornada de trabalho dos/as servidores/as no âmbito do IFPE, nos termos do Decreto nº 1.590, de 10 de agosto de 1995, além de outras providências. '),
+  ('estagio.svg', 2, '2023-12-01','avisoDes', 'IFPE divulga vagas para Estágio Vivência 2024.1', 'Oportunidades são para estudantes do IFPE de cursos agrícolas e informática', 'O IFPE, através, da Coordenação de Extensão com os Povos do Campo, anunciou as primeiras vagas do Estágio Vivência 2024.1. Ao todo, estão sendo ofertadas 37 vagas, distribuídas em quatro territórios: Assentamento Nova Canaã, em Tracunhanhém; Assentamento Normandia, em Caruaru; Quilombo do Angico, em Bom Conselho e Território Camponês de Bom Jardim. As oportunidades são para estudantes do IFPE matriculados nos cursos de Agropecuária, Agricultura, Agroecologia, Zootecnia, Agronomia, Agroindústria ou Informática.'),
+  ('ivsemana.svg', 3, '2023-12-01','avisoDes', 'IFPE divulga programação da IV Semana Acadêmica', 'Evento será de 04 a 08/12 de forma híbrida e vai reunir atividades das áreas de Ensino, Pesquisa e Extensão', 'Será realizada, entre os dias 04 e 08 de dezembro, a IV Semana Acadêmica do IFPE, que vai congregar os eventos sistêmicos das áreas de Ensino, Pesquisa e Extensão. Promovida em conjunto pelas Pró-Reitoria de Ensino (Proden), Pró-Reitoria de Pesquisa, Pós-Graduação e Inovação (Propesq), e a Pró-Reitoria de Extensão (Proext), o evento integrará várias atividades dessas áreas finalísticas em torno de um conceito comum, com o objetivo geral de intercâmbio de saberes e da cooperação e integração dos atores educativos do ensino, da pesquisa e da extensão.'),
+  ('inscricoes.svg', 3, '2023-11-24','avisoDes', 'IFPE prorroga inscrições do Processo de Ingresso 2024.1', 'Estão sendo ofertadas 5414 vagas em cursos técnicos e superiores gratuitos. Inscrições agora vão até o dia 29 de novembro', 'O Instituto Federal de Educação, Ciência e Tecnologia de Pernambuco (IFPE) prorrogou, nesta quinta-feira (23), as inscrições do Processo de Ingresso 2024.1 para novos/as estudantes. Agora, os/as candidatos podem se inscrever até o dia 29 de novembro. Além do prazo das inscrições, outras etapas do cronograma também foram prorrogadas.');
 
 -- Inserir dados na tabela 'servicos'
 INSERT INTO servicos (img_path, titulo, link, descricao)
 VALUES 
-  ('/caminho/imagem2.jpg', 'QAcadêmico', 'http://servico1.com', 'Descrição do Serviço 1'),
-  ('/caminho/imagem2.jpg', 'Refeitório', 'http://servico1.com', 'Descrição do Serviço 2'),
-  ('/caminho/imagem2.jpg', 'Biblioteca', 'http://servico1.com', 'Descrição do Serviço 3'),
-  ('/caminho/imagem2.jpg', 'APP 4', 'http://servico1.com', 'Descrição do Serviço 4'),
-  ('/caminho/imagem2.jpg', 'APP 5', 'http://servico1.com', 'Descrição do Serviço 5'),
-  ('/caminho/imagem2.jpg', 'APP 6', 'http://servico1.com', 'Descrição do Serviço 6'),
-  ('/caminho/imagem2.jpg', 'APP 7', 'http://servico1.com', 'Descrição do Serviço 7'),
-  ('/caminho/imagem2.jpg', 'APP 8', 'http://servico1.com', 'Descrição do Serviço 8');
+  ('qacademico.svg', 'QAcadêmico', 'https://qacademico.ifpe.edu.br/', 'Sistema de Gestão acadêmica do IFPE'),
+  ('refeitorio.svg', 'Refeitório', '', 'Sistema do Refeitório do IFPE'),
+  ('biblioteca.svg', 'Biblioteca', '', 'Site da Biblioteca do IFPE'),
+  ('imgApp.svg', 'APP 4', '', 'APP do IFPE'),
+  ('imgApp.svg', 'APP 5', '', 'APP do IFPE'),
+  ('imgApp.svg', 'APP 6', '', 'APP do IFPE'),
+  ('imgApp.svg', 'APP 7', '', 'APP do IFPE'),
+  ('imgApp.svg', 'APP 8', '', 'APP do IFPE');
 
 -- Inserir dados na tabela 'sistemas'
 INSERT INTO sistemas (img_path, titulo, link, descricao)
 VALUES 
-  ('/caminho/imagem3.jpg', 'Gov', 'http://sistema1.com', 'Descrição do Sistema 1'),
-  ('/caminho/imagem3.jpg', 'Ingresso', 'http://sistema2.com', 'Descrição do Sistema 2'),
-  ('/caminho/imagem3.jpg', 'APP 3', 'http://sistema3.com', 'Descrição do Sistema 3'),
-  ('/caminho/imagem3.jpg', 'APP 4', 'http://sistema4.com', 'Descrição do Sistema 4'),
-  ('/caminho/imagem3.jpg', 'APP 5', 'http://sistema5.com', 'Descrição do Sistema 5'),
-  ('/caminho/imagem3.jpg', 'APP 6', 'http://sistema6.com', 'Descrição do Sistema 6'),
-  ('/caminho/imagem3.jpg', 'APP 7', 'http://sistema7.com', 'Descrição do Sistema 7'),
-  ('/caminho/imagem3.jpg', 'APP 8', 'http://sistema8.com', 'Descrição do Sistema 8');
+  ('gov.svg', 'Gov', 'http://sistema1.com', 'Site do Governos Federal'),
+  ('ingresso.svg', 'Ingresso', 'https://ingresso.ifpe.edu.br/inscricao/', 'Site de Inscrição do IFPE'),
+  ('imgApp.svg', 'APP 3', '', 'APP do IFPE'),
+  ('imgApp.svg', 'APP 4', '', 'APP do IFPE'),
+  ('imgApp.svg', 'APP 5', '', 'APP do IFPE'),
+  ('imgApp.svg', 'APP 6', '', 'APP do IFPE'),
+  ('imgApp.svg', 'APP 7', '', 'APP do IFPE'),
+  ('imgApp.svg', 'APP 8', '', 'APP do IFPE');

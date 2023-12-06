@@ -22,12 +22,22 @@ module.exports = {
         // Cores Alternativas
         'alternativa1': '#155BCB',
         'alternativa2': '#5992ED',
-        'azulCard': '#BBBDC9',
+        'corCard': '#EBF2FF',
 
         // Cores de Feedback
-        'verde': '#168821',
-        'amarelo': '#FFCD07',
-        'vermelho': '#E52207',
+        'sucesso': '#10C621',
+        'alerta': '#FFCD07',
+        'error': '#E52207',
+
+        'houverLink': '#718EF7', 
+
+        'botao': '#3B82F6',
+        'botaoHover': '#1D4ED8',
+
+        // Escala de Cinza
+        'cinzaEscuro': '#595959',
+        'cinzaMedio': '#909090',
+        'cinzaClaro': '#D0D0D0',
       },
 
     },

@@ -1,5 +1,6 @@
 const express = require('express');
 const routes = express.Router();
+const path = require('path');
 
 // Rotas do Home
 routes.get('/', (req, res) => {
@@ -11,19 +12,6 @@ routes.get('/', (req, res) => {
 const userController = require('../controllers/userController');
 
 routes.get('/user', userController.getAllUsers);
-routes.get('/user/:id', userController.getUser);
-
-// Rotas de Contato
-const contatoController = require('../controllers/contatoController');
-
-routes.get('/contato', contatoController.getAllContato);
-routes.get('/contato/:id', contatoController.getContato);
-
-// Rotas de Acesso
-const acessoController = require('../controllers/acessoController');
-
-routes.get('/acesso', acessoController.getAllAcesso);
-routes.get('/acesso/:id', acessoController.getAcesso);
 
 // Rotas de Avisos
 const avisosController = require('../controllers/avisosController');

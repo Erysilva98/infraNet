@@ -1,4 +1,5 @@
 const avisosModel = require('../models/avisosModel.js');
+const path = require('path');
 
 module.exports = {
     // GET /api/avisos
@@ -14,6 +15,7 @@ module.exports = {
                 img_path: avisos[i].img_path,
                 prioridade: avisos[i].prioridade,
                 data_publicacao: avisos[i].data_publicacao,
+                link: avisos[i].link,
                 titulo: avisos[i].titulo,
                 subtitulo: avisos[i].subtitulo,
                 descricao: avisos[i].descricao,

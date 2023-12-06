@@ -22,6 +22,15 @@ const UserModel = {
             });
         });
     },
+
+    addUser: (username, password, data_nascimento) => {
+        return new Promise((resolve, reject) => {
+            db.query('INSERT INTO user (username, password, data_nascimento) VALUES (?, ?, ?)', [username, password, data_nascimento], (error, results) => {
+                if (error) { reject(error); return; }
+                resolve(results.insertId);
+            });
+        });
+    },
 };
 
 module.exports = UserModel;

@@ -3,30 +3,27 @@ import Image from "next/image";
 import Link from "next/link";
 
 //Icons
-import logoGov from "@icons/logoGov.svg";
+import logoNav from "@assets/logoNav.svg";
 import userAcesso from "@icons/userAcesso.svg";
 import iconSair from "@icons/iconSair.svg";
 
 export default function LoginHeader() {
     return (
-        <div className="bg-azulPrincipal pb-2 w-full">
-            <div className="flex content-center items-center justify-between pt-8">
-                <div className="ml-12">
-                    <Image src={logoGov} alt="logo" width={87} height={36} />
+        <div className="bg-azulPrincipal w-full">
+            <div className="flex content-center items-center justify-between h-20">
+                <div className="flex flex-col ml-12">
+                    <Image src={logoNav} alt="logo" width={87} height={36} />
+                    <div className="flex ml-2 pt-2">
+                        <Image src={userAcesso} alt="logo" width={20} height={20} />
+                        <h1 className="text-white text-destaque1 ml-2">Acesso ao Sistema</h1>
+                    </div>
                 </div>
                 <div className="flex mr-24">
-                    <p className="mr-3 text-white">Sair</p>
+                    <p className="mr-3 text-white">Voltar</p>
                     <Link href="../">
-                        <Image src={iconSair} alt="logo" width={25} height={30} />
+                        <Image src={iconSair} alt="logo" width={20} height={20} />
                     </Link>
                 </div>
-            </div>
-            <div className="flex">
-                <div className="flex content-center items-center pt-3 ml-12">
-                    <Image src={userAcesso} alt="logo" width={30} height={30} />
-                    <h1 className="text-white text-destaque1 ml-2">Acesso ao Sistema</h1>
-                </div>
-
             </div>
         </div>
     );

@@ -1,8 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import logoSite from "@assets/logoSite.png";
-import nomeSite from "@assets/nomeSite.png";
+import logoSite from "@assets/logoSite.svg";
 
 //Componentes
 import LoginHeader from "@/components/header/loginHeader";
@@ -12,21 +11,17 @@ import Footer from "@/components/footer/footer";
 export default function Login() {
 
     return (
-        <div className="h-screen">
+        <div className='flex flex-col min-h-screen'>
             <header>
                 {/* Componentes loginHeader */}
                 <LoginHeader />
             </header>
-            <main className="min-w-max h-4/5">
+            <main className="flex-grow">
                 <section className="flex flex-col justify-center h-full">
-                    <div className="flex flex-col items-center">
+                    <div className="flex flex-col items-center p-2">
                         {/* Logo */}
                         <div className="items-center">
                             <Image src={logoSite} alt="Logo" width={250} height={250} />
-                        </div>
-                        {/* nome do sistema */}
-                        <div>
-                            <Image src={nomeSite} alt="Logo" width={250} />
                         </div>
                     </div>
                     <div>
@@ -41,7 +36,7 @@ export default function Login() {
                                 <input className="border-2 border-azulPrincipal rounded-lg p-2 w-80" type="password" placeholder="Digite sua Senha" />
 
                                 <Link href="/pages/admPage/admHome">
-                                    <button className="bg-azulPrincipal text-white rounded-lg p-2 w-80 mt-5">Entrar</button>
+                                    <button className="bg-botao hover:bg-botaoHover text-white font-bold rounded-lg p-2 w-80 mt-5">Entrar</button>
                                 </Link>
 
                                 <div className="flex flex-col items-center mt-5">

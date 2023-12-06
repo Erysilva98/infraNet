@@ -1,8 +1,8 @@
 const e = require('express');
 const db = require('../data/db');
 
-const AcessoModel = {
-    getAllAcesso: () => {
+const acessoModel = {
+    getAllAcessos: () => {
        return new Promise((resolve, reject) => {
             db.query('SELECT * FROM acesso', (error, results) => {
                 if (error) { reject(error); return; }
@@ -25,4 +25,4 @@ const AcessoModel = {
     },
 };
 
-module.exports = AcessoModel;
+module.exports = acessoModel;

@@ -1,28 +1,18 @@
 import React from 'react'
 
-//imagens
-import aviso from '@assets/aviso.png';
-import comunicado from '@assets/comunicado.png';
-import pesquisa from '@assets/pesquisa.png';
-
 //component
 import UserHeader from '@/components/header/userHeader'
 import Carousel from '@/components/carousel/carousel'
 import Footer from '@/components/footer/footer';
 import NavBar from '@/components/navBar/navBar';
 import AvisosCard from '@/components/avisos/avisoCard';
-import AplicativoCard from '@/components/aplicativos/aplicativoCard';
+import AppServicos from '@/components/appServicos/appServicos';
+import AppSistemas from '@/components/appSistemas/appSistemas';
 
 export default function Home() {
-  
-  const dados = {
-    imagem1: aviso,
-    imagem2: comunicado,
-    imagem3: pesquisa,
-  };
 
   return (
-    <>
+    <div className='flex flex-col min-h-screen'>
       <header>
         {/* Componentes userHeader */}
         <UserHeader />
@@ -31,11 +21,11 @@ export default function Home() {
           <NavBar />
         </nav>
       </header>
-      <main>
+      <main className='flex-grow'>
         <section>
           {/* Sessão Carousel */}
           <div className='flex justify-center '>
-            <Carousel imagens={dados} />
+            <Carousel/>
           </div>
           <hr className="border-t m-2 w-11/12 border-gray-300"></hr>
         </section>
@@ -58,7 +48,7 @@ export default function Home() {
             <h1 className='text-2xl font-bold text-gray-700'>Serviços Internos</h1>
           </div>
           <div>
-            <AplicativoCard />
+            <AppServicos />
           </div>
           <hr className="border-t m-2 border-gray-300"></hr>
         </section>
@@ -68,7 +58,7 @@ export default function Home() {
             <h1 className='text-2xl font-bold text-gray-700'>Sistemas Governamentais</h1>
           </div>
           <div>
-            <AplicativoCard />
+            <AppSistemas /> 
           </div>
           <hr className="border-t m-2 border-gray-300"></hr>
         </section>
@@ -76,6 +66,6 @@ export default function Home() {
       <footer>
         <Footer />
       </footer>
-    </>
+    </div>
   )
 }

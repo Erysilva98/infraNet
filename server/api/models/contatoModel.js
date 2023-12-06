@@ -1,7 +1,7 @@
 const db = require('../data/db');
 
-const ContatoModel = {
-    getAllContato: () => {
+const contatoModel = {
+    getAllContatos: () => {
        return new Promise((resolve, reject) => {
             db.query('SELECT * FROM contato', (error, results) => {
                 if (error) { reject(error); return; }
@@ -23,6 +23,14 @@ const ContatoModel = {
         });
     },
 
+    addContato: (user_id, email, telefone, ramal) => {
+        return new Promise((resolve, reject) => {
+            db.query('INSERT INTO contato (user_id, email, telefone, ramal) VALUES (?, ?, ?, ?)', [user_id, email, telefone, ramal], (error, results) => {
+                if (error) { reject(error); return; }
+                resolve(results.insertId);
+            });
+        });
+    },
 };
 
-module.exports = ContatoModel;
+module.exports = contatoModel;

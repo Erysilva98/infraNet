@@ -66,23 +66,30 @@ export default function Avisos() {
                 </nav>
             </header>
             <main className="flex-grow">
-                <section className="flex justify-center h-full pt-10">
+                <section className="flex justify-center h-full pt-2">
                     <div className="ml-12 mr-12">
-                        <div className="flex justify-center">
+                        <div className="flex flex-col items-center justify-center">
+                            <h1 className="text-3xl font-bold text-gray-700 mb-2">Avisos</h1>
                             <div className="grid grid-cols-3 gap-2">
-                                {avisos.map((aviso, index) => (
-                                    <Link key={index} href={{
-                                        pathname: `${url}${aviso.link}`,
-                                        query: { id: aviso.id }
-                                    }}>
-                                        <AvisoCard
-                                            img_path={aviso.img_path}
-                                            titulo={aviso.titulo}
-                                            subtitulo={aviso.subtitulo}
-                                            descricao={aviso.descricao}
-                                        />
-                                    </Link>
-                                ))}
+                                {avisos.length > 0 ? (
+                                    avisos.map((aviso, index) => (
+                                        <Link key={index} href={{
+                                            pathname: `${url}${aviso.link}`,
+                                            query: { id: aviso.id }
+                                        }}>
+                                            <AvisoCard
+                                                img_path={aviso.img_path}
+                                                titulo={aviso.titulo}
+                                                subtitulo={aviso.subtitulo}
+                                                descricao={aviso.descricao}
+                                            />
+                                        </Link>
+                                    ))
+                                ) : (
+                                    <div className="flex justify-center">
+                                        <h1 className="text-2xl font-medium text-gray-700 mb-5">Não há avisos cadastrados</h1>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

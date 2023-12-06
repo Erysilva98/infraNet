@@ -11,7 +11,7 @@ import Link from "next/link";
 const assets = `/assets/`;
 const url = "http://localhost:3000/pages/404";
 
-const SistemasCard = ({ img_path, titulo, subtitulo, descricao }) => {
+const SistemaCard = ({ img_path, titulo, subtitulo, descricao }) => {
   const [isHovered, setIsHovered] = useState(false);
   const descricaoMin = descricao.length > 50 ? `${descricao.substring(0, 50)}...` : descricao;
 
@@ -35,8 +35,8 @@ const SistemasCard = ({ img_path, titulo, subtitulo, descricao }) => {
   );
 };
 
-export default function Sistemas() {
-  const [Sistemas, setSistemas] = useState([]);
+export default function Sistema() {
+  const [sistema, setSistemas] = useState([]);
 
   useEffect(() => {
     const fetchSistemas = async () => {
@@ -53,13 +53,13 @@ export default function Sistemas() {
             descricao: item.descricao,
           };
         });
-        setServicos(dadosTratados || []);
+        setSistemas(dadosTratados || []);
       } catch (error) {
         console.log('Error ao Obter os dados no servicos', error);
-        setServicos([]);
+        setSistemas([]);
       }
     };
-    fetchServicos();
+    fetchSistemas();
   }, []);
 
   return (
@@ -73,17 +73,17 @@ export default function Sistemas() {
         </nav>
       </header>
       <main className="flex-grow">
-        <section className="flex flex-col justify-center h-full pt-10">
+        <section className="flex flex-col justify-center h-full pt-2">
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-3xl font-bold text-gray-700">Serviços</h1>
+            <h1 className="text-3xl font-bold text-gray-700 mb-2">Sistemas</h1>
             <div className="grid grid-cols-4 gap-4 items-center justify-center">
-              {servicos.length > 0 ? (
-                servicos.map((item) => (
+              {sistema.length > 0 ? (
+                sistema.map((item) => (
                   <Link
                     key={item.id}
                     href={item.link ? item.link : `${url}`}
                   >
-                    <ServicoCard
+                    <SistemaCard
                       key={item.id}
                       img_path={item.img_path}
                       titulo={item.titulo}
@@ -94,8 +94,7 @@ export default function Sistemas() {
                 ))
               ) : (
                 <div className="flex flex-col items-center justify-center">
-                  <p className="text-3xl font-medium text-gray-700">Não há serviços cadastrados</p>
-                  <p className="text-3xl font-medium text-gray-700">Volte mais tarde</p>
+                  <p className="text-2xl font-medium text-gray-700">Não há serviços cadastrados</p>
                 </div>
               )}
             </div>

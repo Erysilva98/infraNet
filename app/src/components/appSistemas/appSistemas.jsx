@@ -82,7 +82,7 @@ export default function AppSistemas() {
         </ul>
         {currentPage < totalPages && (
           <div className="text-center">
-            <Link href="./pages/servicos">
+            <Link href="./pages/sistemas">
               <p className="cursor-pointer text-blue-500">
                 Ver mais
               </p>

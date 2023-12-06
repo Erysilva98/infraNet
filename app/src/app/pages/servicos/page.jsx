@@ -73,9 +73,9 @@ export default function Servicos() {
         </nav>
       </header>
       <main className="flex-grow">
-        <section className="flex flex-col justify-center h-full pt-10">
+        <section className="flex flex-col justify-center h-full pt-2">
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-3xl font-bold text-gray-700">Serviços</h1>
+            <h1 className="text-3xl font-bold text-gray-700 mb-2">Serviços</h1>
             <div className="grid grid-cols-4 gap-4 items-center justify-center">
               {servicos.length > 0 ? (
                 servicos.map((item) => (
@@ -93,9 +93,8 @@ export default function Servicos() {
                   </Link>
                 ))
               ) : (
-                <div className="flex flex-col items-center justify-center">
-                  <p className="text-3xl font-medium text-gray-700">Não há serviços cadastrados</p>
-                  <p className="text-3xl font-medium text-gray-700">Volte mais tarde</p>
+                <div className="flex justify-center">
+                  <p className="text-2xl font-medium text-gray-700">Não há serviços cadastrados</p>
                 </div>
               )}
             </div>

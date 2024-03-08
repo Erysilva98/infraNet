@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 const assets = `/assets/`;
 
 const AvisoCard = ({ id, img_path, titulo, subtitulo, descricao, prioridade, onDelete }) => {
-
   const descricaoMin = descricao.length > 200 ? `${descricao.substring(0, 200)}...` : descricao;
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleDeleteClick = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    onDelete(id);
+    setShowDeleteModal(false);
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
+  };
+
+  if (typeof window === 'undefined') {
+    return null; // Não renderiza o modal no servidor
+  }
 
   return (
     <div className="max-w-6xl mt-2 mb-4 bg-corCard rounded-lg shadow-lg items-center">
@@ -19,10 +36,25 @@ const AvisoCard = ({ id, img_path, titulo, subtitulo, descricao, prioridade, onD
         <p className="text-gray-700 text-sm">Prioridade: {prioridade}</p>
         <button
           className="bg-red-500 text-white rounded-lg p-2 mt-2"
-          onClick={() => onDelete(id)}
+          onClick={handleDeleteClick}
         >
           Deletar
         </button>
+        {showDeleteModal && (
+          <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+            <div className="bg-white p-4 rounded-lg">
+              <p>Tem certeza que deseja deletar?</p>
+              <div className="flex justify-end mt-4">
+                <button className="bg-red-500 text-white rounded-lg p-2 mr-2" onClick={handleConfirmDelete}>
+                  Confirmar
+                </button>
+                <button className="bg-gray-300 text-gray-700 rounded-lg p-2" onClick={handleCancelDelete}>
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

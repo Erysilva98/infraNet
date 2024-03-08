@@ -31,6 +31,10 @@ module.exports = {
 
         'houverLink': '#718EF7', 
 
+        // Cores de Botões
+        'navButton': '#5A9CFF',
+        'navButtonHover': '#122F7C',
+
         'botao': '#3B82F6',
         'botaoHover': '#1D4ED8',
 

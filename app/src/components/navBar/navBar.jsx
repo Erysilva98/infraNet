@@ -11,28 +11,39 @@ export default function NavBar() {
     <nav>
       <div className="flex flex-col justify-center ml-12">
         <ul className="flex">
-          <li className="mr-2">
-            <a href="/" className="flex items-center space-x-2">
-              <Image src={navHome} alt="Icone Inicio" width={20} height={20} />
-              <p>Início |</p>
+          <li className="mr-2 p-1">
+            <a href="/" className="flex items-center">
+              <button className="flex items-center bg-navButton text-white space-x-2 py-2 px-4 rounded hover:bg-navButtonHover transition duration-300 ease-in-out focus:outline-none focus:shadow-outline">
+                <Image src={navHome} alt="Icone Inicio" width={20} height={20} />
+                <p>Home</p>
+              </button>
             </a>
           </li>
-          <li className="mr-2">
-            <a href="/pages/avisos" className="flex items-center space-x-2">
+
+          <li className="mr-2 p-1">
+            <a href="/" className="flex items-center">
+              <button className="flex items-center bg-navButton text-white space-x-2 py-2 px-4 rounded hover:bg-navButtonHover transition duration-300 ease-in-out focus:outline-none focus:shadow-outline">
               <Image src={navMegaphone} alt="Icone Aviso" width={20} height={20} />
-              <p>Avisos |</p>
+              <p>Avisos</p>
+              </button>
             </a>
           </li>
-          <li className="mr-2">
-            <a href="/pages/servicos" className="flex items-center space-x-2">
+
+          <li className="mr-2 p-1">
+            <a href="/" className="flex items-center">
+              <button className="flex items-center bg-navButton text-white space-x-2 py-2 px-4 rounded hover:bg-navButtonHover transition duration-300 ease-in-out focus:outline-none focus:shadow-outline">
               <Image src={navGrupo} alt="Icone Serviços Internos" width={20} height={20} />
-              <p>Serviços Internos |</p>
+              <p>Serviços Internos</p>
+              </button>
             </a>
           </li>
-          <li>
-            <a href="/pages/sistemas" className="flex items-center space-x-2">
+
+          <li className="mr-2 p-1">
+            <a href="/" className="flex items-center">
+              <button className="flex items-center bg-navButton text-white space-x-2 py-2 px-4 rounded hover:bg-navButtonHover transition duration-300 ease-in-out focus:outline-none focus:shadow-outline">
               <Image src={navGoverno} alt="Icone istema Gorvenamentais" width={20} height={20} />
               <p>Sistemas Governamentais </p>
+              </button>
             </a>
           </li>
         </ul>

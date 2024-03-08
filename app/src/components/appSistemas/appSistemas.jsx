@@ -83,8 +83,8 @@ export default function AppSistemas() {
         {currentPage < totalPages && (
           <div className="text-center">
             <Link href="./pages/sistemas">
-              <p className="cursor-pointer text-blue-500">
-                Ver mais
+              <p className='inline-block items-center cursor-pointer bg-navButton text-white space-x-2  py-2 px-4 rounded hover:bg-navButtonHover transition duration-300 ease-in-out focus:outline-none focus:shadow-outline'>
+                Veja mais
               </p>
             </Link>
           </div>

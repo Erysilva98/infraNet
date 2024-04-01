@@ -10,6 +10,11 @@ const AvisoDes = ({ aviso }) => {
     link,
   } = aviso;
 
+  const converterDataParaISO8601 = (dataString) => {
+    const [dia, mes, ano] = dataString.split('/');
+    return new Date(`${ano}-${mes}-${dia}`).toISOString();
+  };
+
   return (
     <div className="text-center">
       <img
@@ -18,7 +23,7 @@ const AvisoDes = ({ aviso }) => {
         className="max-w-full max-h-96 mx-auto my-8"
       />
       <p className="text-gray-600">
-        Data de Publicação: {new Date(data_publicacao).toLocaleDateString()}
+        Data de Publicação: {new Date(converterDataParaISO8601(data_publicacao)).toLocaleDateString()}
       </p>
       <div className="text-left my-8">
         <h2 className="text-3xl font-bold">{titulo}</h2>

@@ -7,7 +7,7 @@ const localhost = 'http://localhost:8080';
 // Rotas da API para o usuário
 export const getUser = async () => {
     try {
-        const response = await axios.get(localhost + '/api/user');
+        const response = await axios.get(localhost + '/user');
         const dados = response.data.result.map(usuario => {
             return {
                 id: usuario.id,
@@ -29,7 +29,7 @@ export const getUser = async () => {
 // Rotas da API para os avisos
 export const getAvisos = async () => {
     try {
-        const response = await axios.get(localhost + '/api/avisos');
+        const response = await axios.get(localhost + '/avisos');
         const dados = response.data.result.map(aviso => {
             return {
                 id: aviso.id,
@@ -52,7 +52,7 @@ export const getAvisos = async () => {
 
 export const getAvisosId = async (id) => {
     try {
-        const response = await axios.get(`${localhost}/api/avisos/${id}`);
+        const response = await axios.get(`${localhost}/avisos/${id}`);
         const aviso = response.data.result;
 
         return aviso;
@@ -65,7 +65,7 @@ export const getAvisosId = async (id) => {
 // Rotas da API para os serviços
 export const getServicos = async () => {
     try {
-        const response = await axios.get(localhost + '/api/servicos');
+        const response = await axios.get(localhost + '/servicos');
         const dados = response.data.result.map(servico => {
             return {
                 id: servico.id,
@@ -87,7 +87,7 @@ export const getServicos = async () => {
 // Rotas da API para os sistemas
 export const getSistemas = async () => {
     try {
-        const response = await axios.get(localhost + '/api/sistemas');
+        const response = await axios.get(localhost + '/sistemas');
         const dados = response.data.result.map(sistema => {
             return {
                 id: sistema.id,

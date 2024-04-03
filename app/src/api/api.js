@@ -2,7 +2,26 @@ import axios from 'axios';
 
 // Rota Geral
 
-const localhost = 'http://localhost:8080';
+const api = axios.create({
+    baseURL: 'http://localhost:8080',
+});
+
+
+const handleError = (error) => {
+    console.log("Error ao Obter os Dados ", error);
+    return null;
+};
+
+// Rota de envio de todos os dados
+export const getAllData = async () => {
+    try {
+        const response = await axios.get('http://localhost:8080/apiDados');
+        const dados = response.data;
+        return dados;
+    } catch (error) {
+        return handleError(error);
+    }
+}
 
 // Rotas da API para o usuário
 export const getUser = async () => {

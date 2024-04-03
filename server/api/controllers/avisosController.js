@@ -1,27 +1,28 @@
 const avisosModel = require('../models/avisosModel.js');
-const path = require('path');
 
 module.exports = {
     // GET /api/avisos
     // Get all avisos
     getAllAvisos: async (req, res) => {
-        let json = {error:'', result:[]};
-
-        let avisos = await avisosModel.getAllAvisos();
-
-        for (let i in avisos) {
-            json.result.push({
-                id: avisos[i].id,
-                img_path: avisos[i].img_path,
-                prioridade: avisos[i].prioridade,
-                data_publicacao: avisos[i].data_publicacao,
-                link: avisos[i].link,
-                titulo: avisos[i].titulo,
-                subtitulo: avisos[i].subtitulo,
-                descricao: avisos[i].descricao,
-            });
-        }   
-        res.json(json);
+        let json = { error: '', result: [] };
+        try {
+            let avisos = await avisosModel.getAllAvisos();
+            json.result = avisos.map(aviso => ({
+                id: aviso.id,
+                img_path: aviso.img_path,
+                prioridade: aviso.prioridade,
+                data_publicacao: aviso.data_publicacao,
+                link: aviso.link,
+                titulo: aviso.titulo,
+                subtitulo: aviso.subtitulo,
+                descricao: aviso.descricao,
+            }));
+            return json; // Retorna os dados diretamente.
+        } catch (error) {
+            console.error("Erro ao buscar avisos", error);
+            json.error = "Erro ao buscar avisos";
+            return json; // Retorna o erro dentro do objeto json.
+        }
     },
 
     // GET /api/avisos/:id

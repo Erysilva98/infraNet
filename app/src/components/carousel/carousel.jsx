@@ -1,7 +1,7 @@
-"use client";
+"use client"
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { getAvisos } from "@/api/api";
+import { getAllData } from "@/api/api"; // Atualizado para usar getAllData
 import setaLeft from "@icons/setaLeft.svg";
 import setaRight from "@icons/setaRight.svg";
 import Link from "next/link";
@@ -14,32 +14,27 @@ export default function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    const fetchAvisos = async () => {
+    const fetchDados = async () => {
       try {
-        const dadosAvisos = await getAvisos();
-        const dadosTratados = dadosAvisos.map((item) => {
-          return {
-            id: item.id,
-            img_path: item.img_path,
-            prioridade: item.prioridade,
-            link: item.link,
-          };
-        });
-        setAvisos(dadosTratados || []);
+        const allData = await getAllData();
+        if (allData && allData.avisos) {
+          // Atualizado para extrair apenas os avisos de allData
+          setAvisos(allData.avisos);
+        }
       } catch (error) {
         console.log("Error ao Obter os dados no carrousel.jsx", error);
         setAvisos([]);
       }
     };
-    fetchAvisos();
+    fetchDados();
   }, []);
 
   const nextSlide = () => {
-    setCurrentSlide((currentSlide + 1) % (avisos?.length || 1));
+    setCurrentSlide((currentSlide + 1) % avisos.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((currentSlide - 1 + (avisos?.length || 1)) % (avisos?.length || 1));
+    setCurrentSlide((currentSlide - 1 + avisos.length) % avisos.length);
   };
 
   useEffect(() => {
@@ -54,7 +49,7 @@ export default function Carousel() {
       </button>
       <div className="carousel-container" style={{ width: '600px' }}>
         <div className="flex carousel">
-          {avisos && avisos[currentSlide] && (
+          {avisos[currentSlide] && (
             <Link href={{
               pathname: `${url}${avisos[currentSlide].link}`,
               query: { id: avisos[currentSlide].id } 

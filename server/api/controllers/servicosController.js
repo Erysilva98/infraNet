@@ -1,37 +1,43 @@
+// controllers/ServicosController.js
 const servicosModel = require('../models/servicosModel');
 
-module.exports = {
-    // GET /api/servicos
-    // Get all servicos
-    getAllServicos: async (req, res) => {
-        let json = {error:'', result:[]};
-
-        let servicos = await servicosModel.getAllServicos();
-
-        for (let i in servicos) {
-            json.result.push({
-                id: servicos[i].id,
-                img_path: servicos[i].img_path,
-                titulo: servicos[i].titulo,
-                link: servicos[i].link,
-                descricao: servicos[i].descricao,
-            });
-        }   
-        res.json(json);
-    },
-
-    // GET /api/servicos/:id
-    // Get one servicos
-    getServicos: async (req, res) => {
-        let json = {error:'', result:[]};
-
-        let id = req.params.id;
-        let servicos = await servicosModel.getServicos(id);
-
-        if (servicos) {
-            json.result = servicos;
+class ServicosController {
+    async getAllServicos(req, res) {
+        try {
+            const servicos = await servicosModel.getAll();
+            const results = servicos.map(servico => ({
+                id: servico.id,
+                img_path: servico.img_path,
+                titulo: servico.titulo,
+                link: servico.link,
+                descricao: servico.descricao,
+            }));
+            res.json({ error: '', result: results });
+        } catch (error) {
+            res.json({ error: error.message, result: [] });
         }
+    }
 
-        res.json(json);
-    },
-};
+    async getServicoById(req, res) {
+        try {
+            const id = req.params.id;
+            const servico = await servicosModel.getById(id);
+            if (servico) {
+                const result = {
+                    id: servico.id,
+                    img_path: servico.img_path,
+                    titulo: servico.titulo,
+                    link: servico.link,
+                    descricao: servico.descricao,
+                };
+                res.json({ error: '', result });
+            } else {
+                res.json({ error: 'Serviço não encontrado', result: {} });
+            }
+        } catch (error) {
+            res.json({ error: error.message, result: {} });
+        }
+    }
+}
+
+module.exports = new ServicosController();

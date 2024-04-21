@@ -1,28 +1,10 @@
-const db = require('../data/db');
+// models/AvisosModel.js
+const BaseModel = require('./baseModel');
 
-const AvisosModel = {
-    getAllAvisos: () => {
-       return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM avisos', (error, results) => {
-                if (error) { reject(error); return; }
-                resolve(results);
-            });
-        });
-    },
+class AvisosModel extends BaseModel {
+    constructor() {
+        super('avisos');
+    }
+}
 
-    getAvisos: (id) => {
-        return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM avisos WHERE id = ?', [id], (error, results) => {
-                if (error) { reject(error); return; }
-                if (results.length > 0) {
-                    resolve(results[0]);
-                } else {
-                    resolve(false);
-                }
-            });
-        });
-    },
-
-};
-
-module.exports = AvisosModel;
+module.exports = new AvisosModel();

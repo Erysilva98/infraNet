@@ -1,28 +1,10 @@
-const db = require('../data/db');
+// models/ServicosModel.js
+const BaseModel = require('./baseModel');
 
-const ServicosModel = {
-    getAllServicos: () => {
-       return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM servicos', (error, results) => {
-                if (error) { reject(error); return; }
-                resolve(results);
-            });
-        });
-    },
+class ServicosModel extends BaseModel {
+    constructor() {
+        super('servicos');
+    }
+}
 
-    getServicos: (id) => {
-        return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM servicos WHERE id = ?', [id], (error, results) => {
-                if (error) { reject(error); return; }
-                if (results.length > 0) {
-                    resolve(results[0]);
-                } else {
-                    resolve(false);
-                }
-            });
-        });
-    },
-
-};
-
-module.exports = ServicosModel;
+module.exports = new ServicosModel();

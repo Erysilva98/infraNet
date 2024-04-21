@@ -1,36 +1,24 @@
 const express = require('express');
-const routes = express.Router();
-const path = require('path');
+const routes = express.Router();  
+const avisosController = require('../controllers/AvisosController');
+const servicosController = require('../controllers/ServicosController');
+const sistemasController = require('../controllers/SistemasController');
 
 // Rotas do Home
 routes.get('/', (req, res) => {
     res.statusCode = 200;
-    res.write('<Title>API</Title> <h1>Servidor Rodando</h1> <p>Escolha uma Rota</p>');
+    res.setHeader('Content-Type', 'text/html');
+    res.write('<title>API</title> <h1>Servidor Rodando</h1> <p>Escolha uma Rota</p>');
+    res.end();
 });
 
-// Rotas do Usuário
-const userController = require('../controllers/userController');
-
-routes.get('/user', userController.getAllUsers);
-
-// Rotas de Avisos
-const avisosController = require('../controllers/avisosController');
-
-routes.get('/avisos', avisosController.getAllAvisos);
-routes.get('/avisos/:id', avisosController.getAvisos);
-
-// Rotas de Serviços
-const servicosController = require('../controllers/servicosController');
-
-routes.get('/servicos', servicosController.getAllServicos);
-routes.get('/servicos/:id', servicosController.getServicos);
-
-// Rotas do Sistema
-const sistemasController = require('../controllers/sistemasController');
-
-routes.get('/sistemas', sistemasController.getAllSistemas);
-routes.get('/sistemas/:id', sistemasController.getSistemas);
-
+// Usando 'routes' em vez de 'router'
+routes.get('/api/avisos', avisosController.getAllAvisos);
+routes.get('/api/avisos/:id', avisosController.getAvisoById);
+routes.get('/api/servicos', servicosController.getAllServicos);
+routes.get('/api/servicos/:id', servicosController.getServicoById);
+routes.get('/api/sistemas', sistemasController.getAllSistemas);
+routes.get('/api/sistemas/:id', sistemasController.getSistemaById);
 
 module.exports = routes;
 

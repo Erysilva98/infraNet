@@ -1,3 +1,4 @@
+// data/db.js
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
@@ -7,12 +8,11 @@ const connection = mysql.createConnection({
     database: process.env.DB_DATABASE,
 });
 
-
-connection.connect((err) => {
+connection.connect(err => {
     if (err) {
-        console.log(err);
+        console.error(`Error connecting to MySQL: ${err}`);
     } else {
-        console.log(`\n \n Connected ao Banco MySQL: ${process.env.DB_DATABASE} \n \n`);
+        console.log(`Connected to MySQL Database: ${process.env.DB_DATABASE}`);
     }
 });
 

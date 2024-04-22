@@ -5,14 +5,13 @@ class SistemasController {
     async getAllSistemas(req, res) {
         try {
             const sistemas = await sistemasModel.getAll();
-            const results = sistemas.map(sistema => ({
+            return sistemas.map(sistema => ({
                 id: sistema.id,
                 img_path: sistema.img_path,
                 titulo: sistema.titulo,
                 link: sistema.link,
                 descricao: sistema.descricao,
             }));
-            res.json({ error: '', result: results });
         } catch (error) {
             res.json({ error: error.message, result: [] });
         }

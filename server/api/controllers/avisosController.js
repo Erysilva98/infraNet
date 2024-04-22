@@ -5,7 +5,7 @@ class AvisosController {
     async getAllAvisos(req, res) {
         try {
             const avisos = await avisosModel.getAll();
-            const results = avisos.map(aviso => ({
+            return avisos.map(aviso => ({
                 id: aviso.id,
                 img_path: aviso.img_path,
                 prioridade: aviso.prioridade,
@@ -15,7 +15,6 @@ class AvisosController {
                 subtitulo: aviso.subtitulo,
                 descricao: aviso.descricao,
             }));
-            res.json({ error: '', result: results });
         } catch (error) {
             res.json({ error: error.message, result: [] });
         }

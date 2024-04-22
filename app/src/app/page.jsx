@@ -1,16 +1,44 @@
-import React from 'react'
+"use client";
+import React, {useEffect, useState} from 'react'
 
 //component
 import UserHeader from '@/components/header/userHeader'
 import Carousel from '@/components/carousel/carousel'
 import Footer from '@/components/footer/footer';
 import NavBar from '@/components/navBar/navBar';
-import AvisosCard from '@/components/avisos/avisoCard';
-import AppServicos from '@/components/appServicos/appServicos';
-import AppSistemas from '@/components/appSistemas/appSistemas';
+// import AvisosCard from '@/components/avisos/avisoCard';
+// import AppServicos from '@/components/appServicos/appServicos';
+// import AppSistemas from '@/components/appSistemas/appSistemas';
+
+import { getAllData  } from '@/api/api'
 
 export default function Home() {
 
+  const [dados, setDados] = useState({
+    avisos: [],
+    servicos: [],
+    sistemas: []
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const dadosCarregados = await getAllData();
+        if (dadosCarregados) {
+          setDados({
+            avisos: dadosCarregados.avisos || [],
+            servicos: dadosCarregados.servicos || [],
+            sistemas: dadosCarregados.sistemas || []
+          });
+        }
+      } catch (error) {
+        console.error("Erro ao carregar dados da Home:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
   return (
     <div className='flex flex-col min-h-screen'>
       <header>
@@ -25,7 +53,7 @@ export default function Home() {
         <section>
           {/* Sessão Carousel */}
           <div className='flex justify-center '>
-            <Carousel/>
+            <Carousel dados={dados.avisos}/>
           </div>
           <hr className="border-t m-2 w-11/12 border-gray-300"></hr>
         </section>
@@ -36,8 +64,7 @@ export default function Home() {
               <h1 className='text-2xl font-bold text-gray-700'>Avisos</h1>
             </div>
             <div className='ml-12 mr-12'>
-              {/* Card de Avisos */}
-              <AvisosCard />
+              {/* <AvisosCard /> */}
             </div>
             <hr className="border-t m-2 border-gray-300"></hr>
           </div>
@@ -48,7 +75,7 @@ export default function Home() {
             <h1 className='text-2xl font-bold text-gray-700'>Serviços Internos</h1>
           </div>
           <div>
-            <AppServicos />
+            {/* <AppServicos /> */}
           </div>
           <hr className="border-t m-2 border-gray-300"></hr>
         </section>
@@ -58,7 +85,7 @@ export default function Home() {
             <h1 className='text-2xl font-bold text-gray-700'>Sistemas Governamentais</h1>
           </div>
           <div>
-            <AppSistemas /> 
+            {/* <AppSistemas />  */}
           </div>
           <hr className="border-t m-2 border-gray-300"></hr>
         </section>

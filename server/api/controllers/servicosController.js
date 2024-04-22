@@ -5,14 +5,13 @@ class ServicosController {
     async getAllServicos(req, res) {
         try {
             const servicos = await servicosModel.getAll();
-            const results = servicos.map(servico => ({
+            return servicos.map(servico => ({
                 id: servico.id,
                 img_path: servico.img_path,
                 titulo: servico.titulo,
                 link: servico.link,
                 descricao: servico.descricao,
             }));
-            res.json({ error: '', result: results });
         } catch (error) {
             res.json({ error: error.message, result: [] });
         }

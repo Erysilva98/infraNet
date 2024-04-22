@@ -12,13 +12,37 @@ routes.get('/', (req, res) => {
     res.end();
 });
 
+// Rota agregada para buscar todos os dados
+routes.get('/api/apiDados', async (req, res) => {
+    try {
+        const avisos = await avisosController.getAllAvisos(req, res);
+        const servicos = await servicosController.getAllServicos(req, res);
+        const sistemas = await sistemasController.getAllSistemas(req, res);
+
+        const results = await Promise.all([avisos, servicos, sistemas]);
+        res.json({
+            avisos: results[0],
+            servicos: results[1],
+            sistemas: results[2],
+        });
+    } catch (error) {
+        console.error('Erro detalhado:', error);
+        res.status(500).json({ message: 'Erro ao buscar dados', error: error.message });
+    }
+});
+
+
 // Usando 'routes' em vez de 'router'
 routes.get('/api/avisos', avisosController.getAllAvisos);
 routes.get('/api/avisos/:id', avisosController.getAvisoById);
+
 routes.get('/api/servicos', servicosController.getAllServicos);
 routes.get('/api/servicos/:id', servicosController.getServicoById);
+
 routes.get('/api/sistemas', sistemasController.getAllSistemas);
 routes.get('/api/sistemas/:id', sistemasController.getSistemaById);
+
+
 
 module.exports = routes;
 

@@ -8,10 +8,21 @@ const url = 'http://localhost:3000/pages/';
 const AvisoCard = ({ img_path, titulo, subtitulo, descricao }) => {
   const descricaoMin = descricao.length > 90 ? `${descricao.substring(0, 90)}...` : descricao;
 
+  const cardStyle = {
+    minHeight: '150px',
+  };
+
   return (
-    <div className='max-w-6xl mt-2 mb-4 bg-corCard rounded-lg shadow-lg items-center'>
+    <div className='max-w-6xl mt-2 mb-4 bg-corCard rounded-lg shadow-lg items-center' style={cardStyle}>
       <div className='flex justify-center mt-2'>
-        <Image src={`${assets}${img_path}`} alt='aviso' width={100} height={100} className='mt-2 w-52 h-32 object-cover rounded-t-lg' />
+        <Image
+          src={`${assets}${img_path}`}
+          alt='aviso'
+          width={100}
+          height={100}
+          className='mt-2 w-52 h-32 object-cover rounded-t-lg'
+          layout="responsive"
+        />
       </div>
       <div className='p-3 flex-grow'>
         <h1 className='text-lg font-bold text-gray-700'>{titulo}</h1>
@@ -34,19 +45,19 @@ export default function AvisosCardsContainer({ dados }) {
               pathname: `${url}${aviso.link}`,
               query: { id: aviso.id }
             }} passHref>
-              <div>
+              <div className='block'> 
                 <AvisoCard
                   img_path={aviso.img_path}
                   titulo={aviso.titulo}
                   subtitulo={aviso.subtitulo}
                   descricao={aviso.descricao}
+                  priority={true}
                 />
               </div>
             </Link>
           ))}
         </div>
       </div>
-      {/* Optional: Implement "Load More" functionality here if you have many avisos */}
     </div>
   );
 }

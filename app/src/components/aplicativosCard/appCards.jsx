@@ -10,7 +10,15 @@ const AplicativosCard = ({ img_path, titulo, descricao }) => {
     return (
         <div className='max-w-6xl mt-2 mb-4 shadow-lg items-center'>
             <div className='flex justify-center mt-2'>
-                <Image src={`${assets}${img_path}`} alt='servico' width={100} height={20} className='mt-2 w-44 h-22 object-cover rounded-t-lg' />
+                <Image
+                    className='mt-2 w-44 h-22 object-cover rounded-t-lg' 
+                    src={`${assets}${img_path}`}
+                    alt='servico'
+                    width={100}
+                    height={20}
+                    layout="responsive"
+                    priority={true}
+                />
             </div>
         </div>
     );

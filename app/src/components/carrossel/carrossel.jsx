@@ -46,9 +46,10 @@ export default function Carousel ({ dados }){
                     <Image
                       src={`${assets}${dados[currentSlide].img_path}`}
                       alt={`Slide ${currentSlide}`}
-                      width={600}
-                      height={400}
-                      layout='responsive'
+                      width={100}
+                      height={100}
+                    layout='responsive'
+                    priority={true}
                     />
                   </div>
                 </Link>

@@ -1,63 +1,58 @@
-"use client";
-import React, { useState, useEffect } from 'react';
+"use client"
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import setaLeft from '@icons/setaLeft.svg';
-import setaRight from '@icons/setaRight.svg';
 import Link from 'next/link';
 
 const assets = `/assets/`;
-const url = "http://localhost:3000/pages/";
+const url = 'http://localhost:3000/pages/';
 
-const Carousel = ({ avisos }) => {
-    const [currentSlide, setCurrentSlide] = useState(0);
-
-    const nextSlide = () => {
-        if (avisos.length > 0) {
-            setCurrentSlide((currentSlide + 1) % avisos.length);
-        }
-    };
-
-    const prevSlide = () => {
-        if (avisos.length > 0) {
-            setCurrentSlide((currentSlide - 1 + avisos.length) % avisos.length);
-        }
-    };
-
-    useEffect(() => {
-        const interval = setInterval(nextSlide, 5000);
-        return () => clearInterval(interval);
-    }, [currentSlide, avisos]);
+const AvisoCard = ({ img_path, titulo, subtitulo, descricao }) => {
+    const descricaoMin = descricao.length > 90 ? `${descricao.substring(0, 90)}...` : descricao;
 
     return (
-        <div className="flex">
-            <button onClick={prevSlide} className="prev-button">
-                <Image src={setaLeft} alt="seta esquerda" width={20} height={20} />
-            </button>
-            <div className="carousel-container" style={{ width: '600px' }}>
-                <div className="flex carousel">
-                    {avisos.length > 0 && avisos[currentSlide] && (
-                        <Link href={{
-                            pathname: `${url}${avisos[currentSlide].link}`,
-                            query: { id: avisos[currentSlide].id }
-                        }}>
-                            <div>
-                                <Image
-                                    src={`${assets}${dados[currentSlide].img_path}`}
-                                    alt={`Slide ${currentSlide}`}
-                                    width={600}
-                                    height={400}
-                                    layout='responsive'
-                                />
-                            </div>
-                        </Link>
-                    )}
-                </div>
+        <div className='max-w-6xl mt-2 mb-4 bg-corCard rounded-lg shadow-lg items-center'>
+            <div className='flex justify-center mt-2'>
+                <Image src={`${assets}${img_path}`} alt='aviso' width={100} height={100} className='mt-2 w-52 h-32 object-cover rounded-t-lg' />
             </div>
-            <button onClick={nextSlide} className="next-button">
-                <Image src={setaRight} alt="seta direita" width={20} height={20} />
-            </button>
+            <div className='p-3 flex-grow'>
+                <h1 className='text-lg font-bold text-gray-700'>{titulo}</h1>
+                <h2 className='text-base font-semibold text-gray-600'>{subtitulo}</h2>
+                <p className='text-gray-700 text-sm'>{descricaoMin}</p>
+            </div>
         </div>
     );
-}
+};
 
-export default Carousel;
+export default function AvisosCard({ }) {
+    return (
+        <div className='ml-12'>
+            <div className='flex justify-center'>
+                <div className='grid grid-cols-3 gap-4'>
+                    {avisos.slice(0, visibleAvisos).map((aviso, index) => (
+                        <Link key={index} href={{
+                            pathname: `${url}${aviso.link}`,
+                            query: { id: aviso.id }
+                        }}>
+                            <AvisoCard
+                                key={index}
+                                img_path={aviso.img_path}
+                                titulo={aviso.titulo}
+                                subtitulo={aviso.subtitulo}
+                                descricao={aviso.descricao}
+                            />
+                        </Link>
+                    ))}
+                </div>
+            </div>
+            {visibleAvisos < avisos.length && (
+                <div className='text-center'>
+                    <Link href="/pages/avisos" passHref>
+                        <p className='inline-block items-center cursor-pointer bg-navButton text-white py-2 px-4 rounded hover:bg-navButtonHover transition duration-300 ease-in-out focus:outline-none focus:shadow-outline'>
+                            Veja mais
+                        </p>
+                    </Link>
+                </div>
+
+            )}
+        </div>
+    );

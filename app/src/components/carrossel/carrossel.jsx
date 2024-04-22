@@ -9,7 +9,7 @@ import setaRight from '@icons/setaRight.svg';
 const assets = `/assets/`;
 const url = "http://localhost:3000/pages/";
 
-const Carousel = ({ dados }) => {
+export default function Carousel ({ dados }){
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const nextSlide = () => {
@@ -62,5 +62,3 @@ const Carousel = ({ dados }) => {
     </div>
   );
 };
-
-export default Carousel;

@@ -1,8 +1,6 @@
-"use client"
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getAvisos } from '@/api/api';
 
 const assets = `/assets/`;
 const url = 'http://localhost:3000/pages/';
@@ -24,66 +22,31 @@ const AvisoCard = ({ img_path, titulo, subtitulo, descricao }) => {
   );
 };
 
-export default function AvisosCard() {
-  const [avisos, setAvisos] = useState([]);
-  const [visibleAvisos, setVisibleAvisos] = useState(3);
-
-  useEffect(() => {
-    const fetchAvisos = async () => {
-      try {
-        const dadosAvisos = await getAvisos();
-
-        // Tratar os dados aqui
-        const dadosTratados = dadosAvisos.map((item) => {
-          return {
-            id: item.id,
-            img_path: item.img_path,
-            prioridade: item.prioridade,
-            link: item.link,
-            titulo: item.titulo,
-            subtitulo: item.subtitulo,
-            descricao: item.descricao,
-          };
-        });
-        setAvisos(dadosTratados || []);
-      } catch (error) {
-        console.log('Error ao Obter os dados no avisoCard.jsx', error);
-        setAvisos([]);
-      }
-    };
-    fetchAvisos();
-  }, []);
+export default function AvisosCardsContainer({ dados }) {
+  const visibleAvisos = 3;
 
   return (
-    <div className='ml-12'>
+    <div className='ml-12 mr-12'>
       <div className='flex justify-center'>
         <div className='grid grid-cols-3 gap-4'>
-          {avisos.slice(0, visibleAvisos).map((aviso, index) => (
+          {dados.slice(0, visibleAvisos).map((aviso, index) => (
             <Link key={index} href={{
               pathname: `${url}${aviso.link}`,
               query: { id: aviso.id }
-            }}>
-              <AvisoCard
-                key={index}
-                img_path={aviso.img_path}
-                titulo={aviso.titulo}
-                subtitulo={aviso.subtitulo}
-                descricao={aviso.descricao}
-              />
+            }} passHref>
+              <div>
+                <AvisoCard
+                  img_path={aviso.img_path}
+                  titulo={aviso.titulo}
+                  subtitulo={aviso.subtitulo}
+                  descricao={aviso.descricao}
+                />
+              </div>
             </Link>
           ))}
         </div>
       </div>
-      {visibleAvisos < avisos.length && (
-        <div className='text-center'>
-          <Link href="/pages/avisos" passHref>
-            <p className='inline-block items-center cursor-pointer bg-navButton text-white py-2 px-4 rounded hover:bg-navButtonHover transition duration-300 ease-in-out focus:outline-none focus:shadow-outline'>
-              Veja mais
-            </p>
-          </Link>
-        </div>
-
-      )}
+      {/* Optional: Implement "Load More" functionality here if you have many avisos */}
     </div>
   );
 }

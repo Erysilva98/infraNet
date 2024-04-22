@@ -3,10 +3,10 @@ import React, {useEffect, useState} from 'react'
 
 //component
 import UserHeader from '@/components/header/userHeader'
-import Carousel from '@/components/carousel/carousel'
+import Carrossel from '@/components/carrossel/carrossel'
 import Footer from '@/components/footer/footer';
 import NavBar from '@/components/navBar/navBar';
-// import AvisosCard from '@/components/avisos/avisoCard';
+import AvisosCard from '@/components/avisos/avisoCard';
 // import AppServicos from '@/components/appServicos/appServicos';
 // import AppSistemas from '@/components/appSistemas/appSistemas';
 
@@ -51,9 +51,9 @@ export default function Home() {
       </header>
       <main className='flex-grow'>
         <section>
-          {/* Sessão Carousel */}
+          {/* Sessão Carrossel */}
           <div className='flex justify-center '>
-            <Carousel dados={dados.avisos}/>
+            <Carrossel dados={dados.avisos}/>
           </div>
           <hr className="border-t m-2 w-11/12 border-gray-300"></hr>
         </section>
@@ -64,7 +64,7 @@ export default function Home() {
               <h1 className='text-2xl font-bold text-gray-700'>Avisos</h1>
             </div>
             <div className='ml-12 mr-12'>
-              {/* <AvisosCard /> */}
+              <AvisosCard dados={dados.avisos} />
             </div>
             <hr className="border-t m-2 border-gray-300"></hr>
           </div>

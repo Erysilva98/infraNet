@@ -23,13 +23,13 @@ const AvisoCard = ({ img_path, titulo, subtitulo, descricao }) => {
 };
 
 export default function AvisosCardsContainer({ dados }) {
-  const visibleAvisos = 3;
+  const visibilidadeItems = 3;
 
   return (
     <div className='ml-12 mr-12'>
       <div className='flex justify-center'>
         <div className='grid grid-cols-3 gap-4'>
-          {dados.slice(0, visibleAvisos).map((aviso, index) => (
+          {dados.slice(0, visibilidadeItems).map((aviso, index) => (
             <Link key={index} href={{
               pathname: `${url}${aviso.link}`,
               query: { id: aviso.id }

@@ -13,7 +13,7 @@ export default function UserHeader() {
                 <div className="flex flex-col ml-12">
                     <div className="flex items-center justify-start space-x-4 p-4">
                         <div>
-                            <Image src={logoNav} alt="logo" width={220} height={50} priority />
+                            <Image src={logoNav} alt="logo" className="w-auto h-auto" />
                         </div>
                         <div className="flex flex-col">
                             <h1 className="text-white">Campus Belo Jardim</h1>
@@ -25,8 +25,8 @@ export default function UserHeader() {
                 <div>
                     <Link href="/pages/login" passHref>
                         <button className="flex mr-11 items-center justify-center rounded-lg bg-corButton text-white">
-                            <div className="w-40 h-30" style={{ position: 'relative', width: '100px', height: '50px' }}>
-                                <Image src={iconLogin} alt="user" layout="fill" />
+                            <div className="w-60 h-60 mt-4" style={{ position: 'relative', width: '100px', height: '50px' }}>
+                                <Image src={iconLogin} alt="user" className="w-auto h-auto"/>
                             </div>
                         </button>
                     </Link>

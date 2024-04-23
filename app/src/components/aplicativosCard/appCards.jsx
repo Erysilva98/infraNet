@@ -16,6 +16,7 @@ const AplicativosCard = ({ img_path, titulo, descricao }) => {
                     alt='servico'
                     width={200}
                     height={50}
+                    style={{ width: '100%', height: 'auto' }}
                     quality={75}
                     loading="lazy"
                 />
@@ -49,13 +50,13 @@ export default function AppCards({ dados }) {
                 <ul className="flex flex-wrap justify-center">
                     {visibleItems.map((item, index) => (
                         <Link key={index} href={item.link ? item.link : url} passHref>
-                            <d className="text-center flex flex-col flex-wrap-4 p-4">
+                            <div className="text-center flex flex-col flex-wrap-4 p-4">
                                 <AplicativosCard
                                     img_path={item.img_path}
                                     titulo={item.titulo}
                                     descricao={item.descricao}
                                 />
-                            </d>
+                            </div>
                         </Link>
                     ))}
                 </ul>

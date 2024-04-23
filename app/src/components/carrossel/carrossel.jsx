@@ -41,6 +41,7 @@ export default function Carousel({ dados }) {
                 alt={`Slide ${currentSlide + 1}`}
                 width={600}
                 height={50}
+                style={{ width: '100%', height: 'auto' }}
                 quality={75}
                 loading="lazy"
               />

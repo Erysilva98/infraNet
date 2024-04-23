@@ -21,6 +21,7 @@ const AvisoCard = React.memo(({ img_path, titulo, subtitulo, descricao }) => {
           width={200}
           height={50}
           quality={75}
+          style={{ width: '100%', height: 'auto' }}
           loading="lazy"
         />
       </div>

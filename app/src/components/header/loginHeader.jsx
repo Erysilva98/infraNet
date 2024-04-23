@@ -25,7 +25,7 @@ export default function LoginHeader() {
                         <p className="flex items-center justify-center rounded-lg bg-corButton cursor-pointer hover:bg-corButtonHover transition-colors">
                             <div className="flex items-center justify-center w-24 h-9 border border-gray-300 rounded-lg bg-white">
                                 <p className="text-alternativa1 mr-2">Voltar</p>
-                                <Image src={iconSair} alt="logo" width={20} height={20} objectFit="contain" />
+                                <Image src={iconSair} alt="logo" width={20} height={20}/>
                             </div>
                         </p>
                     </Link>

@@ -14,10 +14,10 @@ const AplicativosCard = ({ img_path, titulo, descricao }) => {
                     className='mt-2 w-44 h-22 object-cover rounded-t-lg' 
                     src={`${assets}${img_path}`}
                     alt='servico'
-                    width={100}
-                    height={20}
-                    layout="responsive"
-                    priority={true}
+                    width={200}
+                    height={50}
+                    quality={75}
+                    loading="lazy"
                 />
             </div>
         </div>

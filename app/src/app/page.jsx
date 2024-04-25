@@ -9,6 +9,11 @@ import NavBar from '@/components/navBar/navBar';
 import AvisosCard from '@/components/avisos/avisoCard';
 import AppCards from '@/components/aplicativosCard/appCards';
 
+// Urls Path Pages
+const urlAviso = "/pages/avisos";
+const urlServicos = "/pages/servicos";
+const urlSistemas = "/pages/sistemas";
+
 import { getAllData  } from '@/api/api'
 
 export default function Home() {
@@ -63,7 +68,7 @@ export default function Home() {
               <h1 className='text-2xl font-bold text-gray-700'>Avisos</h1>
             </div>
             <div className='ml-12 mr-12'>
-              <AvisosCard dados={dados.avisos} />
+              <AvisosCard dados={dados.avisos}/>
             </div>
             <hr className="border-t m-2 border-gray-300"></hr>
           </div>
@@ -74,7 +79,7 @@ export default function Home() {
             <h1 className='text-2xl font-bold text-gray-700'>Serviços Internos</h1>
           </div>
           <div>
-            <AppCards dados={dados.servicos} />
+            <AppCards dados={dados.servicos} urlPage={urlServicos} />
           </div>
           <hr className="border-t m-2 border-gray-300"></hr>
         </section>
@@ -84,7 +89,7 @@ export default function Home() {
             <h1 className='text-2xl font-bold text-gray-700'>Sistemas Governamentais</h1>
           </div>
           <div>
-            <AppCards dados={dados.sistemas} /> 
+            <AppCards dados={dados.sistemas} urlPage={urlSistemas} /> 
           </div>
           <hr className="border-t m-2 border-gray-300"></hr>
         </section>

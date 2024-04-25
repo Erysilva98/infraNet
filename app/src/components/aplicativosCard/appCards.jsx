@@ -25,7 +25,7 @@ const AplicativosCard = ({ img_path, titulo, descricao }) => {
     );
 };
 
-export default function AppCards({ dados }) {
+export default function AppCards({ dados, urlPage}) {
     const [visibleItems, setVisibleItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 4;
@@ -37,11 +37,7 @@ export default function AppCards({ dados }) {
     const totalPages = Math.ceil(dados.length / itemsPerPage);
 
     const handleSeeMore = () => {
-        const nextPage = currentPage + 1;
-        const startIndex = currentPage * itemsPerPage;
-        const newVisibleItems = dados.slice(0, startIndex + itemsPerPage);
-        setVisibleItems(newVisibleItems);
-        setCurrentPage(nextPage);
+        window.location.href = urlPage;
     };
 
     return (

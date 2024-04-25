@@ -33,24 +33,8 @@ export default function Avisos() {
 
     useEffect(() => {
         const fetchAvisos = async () => {
-            try {
-                const dadosAvisos = await getAvisos();
-                const dadosTratados = dadosAvisos.map((item) => {
-                    return {
-                        id: item.id,
-                        img_path: item.img_path,
-                        prioridade: item.prioridade,
-                        link: item.link,
-                        titulo: item.titulo,
-                        subtitulo: item.subtitulo,
-                        descricao: item.descricao,
-                    };
-                });
-                setAvisos(dadosTratados || []);
-            } catch (error) {
-                console.log('Error ao Obter os dados no carrousel.jsx', error);
-                setAvisos([]);
-            }
+            const dadosAvisos = await getAvisos();
+            setAvisos(dadosAvisos || []);
         };
         fetchAvisos();
     }, []);

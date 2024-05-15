@@ -37,39 +37,11 @@ jobs:
           name: app-build
           path: app/out
 
-  build-server:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: server
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node for Server
-        uses: actions/setup-node@v4
-        with:
-          node-version: '16'
-      - name: Install dependencies (Server)
-        run: npm install
-      - name: Build Server
-        run: npm run build
-      - name: Upload Server Build Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: server-build
-          path: server/out
-
   deploy:
-    needs: [build-app, build-server]
+    needs: [build-app]
     runs-on: ubuntu-latest
     steps:
       - name: Download App Artifacts
         uses: actions/download-artifact@v3
         with:
           name: app-build
-      - name: Download Server Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: server-build
-      - name: Deploy to GitHub Pages
-        run: echo "Deploy scripts go here"

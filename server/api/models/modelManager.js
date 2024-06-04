@@ -1,4 +1,5 @@
 // models/ModelManager.js
+const acessoModel = require('./acessoModel');
 const AvisosModel = require('./avisosModel');
 const ServicosModel = require('./servicosModel');
 const SistemasModel = require('./sistemasModel');
@@ -6,6 +7,7 @@ const SistemasModel = require('./sistemasModel');
 class ModelManager {
     constructor() {
         this.models = {
+            acesso: acessoModel,
             avisos: AvisosModel,
             servicos: ServicosModel,
             sistemas: SistemasModel

@@ -6,13 +6,6 @@ const sistemasController = require('../controllers/SistemasController');
 const AuthController = require('../controllers/AuthController');
 const rateLimit = require('express-rate-limit');
 
-// Configurer le limiteur de tentatives de connexion
-const loginLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 10, // Limiter à 5 tentatives par IP et par `windowMs`
-    message: 'Trop de tentatives de connexion, veuillez réessayer plus tard.',
-});
-
 // Rotas do Home
 routes.get('/', (req, res) => {
     res.statusCode = 200;
@@ -50,6 +43,7 @@ routes.get('/api/servicos/:id', servicosController.getServicoById);
 routes.get('/api/sistemas', sistemasController.getAllSistemas);
 routes.get('/api/sistemas/:id', sistemasController.getSistemaById);
 
-routes.post('/api/login', loginLimiter, AuthController.login); 
+// Rota de autenticação
+routes.post('/api/auth/login', AuthController.login);
 
 module.exports = routes;

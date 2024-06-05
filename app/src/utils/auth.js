@@ -1,3 +1,4 @@
+// utils/auth.js
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 

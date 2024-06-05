@@ -1,16 +1,20 @@
-require('dotenv').config({ path: '.env' });
-
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const routes = require('./api/routes/routes');
 
-const server = express();
-server.use(cors());
-server.use(bodyParser.urlencoded({ extended: false }));
+const app = express();
 
-server.use('/', routes);
+app.use(cors());
+app.use(bodyParser.json());
 
-server.listen(process.env.PORT, () => {
-  console.log(`\n \n Servidor Rodando em: http://localhost:${process.env.PORT} \n \n`);
+app.use('/', routes);
+
+const port = process.env.PORT || 8080;
+const server = app.listen(port, () => {
+  console.log(`\n \n Servidor Rodando em: http://localhost:${port} \n \n`);
 });
+
+module.exports = app;
+

@@ -1,7 +1,25 @@
-const acessLimet = require('express-rate-limit')
+const jwt = require('jsonwebtoken');
+const acessoModel = require('../models/acessoModel');
 
-module.exports = acessLimet({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
-    message: 'Too many requests from this IP, please try again after 15 minutes'
-})
+async function verifyToken(req, res, next) {
+    const token = req.headers['authorization'];
+    if (!token) {
+        return res.status(403).json({ error: 'Token não fornecido' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.ACCESS_KEY);
+        const user = await acessoModel.findUserById(decoded.id);
+
+        if (!user) {
+            return res.status(401).json({ error: 'Token inválido' });
+        }
+
+        req.user = user;
+        next();
+    } catch (error) {
+        res.status(401).json({ error: 'Token inválido' });
+    }
+}
+
+module.exports = verifyToken;

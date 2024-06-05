@@ -1,3 +1,4 @@
+// pages/login.js
 "use client";
 import React, { useState } from 'react';
 import Image from 'next/image';
@@ -26,7 +27,7 @@ export default function Login() {
             const data = await res.json();
 
             if (res.ok) {
-                // Enregistrer le token dans le stockage local ou le cookie
+                // Armazenar o token no localStorage
                 localStorage.setItem('token', data.token);
                 router.push('/pages/admPage/admHome');
             } else {

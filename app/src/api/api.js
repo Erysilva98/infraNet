@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// Rota Geral
+// Rota Geral da API
 
 const localhost = 'http://localhost:8080';
 

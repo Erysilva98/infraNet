@@ -1,19 +1,9 @@
-const mysql = require('mysql');
+const { Sequelize } = require('sequelize');
+const path = require('path');
 
-const connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
+const sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: path.join(__dirname, '..', 'database.sqlite'), // Caminho para o arquivo SQLite
 });
 
-
-connection.connect((err) => {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log(`\n \n Connected ao Banco MySQL: ${process.env.DB_DATABASE} \n \n`);
-    }
-});
-
-module.exports = connection;
+module.exports = sequelize;

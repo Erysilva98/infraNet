@@ -1,37 +1,84 @@
-const servicosModel = require('../models/servicosModel');
+const Servicos = require('../models/servicosModel');
+const multer = require('multer');
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 module.exports = {
-    // GET /api/servicos
-    // Get all servicos
     getAllServicos: async (req, res) => {
-        let json = {error:'', result:[]};
-
-        let servicos = await servicosModel.getAllServicos();
-
-        for (let i in servicos) {
-            json.result.push({
-                id: servicos[i].id,
-                img_path: servicos[i].img_path,
-                titulo: servicos[i].titulo,
-                link: servicos[i].link,
-                descricao: servicos[i].descricao,
-            });
-        }   
-        res.json(json);
-    },
-
-    // GET /api/servicos/:id
-    // Get one servicos
-    getServicos: async (req, res) => {
-        let json = {error:'', result:[]};
-
-        let id = req.params.id;
-        let servicos = await servicosModel.getServicos(id);
-
-        if (servicos) {
-            json.result = servicos;
+        try {
+            const servicos = await Servicos.findAll();
+            res.json({ error: '', result: servicos });
+        } catch (error) {
+            res.status(500).json({ error: "Erro ao obter serviços." });
         }
-
-        res.json(json);
     },
+
+    getServico: async (req, res) => {
+        let id = req.params.id;
+        try {
+            const servico = await Servicos.findByPk(id);
+            if (servico) {
+                res.json({ error: '', result: servico });
+            } else {
+                res.status(404).json({ error: "Serviço não encontrado." });
+            }
+        } catch (error) {
+            res.status(500).json({ error: "Erro ao obter serviço." });
+        }
+    },
+
+    createServico: [
+        upload.single('img_path'),
+        async (req, res) => {
+            try {
+                const servico = await Servicos.create({
+                    img_path: req.file.buffer,  // Salvando o arquivo de imagem como BLOB
+                    titulo: req.body.titulo,
+                    link: req.body.link,
+                    descricao: req.body.descricao,
+                });
+                res.status(201).json({ error: '', result: servico });
+            } catch (error) {
+                res.status(500).json({ error: "Erro ao criar serviço." });
+            }
+        }
+    ],
+
+    updateServico: async (req, res) => {
+        let id = req.params.id;
+        let { titulo, link, descricao } = req.body;
+
+        try {
+            const servico = await Servicos.findByPk(id);
+            if (servico) {
+                servico.titulo = titulo || servico.titulo;
+                servico.link = link || servico.link;
+                servico.descricao = descricao || servico.descricao;
+
+                await servico.save();
+                res.json({ error: '', result: servico });
+            } else {
+                res.status(404).json({ error: "Serviço não encontrado." });
+            }
+        } catch (error) {
+            res.status(500).json({ error: "Erro ao atualizar serviço." });
+        }
+    },
+
+    deleteServico: async (req, res) => {
+        let id = req.params.id;
+
+        try {
+            const servico = await Servicos.findByPk(id);
+            if (servico) {
+                await servico.destroy();
+                res.json({ error: '', result: "Serviço deletado com sucesso." });
+            } else {
+                res.status(404).json({ error: "Serviço não encontrado." });
+            }
+        } catch (error) {
+            res.status(500).json({ error: "Erro ao deletar serviço." });
+        }
+    }
 };

@@ -1,28 +1,43 @@
-const db = require('../data/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../data/db');
 
-const AvisosModel = {
-    getAllAvisos: () => {
-       return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM avisos', (error, results) => {
-                if (error) { reject(error); return; }
-                resolve(results);
-            });
-        });
+const Avisos = sequelize.define('Avisos', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
     },
-
-    getAvisos: (id) => {
-        return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM avisos WHERE id = ?', [id], (error, results) => {
-                if (error) { reject(error); return; }
-                if (results.length > 0) {
-                    resolve(results[0]);
-                } else {
-                    resolve(false);
-                }
-            });
-        });
+    img_data: {
+        type: DataTypes.BLOB('long'),  // Salvando a imagem como BLOB
+        allowNull: true
     },
+    titulo: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    prioridade: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+    data_publicacao: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+    link: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    subtitulo: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    descricao: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    }
+}, {
+    tableName: 'avisos',
+    timestamps: false
+});
 
-};
-
-module.exports = AvisosModel;
+module.exports = Avisos;

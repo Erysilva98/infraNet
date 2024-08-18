@@ -1,28 +1,31 @@
-const db = require('../data/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../data/db');
 
-const SistemasModel = {
-    getAllSistemas: () => {
-       return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM sistemas', (error, results) => {
-                if (error) { reject(error); return; }
-                resolve(results);
-            });
-        });
+const Sistemas = sequelize.define('Sistemas', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
     },
-
-    getSistemas: (id) => {
-        return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM sistemas WHERE id = ?', [id], (error, results) => {
-                if (error) { reject(error); return; }
-                if (results.length > 0) {
-                    resolve(results[0]);
-                } else {
-                    resolve(false);
-                }
-            });
-        });
+    img_path: {
+        type: DataTypes.BLOB('long'),  // Salvando a imagem como BLOB
+        allowNull: true
     },
+    titulo: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    link: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    descricao: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    }
+}, {
+    tableName: 'sistemas',
+    timestamps: false
+});
 
-};
-
-module.exports = SistemasModel;
+module.exports = Sistemas;

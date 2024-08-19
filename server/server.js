@@ -23,6 +23,7 @@ sequelize.sync()
 
 // Configurar as rotas
 server.use('/', routes);
+server.use('/', swaggerRoutes);
 
 server.listen(process.env.PORT, () => {
     console.log(`\n\nServidor Rodando em: http://localhost:${process.env.PORT}\n\n`);

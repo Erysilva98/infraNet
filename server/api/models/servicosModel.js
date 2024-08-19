@@ -8,7 +8,7 @@ const Servicos = sequelize.define('Servicos', {
         primaryKey: true
     },
     img_path: {
-        type: DataTypes.BLOB('long'),  // Salvando a imagem como BLOB
+        type: DataTypes.TEXT,  // Armazenando a imagem como Base64 em um campo TEXT
         allowNull: true
     },
     titulo: {

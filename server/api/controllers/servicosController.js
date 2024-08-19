@@ -32,8 +32,9 @@ module.exports = {
         upload.single('img_path'),
         async (req, res) => {
             try {
+                const imgBase64 = req.file.buffer.toString('base64');  // Convertendo para Base64
                 const servico = await Servicos.create({
-                    img_path: req.file.buffer,  // Salvando o arquivo de imagem como BLOB
+                    img_path: imgBase64,  // Salvando a imagem como Base64
                     titulo: req.body.titulo,
                     link: req.body.link,
                     descricao: req.body.descricao,

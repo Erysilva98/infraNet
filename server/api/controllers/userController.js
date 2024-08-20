@@ -1,67 +1,27 @@
-const userModel = require('../models/userModel');
-const contatoModel = require('../models/contatoModel');
-const acessoModel = require('../models/acessoModel');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const UserModel = require('../models/userModel');
+const authMiddleware = require('../middlewares/auth');
 
 module.exports = {
-    // GET /api/users
-    // Get all users
     getAllUsers: async (req, res) => {
         try {
             let json = { error: '', result: [] };
 
-            // Fetch users, contatos, and acessos concurrently
-            // Handle rejected promises
-            const [users, contatos, acessos] = await Promise.all([
-                userModel.getAllUsers(),
-                contatoModel.getAllContatos(),
-                acessoModel.getAllAcessos(),
-            ]).catch(error => {
-                console.error("Error fetching data: ", error);
-                res.status(500).json({ error: "Internal Server Error Promise" });
-            });
+            const users = await UserModel.getAllUsers();
 
-
-            // Debugging
-            console.log("Users: ", users);
-            console.log("Contatos: ", contatos);
-            console.log("Acessos: ", acessos);
-
-
-            // Create a map for faster lookup of contatos and acessos
-            const contatosMap = new Map(contatos.map(contato => [contato.user_id, contato]));
-            const acessosMap = new Map(acessos.map(acesso => [acesso.user_id, acesso]));
-
-            // Combine data
-            for (let i in users) {
-                const contato = contatosMap.get(users[i].id);
-                const acesso = acessosMap.get(users[i].id);
-
-                json.result.push({
-                    id: users[i].id,
-                    username: users[i].username,
-                    password: users[i].password,
-                    data_nascimento: users[i].data_nascimento,
-                    email: contato ? contato.email : null,
-                    telefone: contato ? contato.telefone : null,
-                    ramal: contato ? contato.ramal : null,
-                    acesso: acesso ? acesso.acesso : null,
-                });
-            }
-
+            json.result = users;
             res.json(json);
         } catch (error) {
-            console.error("Error ao Obter os Dados ", error);
-            res.status(500).json({ error: "Internal Server Error" });
+            res.status(500).json({ error: "Erro ao obter usuários." });
         }
     },
 
-    // GET /api/users/:id
-    // Get a single user
     getUser: async (req, res) => {
-        let json = { error: '', result: [] };
+        let json = { error: '', result: {} };
 
         let id = req.params.id;
-        let user = await userModel.getUser(id);
+        let user = await UserModel.getUser(id);
 
         if (user) {
             json.result = user;
@@ -70,21 +30,17 @@ module.exports = {
         res.json(json);
     },
 
-    // POST /api/users
-    // Create a new user
     createUser: async (req, res) => {
-        let json = { error: '', result: [] };
+        let json = { error: '', result: {} };
 
-        let username = req.body.username;
-        let password = req.body.password;
-        let data_nascimento = req.body.data_nascimento;
+        let { username, password, data_nascimento } = req.body;
 
         if (username && password && data_nascimento) {
-            let userId = await userModel.addUser(username, password, data_nascimento);
+            const hashedPassword = bcrypt.hashSync(password, 8);
+            let userId = await UserModel.addUser(username, hashedPassword, data_nascimento);
             json.result = {
                 id: userId,
                 username,
-                password,
                 data_nascimento
             };
         } else {
@@ -93,6 +49,70 @@ module.exports = {
 
         res.json(json);
     },
+
+    updateUser: async (req, res) => {
+        let json = { error: '', result: {} };
+
+        let id = req.params.id;
+        let { username, password, data_nascimento } = req.body;
+
+        const updatedData = {
+            username,
+            data_nascimento,
+        };
+
+        if (password) {
+            updatedData.password = bcrypt.hashSync(password, 8);
+        }
+
+        const user = await UserModel.updateUser(id, updatedData);
+
+        if (user) {
+            json.result = user;
+        } else {
+            json.error = 'Usuário não encontrado';
+        }
+
+        res.json(json);
+    },
+
+    deleteUser: async (req, res) => {
+        let json = { error: '', result: {} };
+
+        let id = req.params.id;
+        const success = await UserModel.deleteUser(id);
+
+        if (success) {
+            json.result = "Usuário deletado com sucesso";
+        } else {
+            json.error = 'Usuário não encontrado';
+        }
+
+        res.json(json);
+    },
+
+    login: async (req, res) => {
+        let { username, password } = req.body;
+
+        try {
+            const user = await UserModel.getUserByUsername(username);
+
+            if (!user || !bcrypt.compareSync(password, user.password)) {
+                return res.status(401).send({ error: 'Credenciais inválidas!' });
+            }
+
+            const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            res.send({ token });
+        } catch (err) {
+            res.status(500).send({ error: 'Erro no login!' });
+        }
+    },
+
+    // Esta rota está protegida por autenticação
+    adminProtectedRoute: [
+        authMiddleware,
+        async (req, res) => {
+            res.send({ message: 'Você acessou uma rota protegida!' });
+        }
+    ]
 };
-
-

@@ -19,9 +19,6 @@ export default function Administrador() {
                         id: item.id,
                         username: item.username,
                         data_nascimento: item.data_nascimento,
-                        email: item.email,
-                        telefone: item.telefone,
-                        ramal: item.ramal,
                     };
                 });
                 setUsuarios(dadosTratados || []);

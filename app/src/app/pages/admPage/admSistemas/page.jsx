@@ -1,13 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { getSistemas } from "@/api/api";
 
-import logoNav from "@assets/logoNav.svg"
-import userAdm from "@icons/userAdm.svg";
-import iconSair from "@icons/iconSair.svg";
-
+import React, { useEffect, useState } from "react";
+import { getSistemas } from "@/api/api";  // Certifique-se que `getSistemas` está importado corretamente
 import Footer from "@/components/footer/footer";
 import SistemaList from "@/components/listaSistemas/sistemasLista";
 import AdicionarSistema from "@/components/listaSistemas/adicionarSistema";
@@ -21,20 +15,17 @@ export default function AdmSistemas() {
         const fetchSistemas = async () => {
             try {
                 const dadosSistemas = await getSistemas();
-
-                const dadosTratados = dadosSistemas.map((item) => {
-                    return {
-                        id: item.id,
-                        img_path: item.img_path,
-                        titulo: item.titulo,
-                        link: item.link,
-                        descricao: item.descricao,
-                    };
-                });
+                const dadosTratados = dadosSistemas.map((item) => ({
+                    id: item.id,
+                    img_path: item.img_path,  // Certifique-se que img_path é convertido corretamente
+                    titulo: item.titulo,
+                    link: item.link,
+                    descricao: item.descricao,
+                }));
                 setSistemas(dadosTratados || []);
             } catch (error) {
-                console.log('Error ao Obter os dados em AdmSistemas.jsx', error);
-                setSistemas([]);
+                console.log('Erro ao obter os dados:', error);
+                setSistemas([]);  // Define como um array vazio em caso de erro
             }
         };
         fetchSistemas();
@@ -42,22 +33,19 @@ export default function AdmSistemas() {
 
     const adicionarSistema = (novoSistema) => {
         setSistemas((prevSistemas) => [...prevSistemas, novoSistema]);
-        setMostrarFormulario(false); // Ocultar o formulário após adicionar um aviso
+        setMostrarFormulario(false); // Ocultar o formulário após adicionar um sistema
     };
 
     const deletarSistema = (id) => {
         const novosSistemas = sistemas.filter((sistema) => sistema.id !== id);
         setSistemas(novosSistemas);
-    }
+    };
 
     return (
-        <div class="flex flex-col min-h-screen min-w-full">
-            <header>
-                <SistemaHeader />
-            </header>
-
-            <main class="flex-grow">
-                <section class="flex justify-center">
+        <div className="flex flex-col min-h-screen min-w-full">
+            <SistemaHeader />
+            <main className="flex-grow">
+                <section className="flex justify-center">
                     <div>
                         <div className="flex justify-center">
                             {mostrarFormulario ? (
@@ -85,9 +73,7 @@ export default function AdmSistemas() {
                     </div>
                 </section>
             </main>
-
             <footer>
-                {/* Componentes admFooter */}
                 <Footer />
             </footer>
         </div>

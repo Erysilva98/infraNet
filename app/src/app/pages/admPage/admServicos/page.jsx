@@ -1,11 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { getServicos } from "@/api/api";
 
+import React, { useEffect, useState } from "react";
+import { getServicos } from "@/api/api";  // Certifique-se que `getServicos` está importado corretamente
 import Footer from "@/components/footer/footer";
-import SistemaList from "@/components/listaServicos/servicosLista";
 import AdicionarServico from "@/components/listaServicos/adicionarServico";
 import SistemaHeader from "@/components/header/sistemaHeader";
+import ServicosList from "@/components/listaServicos/servicosLista";
 
 export default function AdmServicos() {
     const [servicos, setServicos] = useState([]);
@@ -15,20 +15,17 @@ export default function AdmServicos() {
         const fetchServicos = async () => {
             try {
                 const dadosServicos = await getServicos();
-
-                const dadosTratados = dadosServicos.map((item) => {
-                    return {
-                        id: item.id,
-                        img_data: `data:image/png;base64,${item.img_data}`, 
-                        titulo: item.titulo,
-                        link: item.link,
-                        descricao: item.descricao,
-                    };
-                });
+                const dadosTratados = dadosServicos.map((item) => ({
+                    id: item.id,
+                    img_path: item.img_path,
+                    titulo: item.titulo,
+                    link: item.link,
+                    descricao: item.descricao,
+                }));
                 setServicos(dadosTratados || []);
             } catch (error) {
-                console.log('Error ao Obter os dados em AdmServicos.jsx', error);
-                setServicos([]);
+                console.log('Erro ao obter os dados:', error);
+                setServicos([]);  // Define como um array vazio em caso de erro
             }
         };
         fetchServicos();
@@ -36,7 +33,7 @@ export default function AdmServicos() {
 
     const adicionarServico = (novoServico) => {
         setServicos((prevServicos) => [...prevServicos, novoServico]);
-        setMostrarFormulario(false); // Ocultar o formulário após adicionar um aviso
+        setMostrarFormulario(false); // Ocultar o formulário após adicionar um serviço
     };
 
     const deletarServico = (id) => {
@@ -45,16 +42,15 @@ export default function AdmServicos() {
     }
 
     return (
-        <div class="flex flex-col min-h-screen min-w-full">
+        <div className="flex flex-col min-h-screen min-w-full">
             <SistemaHeader />
-
-            <main class="flex-grow">
-                <section class="flex justify-center">
+            <main className="flex-grow">
+                <section className="flex justify-center">
                     <div>
                         <div className="flex justify-center">
                             {mostrarFormulario ? (
                                 <div className="flex-col">
-                                    <AdicionarServico onAdicionarServico={adicionarServico}  />
+                                    <AdicionarServico onAdicionarServico={adicionarServico} />
                                     <button
                                         className="bg-error text-white font-bold rounded-lg p-2 w-80 mt-5"
                                         onClick={() => setMostrarFormulario(false)}
@@ -72,14 +68,12 @@ export default function AdmServicos() {
                             )}
                         </div>
                         <div className="flex justify-center">
-                            <SistemaList servicos={servicos} onDelete={deletarServico} />
+                            <ServicosList servicos={servicos} onDelete={deletarServico} />
                         </div>
                     </div>
                 </section>
             </main>
-
             <footer>
-                {/* Componentes admFooter */}
                 <Footer />
             </footer>
         </div>

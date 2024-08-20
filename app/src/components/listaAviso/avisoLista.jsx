@@ -8,7 +8,7 @@ const AvisosList = ({ avisos, onDelete }) => {
         <AvisoCard
           key={aviso.id}
           id={aviso.id}
-          img_data={aviso.img_data}
+          img_path={aviso.img_path}
           titulo={aviso.titulo}
           subtitulo={aviso.subtitulo}
           descricao={aviso.descricao}

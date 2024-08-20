@@ -7,8 +7,6 @@ import Footer from "@/components/footer/footer";
 import UserHeader from "@/components/header/userHeader";
 import NavBar from "@/components/navBar/navBar";
 
-const assets = `/assets/`;
-
 export default function AvisosDesc() {
     const [aviso, setAviso] = useState(null);
 
@@ -23,7 +21,8 @@ export default function AvisosDesc() {
                     const dadosAviso = await getAvisosId(avisoId);
 
                     const dadosTratados = {
-                        img_path: `data:image/png;base64,${item.img_data}`, 
+                        id: item.id,
+                        img_path: `data:image/png;base64,${item.img_path}`, 
                         data: dadosAviso.data_publicacao,
                         link: dadosAviso.link,
                         titulo: dadosAviso.titulo,
@@ -64,7 +63,7 @@ export default function AvisosDesc() {
                         </div>
                         <div className="flex justify-center">
                             <Image
-                                src={avisos[currentSlide].img_data} // Utilizando img_data corretamente
+                                src={avisos[currentSlide].img_path}
                                 alt={`Imagem do aviso`}
                                 width={300}
                                 height={300}

@@ -1,5 +1,7 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { getAvisos } from "@/api/api";
 
@@ -13,14 +15,14 @@ const AvisoCard = ({ img_path, titulo, subtitulo, descricao }) => {
     return (
         <div className='max-w-6xl mt-2 mb-4 bg-corCard rounded-lg shadow-lg items-center'>
             <div className='flex justify-center mt-2'>
-                {img_path && (
-                    <img
-                        src={img_path}  // Usando diretamente o img_path que já está em base64
-                        alt='aviso'
-                        className='mt-2 w-44 h-22 object-cover rounded-t-lg'
-                        style={{ width: '100%', height: 'auto' }} // Mantém a proporção
-                    />
-                )}
+                <Image
+                    src={img_path}
+                    alt='aviso'
+                    width={300}  // Defina um valor adequado para a largura
+                    height={200} // Defina um valor adequado para a altura
+                    className='mt-2 w-44 h-22 object-cover rounded-t-lg'
+                    style={{ width: '100%', height: 'auto' }}
+                />
             </div>
             <div className='p-3 flex-grow'>
                 <h1 className='text-lg font-bold text-gray-700'>{titulo}</h1>
@@ -37,19 +39,23 @@ export default function Avisos() {
     useEffect(() => {
         const fetchAvisos = async () => {
             try {
-                const dadosAvisos = await getAvisos();
-                const dadosTratados = dadosAvisos.map((item) => ({
-                    id: item.id,
-                    img_path: `data:image/png;base64,${item.img_data}`,  // Preparando a imagem em base64
-                    prioridade: item.prioridade,
-                    link: item.link,
-                    titulo: item.titulo,
-                    subtitulo: item.subtitulo,
-                    descricao: item.descricao,
-                }));
-                setAvisos(dadosTratados || []);
-            } catch (error) {
-                console.log('Erro ao Obter os dados no componente Avisos:', error);
+                const dadosAvisos = await getAvisos(); // Adicionado await
+                if (dadosAvisos) { // Verifica se dadosAvisos não é nulo
+                    const dadosTratados = dadosAvisos.map((item) => ({
+                        id: item.id,
+                        img_path: item.img_path, // img_path já está em formato base64
+                        titulo: item.titulo,
+                        subtitulo: item.subtitulo,
+                        descricao: item.descricao,
+                        link: item.link,
+                    }));
+                    setAvisos(dadosTratados);
+                } else {
+                    setAvisos([]);
+                }
+            }
+            catch (error) {
+                console.log('Erro ao Obter os dados dos avisos:', error);
                 setAvisos([]);
             }
         };
@@ -71,13 +77,13 @@ export default function Avisos() {
                             <h1 className="text-3xl font-bold text-gray-700 mb-2">Avisos</h1>
                             <div className="grid grid-cols-3 gap-2">
                                 {avisos.length > 0 ? (
-                                    avisos.map((aviso, index) => (
-                                        <Link key={index} href={{
+                                    avisos.map((aviso) => (
+                                        <Link key={aviso.id} href={{
                                             pathname: aviso.link, // O link deve ser completo
                                             query: { id: aviso.id }
                                         }}>
                                             <AvisoCard
-                                                img_path={aviso.img_path}  // Passando img_path diretamente
+                                                img_path={aviso.img_path}
                                                 titulo={aviso.titulo}
                                                 subtitulo={aviso.subtitulo}
                                                 descricao={aviso.descricao}

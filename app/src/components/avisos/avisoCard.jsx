@@ -37,7 +37,7 @@ export default function AvisosCard() {
         const dadosTratados = dadosAvisos.map((item) => {
           return {
             id: item.id,
-            img_path: `data:image/png;base64,${item.img_data}`, 
+            img_path: item.img_path, 
             prioridade: item.prioridade,
             link: item.link,
             titulo: item.titulo,

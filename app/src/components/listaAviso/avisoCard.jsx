@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { deleteAviso } from '@/api/api'; // Importa a função de deletar da API
+import Image from 'next/image';
+import { deleteAviso } from '@/api/api';
 
-const AvisoCard = ({ id, img_data, titulo, subtitulo, descricao, prioridade, onDelete }) => {
+const AvisoCard = ({ id, img_path, titulo, subtitulo, descricao, prioridade, onDelete }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showFullDescription, setShowFullDescription] = useState(false);
 
     const descricaoMin = descricao.length > 100 ? `${descricao.substring(0, 100)}...` : descricao;
-
-    // Converte a imagem recebida em base64 para exibição
-    const imageSrc = `data:image/png;base64,${img_data}`;
 
     const handleDeleteClick = () => {
         setShowDeleteModal(true);
@@ -27,16 +25,15 @@ const AvisoCard = ({ id, img_data, titulo, subtitulo, descricao, prioridade, onD
     };
 
     return (
-        <div className="max-w-xs mt-2 mb-4 bg-corCard rounded-lg shadow-lg overflow-hidden">
+        <div className="max-w-6xl mt-2 mb-4 bg-corCard rounded-lg shadow-lg items-center">
             <div className="flex justify-center mt-2">
-                {img_data && (
-                    <img
-                        src={imageSrc}
-                        alt="aviso"
-                        className="mt-2 w-44 h-22 object-cover rounded-t-lg"
-                        style={{ width: '100%', height: 'auto' }} // Mantém a proporção
-                    />
-                )}
+                <Image
+                    src={img_path}
+                    alt="Aviso"
+                    width={100}
+                    height={100}
+                    className="mt-2 w-44 h-22 object-cover rounded-t-lg"
+                />
             </div>
             <div className="p-3 flex-grow">
                 <h1 className="text-sm font-bold text-gray-700">{titulo}</h1>

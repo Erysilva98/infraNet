@@ -1,57 +1,64 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
-import { getServicos } from "@/api/api"; // Assumindo que a função getServicos está implementada
+import React, { useState, useEffect } from "react";
+import { getAvisos } from "@/api/api";
 import Footer from "@/components/footer/footer";
-import ServicosList from "@/components/listaServicos/servicosLista";
-import AdicionarServico from "@/components/listaServicos/adicionarServico";
+import AvisosList from "@/components/listaAviso/avisoLista";
+import AdicionarAviso from "@/components/listaAviso/adicionarAviso";
 import SistemaHeader from "@/components/header/sistemaHeader";
 
-export default function AdmServicos() {
-    const [servicos, setServicos] = useState([]);
+export default function AdmAvisos() {
+    const [avisos, setAvisos] = useState([]);
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
     useEffect(() => {
-        const fetchServicos = async () => {
+        const fetchAvisos = async () => {
             try {
-                const dadosServicos = await getServicos();
-                const dadosTratados = dadosServicos.map((item) => ({
+                const dadosAvisos = await getAvisos();
+                const dadosTratados = dadosAvisos.map((item) => ({
                     id: item.id,
-                    img_path: `data:image/png;base64,${item.img_data}`, // Atribuindo caminho da imagem
-                    titulo: item.titulo,
+                    img_path: item.img_path,
+                    prioridade: item.prioridade,
                     link: item.link,
+                    titulo: item.titulo,
+                    subtitulo: item.subtitulo,
                     descricao: item.descricao,
                 }));
-                setServicos(dadosTratados || []);
+                setAvisos(dadosTratados || []);
             } catch (error) {
-                console.log('Erro ao obter os dados:', error);
-                setServicos([]);
+                console.log('Erro ao Obter os dados no fetchAvisos:', error);
+                setAvisos([]);
             }
         };
-        fetchServicos();
+
+        fetchAvisos();
     }, []);
 
-    const adicionarServico = (novoServico) => {
-        setServicos((prevServicos) => [...prevServicos, novoServico]);
-        setMostrarFormulario(false);
+    const adicionarAviso = (novoAviso) => {
+        setAvisos((prevAvisos) => [...prevAvisos, novoAviso]);
+        // Não fechar o formulário nem recarregar a página
     };
 
-    const deletarServico = (id) => {
-        const novosServicos = servicos.filter((servico) => servico.id !== id);
-        setServicos(novosServicos);
+    const deletarAviso = (id) => {
+        const novosAvisos = avisos.filter((aviso) => aviso.id !== id);
+        setAvisos(novosAvisos);
     };
 
     return (
         <div className="flex flex-col min-h-screen min-w-full">
-            <SistemaHeader />
+            <header>
+                <SistemaHeader />
+            </header>
 
-            <main className="flex-grow">
-                <section className="flex justify-center">
+            <main className="flex-grow min-h-full">
+                <section>
                     <div>
                         <div className="flex justify-center">
                             {mostrarFormulario ? (
-                                <div className="flex-col">
-                                    <AdicionarServico onAdicionarServico={adicionarServico} />
+                                <div className="flex flex-col">
+                                    <AdicionarAviso
+                                        onAdicionarAviso={adicionarAviso}
+                                        setMostrarFormulario={setMostrarFormulario} // Passando o setMostrarFormulario como prop
+                                    />
                                     <button
                                         className="bg-error text-white font-bold rounded-lg p-2 w-80 mt-5"
                                         onClick={() => setMostrarFormulario(false)}
@@ -64,12 +71,12 @@ export default function AdmServicos() {
                                     className="bg-botao hover:bg-botaoHover hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5"
                                     onClick={() => setMostrarFormulario(true)}
                                 >
-                                    Adicionar Serviço
+                                    Adicionar Aviso
                                 </button>
                             )}
                         </div>
                         <div className="flex justify-center">
-                            <ServicosList servicos={servicos} onDelete={deletarServico} />
+                            <AvisosList avisos={avisos} onDelete={deletarAviso} />
                         </div>
                     </div>
                 </section>

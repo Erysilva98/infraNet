@@ -16,7 +16,7 @@ export default function Carousel() {
         const dadosAvisos = await getAvisos();
         const dadosTratados = dadosAvisos.map((item) => ({
           id: item.id,
-          img_data: `data:image/png;base64,${item.img_data}`, 
+          img_path: item.img_path, 
           prioridade: item.prioridade,
           link: item.link,
           titulo: item.titulo,
@@ -57,7 +57,7 @@ export default function Carousel() {
             <Link href={avisos[currentSlide].link || "#"} passHref>
               <div>
                 <img
-                  src={avisos[currentSlide].img_data} // Utilizando img_data corretamente
+                  src={avisos[currentSlide].img_path} 
                   alt={`Slide ${currentSlide + 1}`}
                   style={{ width: '100%', height: 'auto' }} // Mantém a proporção
                 />

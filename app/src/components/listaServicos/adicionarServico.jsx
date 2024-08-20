@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const AdicionarServico = ({ onAdicionarServico }) => {
     const [novoServico, setNovoServico] = useState({
-        img_data: null,
+        img_path: null,
         titulo: '',
         descricao: '',
         link: '',
@@ -22,7 +22,7 @@ const AdicionarServico = ({ onAdicionarServico }) => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setNovoServico((prevServico) => ({ ...prevServico, img_data: file }));
+            setNovoServico((prevServico) => ({ ...prevServico, img_path: file }));  
         }
     };
 
@@ -30,7 +30,7 @@ const AdicionarServico = ({ onAdicionarServico }) => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append('img_path', novoServico.img_data);  // Verifique se o nome do campo corresponde ao esperado no servidor
+        formData.append('img_path', novoServico.img_path);   // Verifique se o nome do campo corresponde ao esperado no servidor
         formData.append('titulo', novoServico.titulo);
         formData.append('descricao', novoServico.descricao);
         formData.append('link', novoServico.link);
@@ -73,7 +73,7 @@ const AdicionarServico = ({ onAdicionarServico }) => {
             <input
                 className="border-2 border-azulPrincipal rounded-lg p-2 w-80"
                 type="file"
-                name="img_data"
+                name="img_path"  
                 onChange={handleFileChange}
             />
 

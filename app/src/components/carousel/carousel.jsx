@@ -6,9 +6,6 @@ import setaLeft from "@icons/setaLeft.svg";
 import setaRight from "@icons/setaRight.svg";
 import Link from "next/link";
 
-const assets = `/assets/`;
-const url = "http://localhost:3000/pages/";
-
 export default function Carousel() {
   const [avisos, setAvisos] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -17,20 +14,22 @@ export default function Carousel() {
     const fetchAvisos = async () => {
       try {
         const dadosAvisos = await getAvisos();
-        const dadosTratados = dadosAvisos.map((item) => {
-          return {
-            id: item.id,
-            img_path: item.img_path,
-            prioridade: item.prioridade,
-            link: item.link,
-          };
-        });
+        const dadosTratados = dadosAvisos.map((item) => ({
+          id: item.id,
+          img_path: item.img_path, 
+          prioridade: item.prioridade,
+          link: item.link,
+          titulo: item.titulo,
+          subtitulo: item.subtitulo,
+          descricao: item.descricao,
+        }));
         setAvisos(dadosTratados || []);
       } catch (error) {
-        console.log("Error ao Obter os dados no carrousel.jsx", error);
+        console.log("Erro ao Obter os dados no carrousel.jsx", error);
         setAvisos([]);
       }
     };
+
     fetchAvisos();
   }, []);
 
@@ -55,17 +54,12 @@ export default function Carousel() {
       <div className="carousel-container" style={{ width: '600px' }}>
         <div className="flex carousel">
           {avisos && avisos[currentSlide] && (
-            <Link href={{
-              pathname: `${url}${avisos[currentSlide].link}`,
-              query: { id: avisos[currentSlide].id } 
-            }}>
+            <Link href={avisos[currentSlide].link || "#"} passHref>
               <div>
-                <Image
-                  src={`${assets}${avisos[currentSlide].img_path}`}
+                <img
+                  src={avisos[currentSlide].img_path} 
                   alt={`Slide ${currentSlide + 1}`}
-                  layout="responsive"
-                  width={600}
-                  height={400}
+                  style={{ width: '100%', height: 'auto' }} // Mantém a proporção
                 />
               </div>
             </Link>

@@ -1,141 +1,119 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const AdicionarAviso = ({ onAdicionarAviso }) => {
-  const [novoAviso, setNovoAviso] = useState({
-    img_data: null, // Inicialmente null para o arquivo de imagem
-    prioridade: '',
-    data_criacao: '',  // Data de criação será definida como a data de hoje
-    link: '',
-    titulo: '',
-    subtitulo: '',
-    descricao: '',
-  });
-
-  // Define a data de hoje automaticamente ao montar o componente
-  useEffect(() => {
-    const today = new Date().toISOString().split('T')[0]; // Data no formato YYYY-MM-DD
-    setNovoAviso((prevAviso) => ({ ...prevAviso, data_criacao: today }));
-  }, []);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNovoAviso((prevAviso) => ({ ...prevAviso, [name]: value }));
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setNovoAviso((prevAviso) => ({ ...prevAviso, img_data: file }));
-    }
-  };
-
-  const adicionarItem = async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('img_data', novoAviso.img_data);
-    formData.append('titulo', novoAviso.titulo);
-    formData.append('prioridade', novoAviso.prioridade);
-    formData.append('data_criacao', novoAviso.data_criacao); // Inclui a data de criação corretamente formatada
-    formData.append('link', novoAviso.link);
-    formData.append('subtitulo', novoAviso.subtitulo);
-    formData.append('descricao', novoAviso.descricao);
-
-    try {
-      const response = await axios.post('http://localhost:4000/avisos', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      if (response.status === 201) {
-        console.log('Aviso adicionado com sucesso!');
-      } else {
-        console.error('Erro ao adicionar aviso:', response.statusText);
-      }
-
-      setNovoAviso({
+const AdicionarServico = ({ onAdicionarServico }) => {
+    const [novoServico, setNovoServico] = useState({
         img_data: null,
-        prioridade: '',
-        data_criacao: '',
-        link: '',
         titulo: '',
-        subtitulo: '',
         descricao: '',
-      });
-    } catch (error) {
-      console.error('Erro ao adicionar aviso:', error);
-    }
-  };
+        link: '',
+    });
 
-  return (
-    <form className="flex flex-col items-center" onSubmit={adicionarItem}>
-      <label className="text-destaque1 text-xl font-bold mt-5">Imagem</label>
-      <input
-        className="border-2 border-azulPrincipal rounded-lg p-2 w-80"
-        type="file"
-        name="img_data"
-        onChange={handleFileChange}
-      />
+    useEffect(() => {
+        const today = new Date().toISOString().split('T')[0];
+        setNovoServico((prevServico) => ({ ...prevServico, data_criacao: today }));
+    }, []);
 
-      <label className="text-destaque1 text-xl font-bold mt-5">Título</label>
-      <input
-        className="border-2 border-azulPrincipal rounded-lg p-2 w-80"
-        type="text"
-        name="titulo"
-        value={novoAviso.titulo}
-        onChange={handleChange}
-        placeholder="Digite o título"
-      />
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setNovoServico((prevServico) => ({ ...prevServico, [name]: value }));
+    };
 
-      <label className="text-destaque1 text-xl font-bold mt-5">Prioridade</label>
-      <input
-        className="border-2 border-azulPrincipal rounded-lg p-2 w-80"
-        type="number"
-        name="prioridade"
-        value={novoAviso.prioridade}
-        onChange={handleChange}
-        placeholder="Digite a prioridade (número)"
-      />
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setNovoServico((prevServico) => ({ ...prevServico, img_data: file }));
+        }
+    };
 
-      <label className="text-destaque1 text-xl font-bold mt-5">Link</label>
-      <input
-        className="border-2 border-azulPrincipal rounded-lg p-2 w-80"
-        type="text"
-        name="link"
-        value={novoAviso.link}
-        onChange={handleChange}
-        placeholder="Digite o link"
-      />
+    const adicionarItem = async (e) => {
+        e.preventDefault();
 
-      <label className="text-destaque1 text-xl font-bold mt-5">Subtítulo</label>
-      <input
-        className="border-2 border-azulPrincipal rounded-lg p-2 w-80"
-        type="text"
-        name="subtitulo"
-        value={novoAviso.subtitulo}
-        onChange={handleChange}
-        placeholder="Digite o subtítulo"
-      />
+        const formData = new FormData();
+        formData.append('img_data', novoServico.img_data);
+        formData.append('titulo', novoServico.titulo);
+        formData.append('descricao', novoServico.descricao);
+        formData.append('link', novoServico.link);
 
-      <label className="text-destaque1 text-xl font-bold mt-5">Descrição</label>
-      <textarea
-        className="border-2 border-azulPrincipal rounded-lg p-2 w-80"
-        name="descricao"
-        value={novoAviso.descricao}
-        onChange={handleChange}
-        placeholder="Digite a descrição"
-      ></textarea>
+        try {
+            const response = await axios.post('http://localhost:4000/servicos', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
 
-      <button
-        className="bg-botao hover:bg-sucesso hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5"
-        type="submit"
-      >
-        Adicionar Aviso
-      </button>
-    </form>
-  );
+            if (response.status === 201) {
+                const novoServicoAdicionado = {
+                    id: response.data.id, // ou outro identificador fornecido pelo backend
+                    img_path: `data:image/png;base64,${response.data.img_data}`, // Converter para base64 se necessário
+                    titulo: response.data.titulo,
+                    descricao: response.data.descricao,
+                    link: response.data.link,
+                };
+                onAdicionarServico(novoServicoAdicionado);
+                console.log('Serviço adicionado com sucesso!');
+            } else {
+                console.error('Erro ao adicionar serviço:', response.statusText);
+            }
+
+            setNovoServico({
+                img_data: null,
+                titulo: '',
+                descricao: '',
+                link: '',
+            });
+        } catch (error) {
+            console.error('Erro ao adicionar serviço:', error);
+        }
+    };
+
+    return (
+        <form className="flex flex-col items-center" onSubmit={adicionarItem}>
+            <label className="text-destaque1 text-xl font-bold mt-5">Imagem</label>
+            <input
+                className="border-2 border-azulPrincipal rounded-lg p-2 w-80"
+                type="file"
+                name="img_data"
+                onChange={handleFileChange}
+            />
+
+            <label className="text-destaque1 text-xl font-bold mt-5">Título</label>
+            <input
+                className="border-2 border-azulPrincipal rounded-lg p-2 w-80"
+                type="text"
+                name="titulo"
+                value={novoServico.titulo}
+                onChange={handleChange}
+                placeholder="Digite o título"
+            />
+
+            <label className="text-destaque1 text-xl font-bold mt-5">Link</label>
+            <input
+                className="border-2 border-azulPrincipal rounded-lg p-2 w-80"
+                type="text"
+                name="link"
+                value={novoServico.link}
+                onChange={handleChange}
+                placeholder="Digite o link"
+            />
+
+            <label className="text-destaque1 text-xl font-bold mt-5">Descrição</label>
+            <textarea
+                className="border-2 border-azulPrincipal rounded-lg p-2 w-80"
+                name="descricao"
+                value={novoServico.descricao}
+                onChange={handleChange}
+                placeholder="Digite a descrição"
+            ></textarea>
+
+            <button
+                className="bg-botao hover:bg-sucesso hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5"
+                type="submit"
+            >
+                Adicionar Serviço
+            </button>
+        </form>
+    );
 };
 
-export default AdicionarAviso;
+export default AdicionarServico;

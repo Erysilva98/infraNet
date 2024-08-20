@@ -73,46 +73,24 @@ export const deleteAviso = async (id) => {
 
 // Rotas da API para os serviços
 export const getServicos = async () => {
-    try {
-        const response = await axios.get(localhost + '/servicos');
-        const dados = response.data.result.map(servico => {
-            return {
-                id: servico.id,
-                img_path: servico.img_path,
-                titulo: servico.titulo,
-                link: servico.link,
-                descricao: servico.descricao,
-            };
-        });
+    const response = await axios.get('http://localhost:4000/servicos');
+    return response.data;
+};
 
-        return dados; // Adicionado o retorno dos dados
-    }
-    catch (error) {
-        console.log("Error ao Obter os Dados ", error);
-        return null;
+export const deleteServico = async (id) => {
+    try {
+        const response = await axios.delete(`http://localhost:4000/servicos/${id}`);
+        return response.status === 200;
+    } catch (error) {
+        console.error('Erro ao deletar o serviço:', error);
+        return false;
     }
 };
 
 // Rotas da API para os sistemas
 export const getSistemas = async () => {
-    try {
-        const response = await axios.get(localhost + '/sistemas');
-        const dados = response.data.result.map(sistema => {
-            return {
-                id: sistema.id,
-                img_path: sistema.img_path,
-                titulo: sistema.titulo,
-                link: sistema.link,
-                descricao: sistema.descricao,
-            };
-        });
-
-        return dados; // Adicionado o retorno dos dados
-    }
-    catch (error) {
-        console.log("Error ao Obter os Dados ", error);
-        return null;
-    }
+    const response = await axios.get('http://localhost:4000/sistemas');
+    return response.data;
 };
 
 

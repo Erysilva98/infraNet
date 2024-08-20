@@ -1,62 +1,57 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { getAvisos } from "@/api/api"; // Assumindo que essa função está correta
+
+import React, { useEffect, useState } from "react";
+import { getServicos } from "@/api/api"; // Assumindo que a função getServicos está implementada
 import Footer from "@/components/footer/footer";
-import AvisosList from "@/components/listaAviso/avisoLista"; // Este é o componente que renderiza a lista de AvisosCard
-import AdicionarAviso from "@/components/listaAviso/adicionarAviso"; // Este é o seu componente para adicionar novos avisos
+import ServicosList from "@/components/listaServicos/servicosLista";
+import AdicionarServico from "@/components/listaServicos/adicionarServico";
 import SistemaHeader from "@/components/header/sistemaHeader";
 
-export default function AdmAvisos() {
-    const [avisos, setAvisos] = useState([]);
+export default function AdmServicos() {
+    const [servicos, setServicos] = useState([]);
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
     useEffect(() => {
-        const fetchAvisos = async () => {
+        const fetchServicos = async () => {
             try {
-                const dadosAvisos = await getAvisos();
-
-                const dadosTratados = dadosAvisos.map((item) => ({
+                const dadosServicos = await getServicos();
+                const dadosTratados = dadosServicos.map((item) => ({
                     id: item.id,
-                    img_data: item.img_data,
-                    prioridade: item.prioridade,
-                    link: item.link,
+                    img_path: `data:image/png;base64,${item.img_data}`, // Atribuindo caminho da imagem
                     titulo: item.titulo,
-                    subtitulo: item.subtitulo,
+                    link: item.link,
                     descricao: item.descricao,
                 }));
-                setAvisos(dadosTratados || []);
+                setServicos(dadosTratados || []);
             } catch (error) {
-                console.log('Erro ao Obter os dados no fetchAvisos:', error);
-                setAvisos([]);
+                console.log('Erro ao obter os dados:', error);
+                setServicos([]);
             }
         };
-
-        fetchAvisos();
+        fetchServicos();
     }, []);
 
-    const adicionarAviso = (novoAviso) => {
-        setAvisos((prevAvisos) => [...prevAvisos, novoAviso]);
-        setMostrarFormulario(false); // Ocultar o formulário após adicionar um aviso
+    const adicionarServico = (novoServico) => {
+        setServicos((prevServicos) => [...prevServicos, novoServico]);
+        setMostrarFormulario(false);
     };
 
-    const deletarAviso = (id) => {
-        const novosAvisos = avisos.filter((aviso) => aviso.id !== id);
-        setAvisos(novosAvisos);
+    const deletarServico = (id) => {
+        const novosServicos = servicos.filter((servico) => servico.id !== id);
+        setServicos(novosServicos);
     };
 
     return (
         <div className="flex flex-col min-h-screen min-w-full">
-            <header>
-                <SistemaHeader />
-            </header>
+            <SistemaHeader />
 
-            <main className="flex-grow min-h-full">
-                <section>
+            <main className="flex-grow">
+                <section className="flex justify-center">
                     <div>
                         <div className="flex justify-center">
                             {mostrarFormulario ? (
-                                <div className="flex flex-col">
-                                    <AdicionarAviso onAdicionarAviso={adicionarAviso} />
+                                <div className="flex-col">
+                                    <AdicionarServico onAdicionarServico={adicionarServico} />
                                     <button
                                         className="bg-error text-white font-bold rounded-lg p-2 w-80 mt-5"
                                         onClick={() => setMostrarFormulario(false)}
@@ -69,12 +64,12 @@ export default function AdmAvisos() {
                                     className="bg-botao hover:bg-botaoHover hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5"
                                     onClick={() => setMostrarFormulario(true)}
                                 >
-                                    Adicionar Aviso
+                                    Adicionar Serviço
                                 </button>
                             )}
                         </div>
                         <div className="flex justify-center">
-                            <AvisosList avisos={avisos} onDelete={deletarAviso} />
+                            <ServicosList servicos={servicos} onDelete={deletarServico} />
                         </div>
                     </div>
                 </section>

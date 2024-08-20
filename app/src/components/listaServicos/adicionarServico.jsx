@@ -30,7 +30,7 @@ const AdicionarServico = ({ onAdicionarServico }) => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append('img_data', novoServico.img_data);
+        formData.append('img_path', novoServico.img_data);  // Verifique se o nome do campo corresponde ao esperado no servidor
         formData.append('titulo', novoServico.titulo);
         formData.append('descricao', novoServico.descricao);
         formData.append('link', novoServico.link);
@@ -43,6 +43,14 @@ const AdicionarServico = ({ onAdicionarServico }) => {
             });
 
             if (response.status === 201) {
+                const novoServicoAdicionado = {
+                    id: response.data.result.id,  // Corrigido para acessar o objeto dentro do resultado
+                    img_path: `data:image/png;base64,${response.data.result.img_path}`,  // Verificar se o campo img_path está correto no retorno
+                    titulo: response.data.result.titulo,
+                    descricao: response.data.result.descricao,
+                    link: response.data.result.link,
+                };
+                onAdicionarServico(novoServicoAdicionado);
                 console.log('Serviço adicionado com sucesso!');
             } else {
                 console.error('Erro ao adicionar serviço:', response.statusText);
@@ -55,7 +63,7 @@ const AdicionarServico = ({ onAdicionarServico }) => {
                 link: '',
             });
         } catch (error) {
-            console.error('Erro ao adicionar serviço:', error);
+            console.error('Erro ao adicionar serviço:', error.response?.data || error.message);
         }
     };
 

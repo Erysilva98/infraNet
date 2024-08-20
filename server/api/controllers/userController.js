@@ -95,24 +95,26 @@ module.exports = {
         let { username, password } = req.body;
 
         try {
+            // Verifica se o usuário existe no banco de dados
             const user = await UserModel.getUserByUsername(username);
-
-            if (!user || !bcrypt.compareSync(password, user.password)) {
+            if (!user) {
+                console.log('Usuário não encontrado:', username);
                 return res.status(401).send({ error: 'Credenciais inválidas!' });
             }
 
+            // Compara a senha fornecida com a senha armazenada
+            const passwordIsValid = bcrypt.compareSync(password, user.password);
+            if (!passwordIsValid) {
+                console.log('Senha incorreta para o usuário:', username);
+                return res.status(401).send({ error: 'Credenciais inválidas!' });
+            }
+
+            // Gera um token JWT para o usuário autenticado
             const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
             res.send({ token });
         } catch (err) {
+            console.error('Erro no login:', err);
             res.status(500).send({ error: 'Erro no login!' });
         }
-    },
-
-    // Esta rota está protegida por autenticação
-    adminProtectedRoute: [
-        authMiddleware,
-        async (req, res) => {
-            res.send({ message: 'Você acessou uma rota protegida!' });
-        }
-    ]
+    }
 };

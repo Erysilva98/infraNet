@@ -9,7 +9,8 @@ const User = sequelize.define('User', {
     },
     username: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     password: {
         type: DataTypes.STRING,
@@ -17,68 +18,23 @@ const User = sequelize.define('User', {
     },
     data_nascimento: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     }
 }, {
     tableName: 'user',
     timestamps: false
 });
 
-module.exports = {
-    getAllUsers: async () => {
-        try {
-            return await User.findAll();
-        } catch (error) {
-            throw error;
-        }
-    },
-
-    getUser: async (id) => {
-        try {
-            return await User.findByPk(id);
-        } catch (error) {
-            throw error;
-        }
-    },
-
-    addUser: async (username, password, data_nascimento) => {
-        try {
-            const newUser = await User.create({
-                username,
-                password,
-                data_nascimento
-            });
-            return newUser.id;
-        } catch (error) {
-            throw error;
-        }
-    },
-
-    updateUser: async (id, updatedData) => {
-        try {
-            const user = await User.findByPk(id);
-            if (user) {
-                await user.update(updatedData);
-                return user;
-            } else {
-                return null;
-            }
-        } catch (error) {
-            throw error;
-        }
-    },
-
-    deleteUser: async (id) => {
-        try {
-            const user = await User.findByPk(id);
-            if (user) {
-                await user.destroy();
-                return true;
-            } else {
-                return false;
-            }
-        } catch (error) {
-            throw error;
-        }
-    }
+// Definindo o método getUserByUsername
+User.getUserByUsername = async function(username) {
+    return await User.findOne({ where: { username } });
 };
+User.addUser = async function(username, password, data_nascimento) {
+    const user = await User.create({
+        username,
+        password,
+        data_nascimento
+    });
+    return user.id;  // Retorna o ID do usuário criado
+};
+module.exports = User;

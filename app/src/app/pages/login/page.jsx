@@ -29,7 +29,7 @@ export default function Login() {
                         <form className="flex flex-col items-center">
 
                             <div className="flex flex-col items-center">
-                                <label className="text-destaque1 text-xl font-bold mt-5">Matrícula</label>
+                                <label className="text-destaque1 text-xl font-bold mt-5">Usuário</label>
                                 <input className="border-2 border-azulPrincipal rounded-lg p-2 w-80" type="text" placeholder="Digite sua Matrícula" />
 
                                 <label className="text-destaque1 text-xl font-bold mt-5">Senha</label>

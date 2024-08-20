@@ -1,19 +1,17 @@
-"use client"
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAvisos } from '@/api/api';
 
-const assets = `/assets/`;
-const url = 'http://localhost:3000/pages/';
-
-const AvisoCard = ({ img_path, titulo, subtitulo, descricao }) => {
+const AvisoCard = ({ id, img_path, titulo, subtitulo, descricao }) => {
   const descricaoMin = descricao.length > 90 ? `${descricao.substring(0, 90)}...` : descricao;
 
   return (
     <div className='max-w-6xl mt-2 mb-4 bg-corCard rounded-lg shadow-lg items-center'>
       <div className='flex justify-center mt-2'>
-        <Image src={`${assets}${img_path}`} alt='aviso' width={100} height={100} className='mt-2 w-52 h-32 object-cover rounded-t-lg' />
+        <Image src={img_path} alt='aviso' width={100} height={100} className='mt-2 w-52 h-32 object-cover rounded-t-lg' />
       </div>
       <div className='p-3 flex-grow'>
         <h1 className='text-lg font-bold text-gray-700'>{titulo}</h1>
@@ -59,10 +57,7 @@ export default function AvisosCard() {
       <div className='flex justify-center'>
         <div className='grid grid-cols-3 gap-4'>
           {avisos.slice(0, visibleAvisos).map((aviso, index) => (
-            <Link key={index} href={{
-              pathname: `${url}${aviso.link}`,
-              query: { id: aviso.id }
-            }}>
+            <Link key={index} href={`pages/avisoDes?id=${aviso.id}`}>
               <AvisoCard
                 key={index}
                 img_path={aviso.img_path}
@@ -76,7 +71,7 @@ export default function AvisosCard() {
       </div>
       {visibleAvisos < avisos.length && (
         <div className='text-center'>
-          <Link href="/pages/avisos" passHref>
+          <Link href="pages/avisos" passHref>
             <p className='inline-block items-center cursor-pointer bg-navButton text-white py-2 px-4 rounded hover:bg-navButtonHover transition duration-300 ease-in-out focus:outline-none focus:shadow-outline'>
               Veja mais
             </p>

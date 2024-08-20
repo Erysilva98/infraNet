@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { getAvisos } from "@/api/api";
-
 import Footer from "@/components/footer/footer";
 import AvisosList from "@/components/listaAviso/avisoLista";
 import AdicionarAviso from "@/components/listaAviso/adicionarAviso";
@@ -15,30 +14,28 @@ export default function AdmAvisos() {
         const fetchAvisos = async () => {
             try {
                 const dadosAvisos = await getAvisos();
-
-                const dadosTratados = dadosAvisos.map((item) => {
-                    return {
-                        id: item.id,
-                        img_path: item.img_path,
-                        prioridade: item.prioridade,
-                        link: item.link,
-                        titulo: item.titulo,
-                        subtitulo: item.subtitulo,
-                        descricao: item.descricao,
-                    };
-                });
+                const dadosTratados = dadosAvisos.map((item) => ({
+                    id: item.id,
+                    img_path: item.img_path,
+                    prioridade: item.prioridade,
+                    link: item.link,
+                    titulo: item.titulo,
+                    subtitulo: item.subtitulo,
+                    descricao: item.descricao,
+                }));
                 setAvisos(dadosTratados || []);
             } catch (error) {
-                console.log('Error ao Obter os dados no carrousel.jsx', error);
+                console.log('Erro ao Obter os dados no fetchAvisos:', error);
                 setAvisos([]);
             }
         };
+
         fetchAvisos();
     }, []);
 
     const adicionarAviso = (novoAviso) => {
-        setAvisos((prevAvisos) => [...prevAvisos, novoAviso]);
-        setMostrarFormulario(false); // Ocultar o formulário após adicionar um aviso
+        setAvisos((prevAvisos) => [...prevAvisos, ...novoAviso]);
+        window.location.reload();
     };
 
     const deletarAviso = (id) => {
@@ -49,7 +46,7 @@ export default function AdmAvisos() {
     return (
         <div className="flex flex-col min-h-screen min-w-full">
             <header>
-                <SistemaHeader  />
+                <SistemaHeader />
             </header>
 
             <main className="flex-grow min-h-full">
@@ -57,8 +54,11 @@ export default function AdmAvisos() {
                     <div>
                         <div className="flex justify-center">
                             {mostrarFormulario ? (
-                                <div className="flex-col">
-                                    <AdicionarAviso onAdicionarAviso={adicionarAviso} />
+                                <div className="flex flex-col">
+                                    <AdicionarAviso
+                                        onAdicionarAviso={adicionarAviso}
+                                        setMostrarFormulario={setMostrarFormulario} // Passando o setMostrarFormulario como prop
+                                    />
                                     <button
                                         className="bg-error text-white font-bold rounded-lg p-2 w-80 mt-5"
                                         onClick={() => setMostrarFormulario(false)}
@@ -79,12 +79,10 @@ export default function AdmAvisos() {
                             <AvisosList avisos={avisos} onDelete={deletarAviso} />
                         </div>
                     </div>
-
                 </section>
             </main>
 
             <footer>
-                {/* Componentes admFooter */}
                 <Footer />
             </footer>
         </div>

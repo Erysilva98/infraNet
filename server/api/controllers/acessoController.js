@@ -1,52 +1,79 @@
-const acessoModel = require('../models/acessoModel');
+const Acesso = require('../models/acessoModel');
 
 module.exports = {
-    // GET /api/acesso
-    // Get all acesso
-    getAllAcesso: async (req, res) => {
-        let json = {error:'', result:[]};
-
-        let acesso = await acessoModel.getAllAcesso();
-
-        for (let i in acesso) {
-            json.result.push({
-                id: acesso[i].id,
-                user_id: acesso[i].user_id,
-                cod_acesso: acesso[i].cod_acesso,
-                matricula: acesso[i].matricula,
-                senha: acesso[i].senha,
-            });
-        }   
-        res.json(json);
+    getAllAcessos: async (req, res) => {
+        try {
+            const acessos = await Acesso.findAll();
+            res.json({ error: '', result: acessos });
+        } catch (error) {
+            res.status(500).json({ error: "Erro ao obter acessos." });
+        }
     },
 
-    // GET /api/acesso/:id
-    // Get one acesso
     getAcesso: async (req, res) => {
-        let json = {error:'', result:[]};
-
         let id = req.params.id;
-        let acesso = await acessoModel.getAcesso(id);
-
-        if (acesso) {
-            json.result = acesso;
+        try {
+            const acesso = await Acesso.findByPk(id);
+            if (acesso) {
+                res.json({ error: '', result: acesso });
+            } else {
+                res.status(404).json({ error: "Acesso não encontrado." });
+            }
+        } catch (error) {
+            res.status500().json({ error: "Erro ao obter acesso." });
         }
-
-        res.json(json);
     },
 
-    // HEAD /api/acesso/:cod
-    // Get one acesso
-    headAcesso: async (req, res) => {
-        let json = {error:'', result:[]};
+    createAcesso: async (req, res) => {
+        let { user_id, cod_acesso, matricula, senha } = req.body;
 
-        let cod = req.params.cod;
-        let acesso = await acessoModel.headAcesso(cod);
-
-        if (acesso) {
-            json.result = acesso;
+        try {
+            const acesso = await Acesso.create({
+                user_id,
+                cod_acesso,
+                matricula,
+                senha
+            });
+            res.status(201).json({ error: '', result: acesso });
+        } catch (error) {
+            res.status(500).json({ error: "Erro ao criar acesso." });
         }
+    },
 
-        res.json(json);
+    updateAcesso: async (req, res) => {
+        let id = req.params.id;
+        let { cod_acesso, matricula, senha } = req.body;
+
+        try {
+            const acesso = await Acesso.findByPk(id);
+            if (acesso) {
+                acesso.cod_acesso = cod_acesso || acesso.cod_acesso;
+                acesso.matricula = matricula || acesso.matricula;
+                acesso.senha = senha || acesso.senha;
+
+                await acesso.save();
+                res.json({ error: '', result: acesso });
+            } else {
+                res.status(404).json({ error: "Acesso não encontrado." });
+            }
+        } catch (error) {
+            res.status(500).json({ error: "Erro ao atualizar acesso." });
+        }
+    },
+
+    deleteAcesso: async (req, res) => {
+        let id = req.params.id;
+
+        try {
+            const acesso = await Acesso.findByPk(id);
+            if (acesso) {
+                await acesso.destroy();
+                res.json({ error: '', result: "Acesso deletado com sucesso." });
+            } else {
+                res.status(404).json({ error: "Acesso não encontrado." });
+            }
+        } catch (error) {
+            res.status(500).json({ error: "Erro ao deletar acesso." });
+        }
     }
 };

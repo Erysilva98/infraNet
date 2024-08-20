@@ -8,7 +8,7 @@ const routes = require('./api/routes/routes');
 const swaggerRoutes = require('./api/data/swagger')
 
 const server = express();
-//server.use(cors());
+server.use(cors());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json()); // Para aceitar JSON nas requisições
 

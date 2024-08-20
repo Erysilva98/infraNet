@@ -29,5 +29,12 @@ const User = sequelize.define('User', {
 User.getUserByUsername = async function(username) {
     return await User.findOne({ where: { username } });
 };
-
+User.addUser = async function(username, password, data_nascimento) {
+    const user = await User.create({
+        username,
+        password,
+        data_nascimento
+    });
+    return user.id;  // Retorna o ID do usuário criado
+};
 module.exports = User;

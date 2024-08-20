@@ -32,8 +32,9 @@ module.exports = {
         upload.single('img_data'),
         async (req, res) => {
             try {
+                const imgBase64 = req.file.buffer.toString('base64');  // Convertendo para Base64
                 const aviso = await Avisos.create({
-                    img_data: req.file.buffer,  // Salvando o arquivo de imagem como BLOB
+                    img_data: imgBase64,  // Salvando a imagem como Base64
                     titulo: req.body.titulo,
                     prioridade: req.body.prioridade,
                     data_publicacao: req.body.data_publicacao,

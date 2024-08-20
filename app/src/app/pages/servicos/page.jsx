@@ -45,7 +45,7 @@ export default function Servicos() {
         const dadosTratados = dadosServicos.map((item) => {
           return {
             id: item.id,
-            img_path: item.img_path,
+            img_data: `data:image/png;base64,${item.img_data}`,
             prioridade: item.prioridade,
             link: item.link,
             titulo: item.titulo,

@@ -13,7 +13,7 @@ const AvisoCard = ({ img_path, titulo, subtitulo, descricao }) => {
   return (
     <div className='max-w-6xl mt-2 mb-4 bg-corCard rounded-lg shadow-lg items-center'>
       <div className='flex justify-center mt-2'>
-        <Image src={`${assets}${img_path}`} alt='aviso' width={100} height={100} className='mt-2 w-52 h-32 object-cover rounded-t-lg' />
+        <Image src={img_path} alt='aviso' width={100} height={100} className='mt-2 w-52 h-32 object-cover rounded-t-lg' />
       </div>
       <div className='p-3 flex-grow'>
         <h1 className='text-lg font-bold text-gray-700'>{titulo}</h1>
@@ -37,7 +37,7 @@ export default function AvisosCard() {
         const dadosTratados = dadosAvisos.map((item) => {
           return {
             id: item.id,
-            img_path: item.img_path,
+            img_path: `data:image/png;base64,${item.img_data}`, 
             prioridade: item.prioridade,
             link: item.link,
             titulo: item.titulo,

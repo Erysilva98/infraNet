@@ -23,7 +23,7 @@ export default function AvisosDesc() {
                     const dadosAviso = await getAvisosId(avisoId);
 
                     const dadosTratados = {
-                        img_path: dadosAviso.img_path,
+                        img_path: `data:image/png;base64,${item.img_data}`, 
                         data: dadosAviso.data_publicacao,
                         link: dadosAviso.link,
                         titulo: dadosAviso.titulo,
@@ -64,7 +64,7 @@ export default function AvisosDesc() {
                         </div>
                         <div className="flex justify-center">
                             <Image
-                                src={`${assets}${aviso.img_path}`}
+                                src={avisos[currentSlide].img_data} // Utilizando img_data corretamente
                                 alt={`Imagem do aviso`}
                                 width={300}
                                 height={300}

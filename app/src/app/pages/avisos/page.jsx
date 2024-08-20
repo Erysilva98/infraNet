@@ -1,23 +1,26 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { getAvisos } from "@/api/api";
-
-const assets = `/assets/`;
-const url = "http://localhost:3000/pages/";
 
 import Footer from "@/components/footer/footer";
 import UserHeader from "@/components/header/userHeader";
 import NavBar from "@/components/navBar/navBar";
 
-const AvisoCard = ({ img_path, titulo, subtitulo, descricao, id }) => {
+const AvisoCard = ({ img_path, titulo, subtitulo, descricao }) => {
     const descricaoMin = descricao.length > 200 ? `${descricao.substring(0, 200)}...` : descricao;
 
     return (
         <div className='max-w-6xl mt-2 mb-4 bg-corCard rounded-lg shadow-lg items-center'>
             <div className='flex justify-center mt-2'>
-                <Image src={`${assets}${img_path}`} alt='aviso' width={100} height={100} className='mt-2 w-44 h-22 object-cover rounded-t-lg' />
+                {img_path && (
+                    <img
+                        src={img_path}  // Usando diretamente o img_path que já está em base64
+                        alt='aviso'
+                        className='mt-2 w-44 h-22 object-cover rounded-t-lg'
+                        style={{ width: '100%', height: 'auto' }} // Mantém a proporção
+                    />
+                )}
             </div>
             <div className='p-3 flex-grow'>
                 <h1 className='text-lg font-bold text-gray-700'>{titulo}</h1>
@@ -35,20 +38,18 @@ export default function Avisos() {
         const fetchAvisos = async () => {
             try {
                 const dadosAvisos = await getAvisos();
-                const dadosTratados = dadosAvisos.map((item) => {
-                    return {
-                        id: item.id,
-                        img_path: item.img_path,
-                        prioridade: item.prioridade,
-                        link: item.link,
-                        titulo: item.titulo,
-                        subtitulo: item.subtitulo,
-                        descricao: item.descricao,
-                    };
-                });
+                const dadosTratados = dadosAvisos.map((item) => ({
+                    id: item.id,
+                    img_path: `data:image/png;base64,${item.img_data}`,  // Preparando a imagem em base64
+                    prioridade: item.prioridade,
+                    link: item.link,
+                    titulo: item.titulo,
+                    subtitulo: item.subtitulo,
+                    descricao: item.descricao,
+                }));
                 setAvisos(dadosTratados || []);
             } catch (error) {
-                console.log('Error ao Obter os dados no carrousel.jsx', error);
+                console.log('Erro ao Obter os dados no componente Avisos:', error);
                 setAvisos([]);
             }
         };
@@ -58,10 +59,8 @@ export default function Avisos() {
     return (
         <div className="flex flex-col min-h-screen">
             <header>
-                {/* Componentes loginHeader */}
                 <UserHeader />
                 <nav>
-                    {/* Componentes navBar */}
                     <NavBar />
                 </nav>
             </header>
@@ -74,11 +73,11 @@ export default function Avisos() {
                                 {avisos.length > 0 ? (
                                     avisos.map((aviso, index) => (
                                         <Link key={index} href={{
-                                            pathname: `${url}${aviso.link}`,
+                                            pathname: aviso.link, // O link deve ser completo
                                             query: { id: aviso.id }
                                         }}>
                                             <AvisoCard
-                                                img_path={aviso.img_path}
+                                                img_path={aviso.img_path}  // Passando img_path diretamente
                                                 titulo={aviso.titulo}
                                                 subtitulo={aviso.subtitulo}
                                                 descricao={aviso.descricao}
@@ -96,7 +95,6 @@ export default function Avisos() {
                 </section>
             </main>
             <footer>
-                {/* Componentes footer */}
                 <Footer />
             </footer>
         </div>

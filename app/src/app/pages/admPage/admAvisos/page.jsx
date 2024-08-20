@@ -1,10 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { getAvisos } from "@/api/api";
-
+import { getAvisos } from "@/api/api"; // Assumindo que essa função está correta
 import Footer from "@/components/footer/footer";
-import AvisosList from "@/components/listaAviso/avisoLista";
-import AdicionarAviso from "@/components/listaAviso/adicionarAviso";
+import AvisosList from "@/components/listaAviso/avisoLista"; // Este é o componente que renderiza a lista de AvisosCard
+import AdicionarAviso from "@/components/listaAviso/adicionarAviso"; // Este é o seu componente para adicionar novos avisos
 import SistemaHeader from "@/components/header/sistemaHeader";
 
 export default function AdmAvisos() {
@@ -16,23 +15,22 @@ export default function AdmAvisos() {
             try {
                 const dadosAvisos = await getAvisos();
 
-                const dadosTratados = dadosAvisos.map((item) => {
-                    return {
-                        id: item.id,
-                        img_path: item.img_path,
-                        prioridade: item.prioridade,
-                        link: item.link,
-                        titulo: item.titulo,
-                        subtitulo: item.subtitulo,
-                        descricao: item.descricao,
-                    };
-                });
+                const dadosTratados = dadosAvisos.map((item) => ({
+                    id: item.id,
+                    img_data: item.img_data,
+                    prioridade: item.prioridade,
+                    link: item.link,
+                    titulo: item.titulo,
+                    subtitulo: item.subtitulo,
+                    descricao: item.descricao,
+                }));
                 setAvisos(dadosTratados || []);
             } catch (error) {
-                console.log('Error ao Obter os dados no carrousel.jsx', error);
+                console.log('Erro ao Obter os dados no fetchAvisos:', error);
                 setAvisos([]);
             }
         };
+
         fetchAvisos();
     }, []);
 
@@ -49,7 +47,7 @@ export default function AdmAvisos() {
     return (
         <div className="flex flex-col min-h-screen min-w-full">
             <header>
-                <SistemaHeader  />
+                <SistemaHeader />
             </header>
 
             <main className="flex-grow min-h-full">
@@ -57,7 +55,7 @@ export default function AdmAvisos() {
                     <div>
                         <div className="flex justify-center">
                             {mostrarFormulario ? (
-                                <div className="flex-col">
+                                <div className="flex flex-col">
                                     <AdicionarAviso onAdicionarAviso={adicionarAviso} />
                                     <button
                                         className="bg-error text-white font-bold rounded-lg p-2 w-80 mt-5"
@@ -79,12 +77,10 @@ export default function AdmAvisos() {
                             <AvisosList avisos={avisos} onDelete={deletarAviso} />
                         </div>
                     </div>
-
                 </section>
             </main>
 
             <footer>
-                {/* Componentes admFooter */}
                 <Footer />
             </footer>
         </div>

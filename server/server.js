@@ -5,11 +5,15 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const sequelize = require('./api/data/db'); // Conexão com o Sequelize
 const routes = require('./api/routes/routes');
-const swaggerRoutes = require('./api/data/swagger')
+const swaggerRoutes = require('./api/data/swagger');
 
 const server = express();
-//server.use(cors());
-server.use(bodyParser.urlencoded({ extended: true }));
+
+// Configuração do CORS
+server.use(cors());
+
+// Configuração do Body Parser
+server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json()); // Para aceitar JSON nas requisições
 
 // Sincronizar o Sequelize com o banco de dados
@@ -21,10 +25,11 @@ sequelize.sync()
         console.error('Erro ao conectar-se ao banco de dados:', err);
     });
 
-// Configurar as rotas
+// Configurar as rotas da aplicação
 server.use('/', routes);
 server.use('/', swaggerRoutes);
 
+// Iniciar o servidor
 server.listen(process.env.PORT, () => {
-    console.log(`\n\nServidor Rodando em: http://localhost:${process.env.PORT}\n\n`);
+    console.log(`\n \n Servidor Rodando em: http://localhost:${process.env.PORT} \n \n`);
 });

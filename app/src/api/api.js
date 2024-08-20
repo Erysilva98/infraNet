@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Rota Geral da API
 
-const localhost = 'http://localhost:8080';
+const localhost = 'http://localhost:4000';
 
 // Rotas da API para o usuário
 export const getUser = async () => {
@@ -33,7 +33,7 @@ export const getAvisos = async () => {
         const dados = response.data.result.map(aviso => {
             return {
                 id: aviso.id,
-                img_path: aviso.img_path,
+                img_data: aviso.img_data,
                 prioridade: aviso.prioridade,
                 data_publicacao: aviso.data_publicacao,
                 link: aviso.link,
@@ -42,7 +42,6 @@ export const getAvisos = async () => {
                 descricao: aviso.descricao,
             };
         });
-
         return dados; // Adicionado o retorno dos dados
     } catch (error) {
         console.log("Error ao Obter os Dados ", error);
@@ -58,6 +57,16 @@ export const getAvisosId = async (id) => {
         return aviso;
     } catch (error) {
         console.log("Erro ao Obter os Dados ", error);
+        return null;
+    }
+};
+
+export const deleteAviso = async (id) => {
+    try {
+        const response = await axios.delete(`${localhost}/avisos/${id}`);
+        return response.data.result; // Retorna a resposta do servidor
+    } catch (error) {
+        console.error("Erro ao deletar o aviso:", error);
         return null;
     }
 };
@@ -105,6 +114,5 @@ export const getSistemas = async () => {
         return null;
     }
 };
-
 
 

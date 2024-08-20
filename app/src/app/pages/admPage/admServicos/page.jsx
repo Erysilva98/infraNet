@@ -19,7 +19,7 @@ export default function AdmServicos() {
                 const dadosTratados = dadosServicos.map((item) => {
                     return {
                         id: item.id,
-                        img_path: item.img_path,
+                        img_data: `data:image/png;base64,${item.img_data}`, 
                         titulo: item.titulo,
                         link: item.link,
                         descricao: item.descricao,

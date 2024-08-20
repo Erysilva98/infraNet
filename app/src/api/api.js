@@ -52,14 +52,26 @@ export const getAvisos = async () => {
 export const getAvisosId = async (id) => {
     try {
         const response = await axios.get(`${localhost}/avisos/${id}`);
-        const aviso = response.data.result;
+        const aviso = response.data.result; // Corrigido para pegar apenas um aviso
 
-        return aviso;
+        const dadosTratados = {
+            id: aviso.id,
+            img_path: `data:image/png;base64,${aviso.img_data}`,
+            prioridade: aviso.prioridade,
+            data_publicacao: aviso.data_publicacao,
+            link: aviso.link,
+            titulo: aviso.titulo,
+            subtitulo: aviso.subtitulo,
+            descricao: aviso.descricao,
+        };
+
+        return dadosTratados; // Retorna o aviso tratado
     } catch (error) {
-        console.log("Erro ao Obter os Dados ", error);
+        console.log("Error ao Obter os Dados ", error);
         return null;
     }
 };
+
 
 export const deleteAviso = async (id) => {
     try {

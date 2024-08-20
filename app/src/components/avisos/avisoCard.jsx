@@ -1,13 +1,11 @@
-"use client"
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAvisos } from '@/api/api';
 
-const assets = `/assets/`;
-const url = 'http://localhost:3000/pages/';
-
-const AvisoCard = ({ img_path, titulo, subtitulo, descricao }) => {
+const AvisoCard = ({ id, img_path, titulo, subtitulo, descricao }) => {
   const descricaoMin = descricao.length > 90 ? `${descricao.substring(0, 90)}...` : descricao;
 
   return (
@@ -37,7 +35,7 @@ export default function AvisosCard() {
         const dadosTratados = dadosAvisos.map((item) => {
           return {
             id: item.id,
-            img_path: item.img_path, 
+            img_path: item.img_path,
             prioridade: item.prioridade,
             link: item.link,
             titulo: item.titulo,
@@ -59,10 +57,7 @@ export default function AvisosCard() {
       <div className='flex justify-center'>
         <div className='grid grid-cols-3 gap-4'>
           {avisos.slice(0, visibleAvisos).map((aviso, index) => (
-            <Link key={index} href={{
-              pathname: `${url}${aviso.link}`,
-              query: { id: aviso.id }
-            }}>
+            <Link key={index} href={`pages/avisoDes?id=${aviso.id}`}>
               <AvisoCard
                 key={index}
                 img_path={aviso.img_path}
@@ -76,7 +71,7 @@ export default function AvisosCard() {
       </div>
       {visibleAvisos < avisos.length && (
         <div className='text-center'>
-          <Link href="/pages/avisos" passHref>
+          <Link href="pages/avisos" passHref>
             <p className='inline-block items-center cursor-pointer bg-navButton text-white py-2 px-4 rounded hover:bg-navButtonHover transition duration-300 ease-in-out focus:outline-none focus:shadow-outline'>
               Veja mais
             </p>

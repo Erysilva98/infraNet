@@ -34,8 +34,8 @@ export default function AdmAvisos() {
     }, []);
 
     const adicionarAviso = (novoAviso) => {
-        setAvisos((prevAvisos) => [...prevAvisos, novoAviso]);
-        // Não fechar o formulário nem recarregar a página
+        setAvisos((prevAvisos) => [...prevAvisos, ...novoAviso]);
+        window.location.reload();
     };
 
     const deletarAviso = (id) => {

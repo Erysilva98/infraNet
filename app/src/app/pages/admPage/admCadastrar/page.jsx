@@ -9,11 +9,11 @@ import SistemaHeader from "@/components/header/sistemaHeader";
 
 export default function AdmCadastrar() {
     const [parteAtual, setParteAtual] = useState(1);
-    const [nome, setNome] = useState("");
+    const [username, setUsername] = useState("");
     const [dataNascimento, setDataNascimento] = useState("");
     const [senha, setSenha] = useState("");
     const [confirmaSenha, setConfirmaSenha] = useState("");
-    const [cadastrado, setCadastrado] = useState(false); // Estado para controlar o sucesso do cadastro
+    const [cadastrado, setCadastrado] = useState(false);
 
     const handleProximo = (event) => {
         event.preventDefault();
@@ -34,21 +34,19 @@ export default function AdmCadastrar() {
         }
 
         const novoUsuario = {
-            nome,
+            username,  
             data_nascimento: dataNascimento,
-            senha,
+            password: senha,  
         };
 
         try {
             const response = await axios.post("http://localhost:4000/user", novoUsuario);
 
-            if (response.status === 201) {
+            if (response.data.error === '') {
                 alert("Usuário cadastrado com sucesso!");
-
-                // Define o estado como true para indicar que o cadastro foi realizado
                 setCadastrado(true);
             } else {
-                alert("Erro ao cadastrar usuário. Tente novamente.");
+                alert(`Erro ao cadastrar usuário: ${response.data.error}`);
             }
         } catch (error) {
             console.error("Erro ao cadastrar usuário:", error);
@@ -73,13 +71,13 @@ export default function AdmCadastrar() {
                         {parteAtual === 1 && (
                             <div className="flex flex-col items-center">
                                 <div className="flex flex-col items-center">
-                                    <label className="text-destaque1 text-xl font-bold mt-5">Nome Usúario</label>
+                                    <label className="text-destaque1 text-xl font-bold mt-5">Nome Usuário</label>
                                     <input
                                         className="border-2 border-azulPrincipal rounded-lg p-2 w-80"
                                         type="text"
                                         placeholder="Digite seu Nome Completo"
-                                        value={nome}
-                                        onChange={(e) => setNome(e.target.value)}
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
                                     />
                                     <label className="text-destaque1 text-xl font-bold mt-5">Data de Nascimento</label>
                                     <input
@@ -106,11 +104,11 @@ export default function AdmCadastrar() {
                                     />
                                 </div>
                                 <div className="flex flex-col items-center mt-5">
-                                    <label className="text-destaque1 text-xl font-bold mt-5">Confirma Senha</label>
+                                    <label className="text-destaque1 text-xl font-bold mt-5">Confirmar Senha</label>
                                     <input
                                         className="border-2 border-azulPrincipal rounded-lg p-2 w-80"
                                         type="password"
-                                        placeholder="Digite sua Senha"
+                                        placeholder="Confirme sua Senha"
                                         value={confirmaSenha}
                                         onChange={(e) => setConfirmaSenha(e.target.value)}
                                     />
@@ -139,14 +137,13 @@ export default function AdmCadastrar() {
 
                             {parteAtual === 2 && !cadastrado && (
                                 <button
-                                    type="submit" // Submit button for the form
+                                    type="submit"
                                     className="bg-botao hover:bg-sucesso hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5"
                                 >
                                     Cadastrar
                                 </button>
                             )}
 
-                            {/* Renderiza o link de redirecionamento se o cadastro foi bem-sucedido */}
                             {cadastrado && (
                                 <Link href="/pages/admPage/admHome">
                                     <button className="bg-botao hover:bg-sucesso hover:text-white text-white font-bold rounded-lg p-2 w-80 mt-5">

@@ -41,6 +41,14 @@ module.exports = {
         }
     },
 
+    getUserByUsername: async (username) => {
+        try {
+            return await User.findOne({ where: { username } });
+        } catch (error) {
+            throw error;
+        }
+    },
+
     addUser: async (username, password, data_nascimento) => {
         try {
             const newUser = await User.create({

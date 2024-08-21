@@ -54,14 +54,16 @@ export default function Carousel() {
       <div className="carousel-container" style={{ width: '600px' }}>
         <div className="flex carousel">
           {avisos && avisos[currentSlide] && (
-            <Link href={avisos[currentSlide].link || "#"} passHref>
-              <div>
-                <img
-                  src={avisos[currentSlide].img_path} 
-                  alt={`Slide ${currentSlide + 1}`}
-                  style={{ width: '100%', height: 'auto' }} // Mantém a proporção
-                />
-              </div>
+            <Link href={`/pages/avisoDes?id=${avisos[currentSlide].id}`} passHref>
+              <p>
+                <div>
+                  <img
+                    src={avisos[currentSlide].img_path}
+                    alt={`Slide ${currentSlide + 1}`}
+                    style={{ width: '100%', height: 'auto' }} // Mantém a proporção
+                  />
+                </div>
+              </p>
             </Link>
           )}
         </div>

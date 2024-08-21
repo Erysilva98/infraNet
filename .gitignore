@@ -27,7 +27,6 @@
 
 # Arquivos de Variáveis de ambiente
 /app/.env
-/server/.env
 
 # vercel
 /app/.vercel

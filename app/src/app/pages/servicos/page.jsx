@@ -1,4 +1,5 @@
-"use client"
+"use client";
+
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { getServicos } from "@/api/api";
@@ -8,10 +9,9 @@ import UserHeader from "@/components/header/userHeader";
 import NavBar from "@/components/navBar/navBar";
 import Link from "next/link";
 
-const assets = `/assets/`;
-const url = "http://localhost:3000/pages/404";
+const url = "/404"; // Corrigido o link de fallback para a página 404
 
-const ServicoCard = ({ img_path, titulo, subtitulo, descricao }) => {
+const ServicosCard = ({ img_path, descricao }) => {
   const [isHovered, setIsHovered] = useState(false);
   const descricaoMin = descricao.length > 50 ? `${descricao.substring(0, 50)}...` : descricao;
 
@@ -23,7 +23,7 @@ const ServicoCard = ({ img_path, titulo, subtitulo, descricao }) => {
     >
       <div className='flex justify-center'>
         <div className="relative" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-          <Image src={`${assets}${img_path}`} alt='servico' width={100} height={100} className='w-44 h-22 object-cover rounded-t-lg' />
+          <Image src={img_path} alt='sistema' width={100} height={100} className='w-44 h-22 object-cover rounded-t-lg' />
           {isHovered && (
             <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50">
               <p className="text-white text-sm">{descricaoMin}</p>
@@ -42,20 +42,16 @@ export default function Servicos() {
     const fetchServicos = async () => {
       try {
         const dadosServicos = await getServicos();
-        const dadosTratados = dadosServicos.map((item) => {
-          return {
-            id: item.id,
-            img_path: item.img_path,
-            prioridade: item.prioridade,
-            link: item.link,
-            titulo: item.titulo,
-            subtitulo: item.subtitulo,
-            descricao: item.descricao,
-          };
-        });
+        const dadosTratados = dadosServicos.map((item) => ({
+          id: item.id,
+          img_path: item.img_path, // img_path já está em formato base64
+          titulo: item.titulo,
+          link: item.link,
+          descricao: item.descricao,
+        }));
         setServicos(dadosTratados || []);
       } catch (error) {
-        console.log('Error ao Obter os dados no servicos', error);
+        console.log('Error ao Obter os dados no sistemas:', error);
         setServicos([]);
       }
     };
@@ -65,10 +61,8 @@ export default function Servicos() {
   return (
     <div className='flex flex-col min-h-screen'>
       <header>
-        {/* Componentes loginHeader */}
         <UserHeader />
         <nav>
-          {/* Componentes navBar */}
           <NavBar />
         </nav>
       </header>
@@ -83,18 +77,17 @@ export default function Servicos() {
                     key={item.id}
                     href={item.link ? item.link : `${url}`}
                   >
-                    <ServicoCard
+                    <ServicosCard
                       key={item.id}
                       img_path={item.img_path}
                       titulo={item.titulo}
-                      subtitulo={item.subtitulo}
                       descricao={item.descricao}
                     />
                   </Link>
                 ))
               ) : (
                 <div className="flex justify-center">
-                  <p className="text-2xl font-medium text-gray-700">Não há serviços cadastrados</p>
+                  <p className="text-2xl font-medium text-gray-700">Não há Serviço cadastrados</p>
                 </div>
               )}
             </div>
@@ -102,7 +95,6 @@ export default function Servicos() {
         </section>
       </main>
       <footer>
-        {/* Componentes footer */}
         <Footer />
       </footer>
     </div>

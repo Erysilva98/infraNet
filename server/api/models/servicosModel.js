@@ -1,28 +1,31 @@
-const db = require('../data/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../data/db');
 
-const ServicosModel = {
-    getAllServicos: () => {
-       return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM servicos', (error, results) => {
-                if (error) { reject(error); return; }
-                resolve(results);
-            });
-        });
+const Servicos = sequelize.define('Servicos', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
     },
-
-    getServicos: (id) => {
-        return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM servicos WHERE id = ?', [id], (error, results) => {
-                if (error) { reject(error); return; }
-                if (results.length > 0) {
-                    resolve(results[0]);
-                } else {
-                    resolve(false);
-                }
-            });
-        });
+    img_path: {
+        type: DataTypes.TEXT,  // Armazenando a imagem como Base64 em um campo TEXT
+        allowNull: true
     },
+    titulo: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    link: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    descricao: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    }
+}, {
+    tableName: 'servicos',
+    timestamps: false
+});
 
-};
-
-module.exports = ServicosModel;
+module.exports = Servicos;

@@ -6,6 +6,11 @@ import navMegaphone from "@icons/navMegaphone.svg";
 import navGrupo from "@icons/navGrupo.svg";
 import navGoverno from "@icons/navGoverno.svg";
 
+// Urls Path Pages
+const urlAvisos = "/pages/avisos";
+const urlServicos = "/pages/servicos";
+const urlSistemas = "/pages/sistemas";
+
 export default function NavBar() {
   return (
     <nav>
@@ -21,28 +26,28 @@ export default function NavBar() {
           </li>
 
           <li className="mr-2 p-1">
-            <a href="/" className="flex items-center">
+            <a href={urlAvisos} className="flex items-center">
               <button className="flex items-center bg-navButton text-white space-x-2 py-2 px-4 rounded hover:bg-navButtonHover transition duration-300 ease-in-out focus:outline-none focus:shadow-outline">
-              <Image src={navMegaphone} alt="Icone Aviso" width={20} height={20} />
-              <p>Avisos</p>
+                <Image src={navMegaphone} alt="Icone Aviso" width={20} height={20} />
+                <p>Avisos</p>
               </button>
             </a>
           </li>
 
           <li className="mr-2 p-1">
-            <a href="/" className="flex items-center">
+            <a href={urlServicos} className="flex items-center">
               <button className="flex items-center bg-navButton text-white space-x-2 py-2 px-4 rounded hover:bg-navButtonHover transition duration-300 ease-in-out focus:outline-none focus:shadow-outline">
-              <Image src={navGrupo} alt="Icone Serviços Internos" width={20} height={20} />
-              <p>Serviços Internos</p>
+                <Image src={navGrupo} alt="Icone Serviços Internos" width={20} height={20} />
+                <p>Serviços Internos</p>
               </button>
             </a>
           </li>
 
           <li className="mr-2 p-1">
-            <a href="/" className="flex items-center">
+            <a href={urlSistemas} className="flex items-center">
               <button className="flex items-center bg-navButton text-white space-x-2 py-2 px-4 rounded hover:bg-navButtonHover transition duration-300 ease-in-out focus:outline-none focus:shadow-outline">
-              <Image src={navGoverno} alt="Icone istema Gorvenamentais" width={20} height={20} />
-              <p>Sistemas Governamentais </p>
+                <Image src={navGoverno} alt="Icone istema Gorvenamentais" width={20} height={20} />
+                <p>Sistemas Governamentais </p>
               </button>
             </a>
           </li>

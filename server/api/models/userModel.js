@@ -1,36 +1,92 @@
-const db = require('../data/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../data/db');
 
-const UserModel = {
-    getAllUsers: () => {
-       return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM user', (error, results) => {
-                if (error) { reject(error); return; }
-                resolve(results);
-            });
-        });
+const User = sequelize.define('User', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    data_nascimento: {
+        type: DataTypes.DATE,
+        allowNull: false
+    }
+}, {
+    tableName: 'user',
+    timestamps: false
+});
+
+module.exports = {
+    getAllUsers: async () => {
+        try {
+            return await User.findAll();
+        } catch (error) {
+            throw error;
+        }
     },
 
-    getUser: (id) => {
-        return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM user WHERE id = ?', [id], (error, results) => {
-                if (error) { reject(error); return; }
-                if (results.length > 0) {
-                    resolve(results[0]);
-                } else {
-                    resolve(false);
-                }
-            });
-        });
+    getUser: async (id) => {
+        try {
+            return await User.findByPk(id);
+        } catch (error) {
+            throw error;
+        }
     },
 
-    addUser: (username, password, data_nascimento) => {
-        return new Promise((resolve, reject) => {
-            db.query('INSERT INTO user (username, password, data_nascimento) VALUES (?, ?, ?)', [username, password, data_nascimento], (error, results) => {
-                if (error) { reject(error); return; }
-                resolve(results.insertId);
-            });
-        });
+    getUserByUsername: async (username) => {
+        try {
+            return await User.findOne({ where: { username } });
+        } catch (error) {
+            throw error;
+        }
     },
+
+    addUser: async (username, password, data_nascimento) => {
+        try {
+            const newUser = await User.create({
+                username,
+                password,
+                data_nascimento
+            });
+            return newUser.id;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    updateUser: async (id, updatedData) => {
+        try {
+            const user = await User.findByPk(id);
+            if (user) {
+                await user.update(updatedData);
+                return user;
+            } else {
+                return null;
+            }
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    deleteUser: async (id) => {
+        try {
+            const user = await User.findByPk(id);
+            if (user) {
+                await user.destroy();
+                return true;
+            } else {
+                return false;
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
 };
-
-module.exports = UserModel;

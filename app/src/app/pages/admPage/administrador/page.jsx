@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { getUser } from "@/api/api";
+import { getUser, deleteUser } from "@/api/api";  // Importa a função deleteUser
 
 import Footer from "@/components/footer/footer";
 import SistemaHeader from "@/components/header/sistemaHeader";
@@ -14,16 +14,11 @@ export default function Administrador() {
             try {
                 const dadosUsuarios = await getUser();
 
-                const dadosTratados = dadosUsuarios.map((item) => {
-                    return {
-                        id: item.id,
-                        username: item.username,
-                        data_nascimento: item.data_nascimento,
-                        email: item.email,
-                        telefone: item.telefone,
-                        ramal: item.ramal,
-                    };
-                });
+                const dadosTratados = dadosUsuarios.map((item) => ({
+                    id: item.id,
+                    username: item.username,
+                    data_nascimento: item.data_nascimento,
+                }));
                 setUsuarios(dadosTratados || []);
             } catch (error) {
                 console.log('Error ao Obter os dados em Administrador.jsx', error);
@@ -33,19 +28,29 @@ export default function Administrador() {
         fetchUsuarios();
     }, []);
 
-    const deletarUsuario = (id) => {
-        const novosUsuarios = usuarios.filter((usuario) => usuario.id !== id);
-        setUsuarios(novosUsuarios);
-    }
+    const deletarUsuario = async (id) => {
+        try {
+            const result = await deleteUser(id);
+            if (result) {
+                // Atualiza o estado local removendo o usuário deletado
+                const novosUsuarios = usuarios.filter((usuario) => usuario.id !== id);
+                setUsuarios(novosUsuarios);
+            } else {
+                console.error('Erro ao deletar o usuário');
+            }
+        } catch (error) {
+            console.error('Erro ao executar a exclusão:', error);
+        }
+    };
 
     return (
-        <div class="flex flex-col min-h-screen min-w-full">
+        <div className="flex flex-col min-h-screen min-w-full">
             <header>
                 <SistemaHeader />
             </header>
 
-            <main class="flex-grow min-h-full">
-                <section class="flex justify-center">
+            <main className="flex-grow min-h-full">
+                <section className="flex justify-center">
                     <div>
                         <div className="flex justify-center">
                             <h1 className="text-4xl font-bold mt-5">Administradores</h1>
@@ -58,7 +63,6 @@ export default function Administrador() {
             </main>
 
             <footer>
-                {/* Componentes admFooter */}
                 <Footer />
             </footer>
         </div>

@@ -1,36 +1,31 @@
-const db = require('../data/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../data/db');
 
-const contatoModel = {
-    getAllContatos: () => {
-       return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM contato', (error, results) => {
-                if (error) { reject(error); return; }
-                resolve(results);
-            });
-        });
+const Contato = sequelize.define('Contato', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
     },
-
-    getContato: (id) => {
-        return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM contato WHERE id = ?', [id], (error, results) => {
-                if (error) { reject(error); return; }
-                if (results.length > 0) {
-                    resolve(results[0]);
-                } else {
-                    resolve(false);
-                }
-            });
-        });
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
-
-    addContato: (user_id, email, telefone, ramal) => {
-        return new Promise((resolve, reject) => {
-            db.query('INSERT INTO contato (user_id, email, telefone, ramal) VALUES (?, ?, ?, ?)', [user_id, email, telefone, ramal], (error, results) => {
-                if (error) { reject(error); return; }
-                resolve(results.insertId);
-            });
-        });
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
-};
+    telefone: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    ramal: {
+        type: DataTypes.STRING,
+        allowNull: true
+    }
+}, {
+    tableName: 'contato',
+    timestamps: false
+});
 
-module.exports = contatoModel;
+module.exports = Contato;

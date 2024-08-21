@@ -1,28 +1,31 @@
-const e = require('express');
-const db = require('../data/db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../data/db');
 
-const acessoModel = {
-    getAllAcessos: () => {
-       return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM acesso', (error, results) => {
-                if (error) { reject(error); return; }
-                resolve(results);
-            });
-        });
+const Acesso = sequelize.define('Acesso', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
     },
-
-    getAcesso: (id) => {
-        return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM acesso WHERE id = ?', [id], (error, results) => {
-                if (error) { reject(error); return; }
-                if (results.length > 0) {
-                    resolve(results[0]);
-                } else {
-                    resolve(false);
-                }
-            });
-        });
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
-};
+    cod_acesso: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    matricula: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    senha: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+}, {
+    tableName: 'acesso',
+    timestamps: false
+});
 
-module.exports = acessoModel;
+module.exports = Acesso;

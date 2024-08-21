@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserCard = ({ id, username, data_nascimento, email, telefone, ramal, onDelete }) => {
+const UserCard = ({ id, username, data_nascimento, onDelete }) => {
     const dateObject = new Date(data_nascimento);
     const formattedDate = dateObject.toLocaleDateString('pt-BR');
     return (
@@ -14,16 +14,7 @@ const UserCard = ({ id, username, data_nascimento, email, telefone, ramal, onDel
                         <span className="text-gray-500 mr-2">Nome:</span> {username}
                     </p>
                     <p className="text-xl font-bold mt-2">
-                        <span className="text-gray-500 mr-2">Data de Nascimento:</span> {formattedDate}
-                    </p>
-                    <p className="text-xl font-bold mt-2">
-                        <span className="text-gray-500 mr-2">Email:</span> {email}
-                    </p>
-                    <p className="text-xl font-bold mt-2">
-                        <span className="text-gray-500 mr-2">Telefone:</span> {telefone}
-                    </p>
-                    <p className="text-xl font-bold mt-2">
-                        <span className="text-gray-500 mr-2">Ramal:</span> {ramal}
+                        <span className="text-gray-500 mr-2">Nascimento:</span> {formattedDate}
                     </p>
                 </div>
                 <button
@@ -46,10 +37,7 @@ const UsuarioList = ({ usuarios, onDelete }) => {
                     key={usuario.id}
                     id={usuario.id}
                     username={usuario.username}
-                    data_nascimento={usuario.data_nascimento}
-                    email={usuario.email}
-                    telefone={usuario.telefone}
-                    ramal={usuario.ramal}                
+                    data_nascimento={usuario.data_nascimento}         
                     onDelete={onDelete}
                 />
             ))}

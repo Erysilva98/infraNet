@@ -26,6 +26,16 @@ export const getUser = async () => {
     }
 };
 
+export const deleteUser = async (id) => {
+    try {
+        const response = await axios.delete(`${localhost}/user/${id}`);
+        return response.data.result; // Retorna a resposta do servidor
+    } catch (error) {
+        console.error("Erro ao deletar o usuário:", error);
+        return null;
+    }
+}
+
 // Rotas da API para os avisos
 export const getAvisos = async () => {
     try {

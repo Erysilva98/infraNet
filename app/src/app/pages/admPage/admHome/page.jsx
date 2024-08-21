@@ -1,6 +1,8 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";  // Hook para redirecionamento
 
 import navMegaphone from "@icons/navMegaphone.svg";
 import navGrupo from "@icons/navGrupo.svg";
@@ -8,6 +10,7 @@ import navGoverno from "@icons/navGoverno.svg";
 
 import AdmHeader from "@/components/header/admHeader";
 import Footer from "@/components/footer/footer";
+import RouteGuard from "@/components/RouteGuard/RouteGuard"; // Corrigido o caminho
 
 const cards = [
     {
@@ -27,17 +30,24 @@ const cards = [
     },
 ];
 
-export default function AdmHome() {
+function AdmHome() {
+    const router = useRouter();
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            router.push("/login");
+        }
+    }, [router]);
+
     return (
         <div className="flex flex-col min-h-screen min-w-full">
             <header>
-                {/* Componentes admHeader */}
                 <AdmHeader />
             </header>
 
             <main className="flex-grow min-h-full">
                 <div className="flex">
-                    {/* (Menu na Esquerda) */}
                     <aside className="bg-corCard w-1/4 p-4">
                         <h1 className="flex justify-center bg-cinzaClaro text-azulPrincipal font-semibold transition duration-300 cursor-pointer rounded-full p-2">
                             GERENCIAMENTO DO SISTEMA
@@ -47,7 +57,7 @@ export default function AdmHome() {
                                 <li className="bg-botao hover:bg-botaoHover hover:text-white text-white font-bold transition duration-300 cursor-pointer rounded-full m-2">
                                     <Link className="flex justify-center" href="./admCadastrar">Cadastrar</Link>
                                 </li>
-                                <li className="bg-botao hover:bg-botaoHover hover:text-white text-white text-white font-bold transition duration-300 cursor-pointer rounded-full m-2">
+                                <li className="bg-botao hover:bg-botaoHover hover:text-white text-white font-bold transition duration-300 cursor-pointer rounded-full m-2">
                                     <Link className="flex justify-center" href="./administrador">Lista</Link>
                                 </li>
                             </ul>
@@ -77,9 +87,11 @@ export default function AdmHome() {
             </main>
 
             <footer>
-                {/* Componentes admFooter */}
                 <Footer />
             </footer>
         </div>
     );
 }
+
+// Aplicando o RouteGuard para proteger a rota
+export default RouteGuard(AdmHome);

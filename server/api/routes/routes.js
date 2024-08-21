@@ -190,7 +190,7 @@ routes.get('/', (req, res) => {
  *               items:
  *                 $ref: '#/components/schemas/User'
  */
-routes.get('/user', userController.getAllUsers);
+routes.get('/user', authMiddleware, userController.getAllUsers);
 
 /**
  * @swagger
@@ -215,7 +215,7 @@ routes.get('/user', userController.getAllUsers);
  *       404:
  *         description: Usuário não encontrado
  */
-routes.get('/user/:id', userController.getUser);
+routes.get('/user/:id', authMiddleware, userController.getUser);
 
 /**
  * @swagger
@@ -270,7 +270,7 @@ routes.post('/user', userController.createUser);
  *       404:
  *         description: Usuário não encontrado
  */
-routes.put('/user/:id', userController.updateUser);
+routes.put('/user/:id', authMiddleware, userController.updateUser);
 
 /**
  * @swagger
@@ -291,7 +291,7 @@ routes.put('/user/:id', userController.updateUser);
  *       404:
  *         description: Usuário não encontrado
  */
-routes.delete('/user/:id', userController.deleteUser);
+routes.delete('/user/:id', authMiddleware, userController.deleteUser);
 
 /**
  * @swagger
@@ -389,7 +389,7 @@ routes.get('/avisos/:id', avisosController.getAvisos);
  *       400:
  *         description: Campos faltantes
  */
-routes.post('/avisos', avisosController.createAviso);
+routes.post('/avisos', authMiddleware, avisosController.createAviso);
 
 /**
  * @swagger
@@ -420,7 +420,7 @@ routes.post('/avisos', avisosController.createAviso);
  *       404:
  *         description: Aviso não encontrado
  */
-routes.put('/avisos/:id', avisosController.updateAviso);
+routes.put('/avisos/:id', authMiddleware, avisosController.updateAviso);
 
 /**
  * @swagger
@@ -441,7 +441,7 @@ routes.put('/avisos/:id', avisosController.updateAviso);
  *       404:
  *         description: Aviso não encontrado
  */
-routes.delete('/avisos/:id', avisosController.deleteAviso);
+routes.delete('/avisos/:id', authMiddleware, avisosController.deleteAviso);
 
 /**
  * @swagger
@@ -508,7 +508,7 @@ routes.get('/servicos/:id', servicosController.getServico);
  *       400:
  *         description: Campos faltantes
  */
-routes.post('/servicos', servicosController.createServico);
+routes.post('/servicos', authMiddleware, servicosController.createServico);
 
 /**
  * @swagger
@@ -539,7 +539,7 @@ routes.post('/servicos', servicosController.createServico);
  *       404:
  *         description: Serviço não encontrado
  */
-routes.put('/servicos/:id', servicosController.updateServico);
+routes.put('/servicos/:id', authMiddleware, servicosController.updateServico);
 
 /**
  * @swagger
@@ -560,7 +560,7 @@ routes.put('/servicos/:id', servicosController.updateServico);
  *       404:
  *         description: Serviço não encontrado
  */
-routes.delete('/servicos/:id', servicosController.deleteServico);
+routes.delete('/servicos/:id', authMiddleware, servicosController.deleteServico);
 
 /**
  * @swagger
@@ -627,7 +627,7 @@ routes.get('/sistemas/:id', sistemasController.getSistema);
  *       400:
  *         description: Campos faltantes
  */
-routes.post('/sistemas', sistemasController.createSistema);
+routes.post('/sistemas', authMiddleware, sistemasController.createSistema);
 
 /**
  * @swagger
@@ -658,7 +658,7 @@ routes.post('/sistemas', sistemasController.createSistema);
  *       404:
  *         description: Sistema não encontrado
  */
-routes.put('/sistemas/:id', sistemasController.updateSistema);
+routes.put('/sistemas/:id', authMiddleware, sistemasController.updateSistema);
 
 /**
  * @swagger
@@ -679,7 +679,7 @@ routes.put('/sistemas/:id', sistemasController.updateSistema);
  *       404:
  *         description: Sistema não encontrado
  */
-routes.delete('/sistemas/:id', sistemasController.deleteSistema);
+routes.delete('/sistemas/:id', authMiddleware, sistemasController.deleteSistema);
 
 /**
  * @swagger
@@ -746,7 +746,7 @@ routes.get('/contato/:id', contatoController.getContato);
  *       400:
  *         description: Campos faltantes
  */
-routes.post('/contato', contatoController.createContato);
+routes.post('/contato', authMiddleware, contatoController.createContato);
 
 /**
  * @swagger
@@ -777,7 +777,7 @@ routes.post('/contato', contatoController.createContato);
  *       404:
  *         description: Contato não encontrado
  */
-routes.put('/contato/:id', contatoController.updateContato);
+routes.put('/contato/:id', authMiddleware, contatoController.updateContato);
 
 /**
  * @swagger
@@ -798,7 +798,7 @@ routes.put('/contato/:id', contatoController.updateContato);
  *       404:
  *         description: Contato não encontrado
  */
-routes.delete('/contato/:id', contatoController.deleteContato);
+routes.delete('/contato/:id', authMiddleware, contatoController.deleteContato);
 
 /**
  * @swagger
@@ -865,7 +865,7 @@ routes.get('/acesso/:id', acessoController.getAcesso);
  *       400:
  *         description: Campos faltantes
  */
-routes.post('/acesso', acessoController.createAcesso);
+routes.post('/acesso', authMiddleware, acessoController.createAcesso);
 
 /**
  * @swagger
@@ -896,7 +896,7 @@ routes.post('/acesso', acessoController.createAcesso);
  *       404:
  *         description: Acesso não encontrado
  */
-routes.put('/acesso/:id', acessoController.updateAcesso);
+routes.put('/acesso/:id', authMiddleware, acessoController.updateAcesso);
 
 /**
  * @swagger
@@ -917,9 +917,8 @@ routes.put('/acesso/:id', acessoController.updateAcesso);
  *       404:
  *         description: Acesso não encontrado
  */
-routes.delete('/acesso/:id', acessoController.deleteAcesso);
+routes.delete('/acesso/:id',authMiddleware, acessoController.deleteAcesso);
 
-// Rota protegida com autenticação
-routes.get('/admin', authMiddleware, userController.adminProtectedRoute);
+
 
 module.exports = routes;

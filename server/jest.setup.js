@@ -3,7 +3,7 @@ require('dotenv').config({ path: '.env' });
 
 
 beforeAll(async () => {
-    await sequelize.sync({ force: true }); // Reseta o banco antes de iniciar os testes
+    await sequelize.sync(); 
 });
 
 afterAll(async () => {

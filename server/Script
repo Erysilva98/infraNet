@@ -1,0 +1,1 @@
+npx jest test/login.test.js

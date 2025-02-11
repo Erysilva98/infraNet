@@ -9,27 +9,22 @@ const swaggerRoutes = require('./api/data/swagger');
 
 const app = express();
 
-// Configuração do CORS
 app.use(cors());
 
-// Configuração do Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json()); // Para aceitar JSON nas requisições
+app.use(bodyParser.json()); 
 
-// Remova ou condicione o log de conexão bem-sucedida
-sequelize.sync()
-    .then(() => {
-        if (process.env.NODE_ENV !== 'test') {
-            console.log('Conexão com o banco de dados estabelecida com sucesso.');
-        }
-    })
-    .catch(err => {
-        console.error('Erro ao conectar-se ao banco de dados:', err);
-    });
-
-
-// Configurar as rotas da aplicação
 app.use('/', routes);
 app.use('/', swaggerRoutes);
 
-module.exports = app; 
+if (process.env.NODE_ENV !== 'test') {
+    sequelize.sync({ alter: true }) 
+        .then(() => console.log('Conexão com o banco de dados estabelecida com sucesso.'))
+        .catch(err => console.error('Erro ao conectar-se ao banco de dados:', err));
+} else {
+    sequelize.authenticate() 
+        .then(() => console.log('Banco de testes conectado.'))
+        .catch(err => console.error('Erro ao conectar ao banco de testes:', err));
+}
+
+module.exports = app;

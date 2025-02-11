@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "app": "file:",
     "autoprefixer": "10.4.16",
     "axios": "^1.6.2",
     "next": "^13.5.6",

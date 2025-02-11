@@ -1,0 +1,71 @@
+config:
+  target: "http://localhost:4000"  # Altere conforme necessário
+  phases:
+    - duration: 15  # Tempo total do teste (segundos)
+      arrivalRate: 50  # Número de usuários por segundo
+      name: "Teste de carga inicial"
+    - duration: 15
+      arrivalRate: 100
+      rampTo: 20
+      name: "Teste de estresse"
+  http:
+    timeout: 10  # Tempo limite aumentado para evitar timeouts prematuros
+  defaults:
+    headers:
+      Authorization: "Bearer supersecretkeyfortest1234567890!@#"  # Token JWT para autenticação
+
+scenarios:
+  - flow:
+      - get:
+          url: "/acesso"
+      - get:
+          url: "/avisos"
+      - get:
+          url: "/contato"
+      - get:
+          url: "/servicos"
+      - get:
+          url: "/sistemas"
+      - get:
+          url: "/user"  
+      - post:
+          url: "/acesso"
+          json:
+            user_id: 1
+            cod_acesso: "1234"
+            matricula: "5678"
+            senha: "senha123"
+      - post:
+          url: "/avisos"
+          json:
+            titulo: "Aviso Teste"
+            prioridade: 1
+            data_publicacao: "2024-01-01"
+            link: "http://exemplo.com"
+            subtitulo: "Subtitulo teste"
+            descricao: "Descrição do aviso"
+      - post:
+          url: "/contato"
+          json:
+            user_id: 1
+            email: "teste@email.com"
+            telefone: "11999999999"
+            ramal: "1234"
+      - post:
+          url: "/servicos"
+          json:
+            titulo: "Novo Serviço"
+            link: "http://servico.com"
+            descricao: "Descrição do serviço"
+      - post:
+          url: "/sistemas"
+          json:
+            titulo: "Novo Sistema"
+            link: "http://sistema.com"
+            descricao: "Descrição do sistema"
+      - post:
+          url: "/user" 
+          json:
+            username: "usuarioTeste"
+            password: "senhaTeste"
+            data_nascimento: "2000-01-01"
